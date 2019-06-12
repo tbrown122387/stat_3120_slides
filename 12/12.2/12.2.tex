@@ -1,0 +1,247 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["12.2"]{12.2: Estimating Model Parameters}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Introduction}
+
+With an SLR model $Y = \beta_0 + \beta_1 x + \epsilon$, we don't know $\beta_0, \beta_1, \sigma^2$. We have to use the data to estimate these. That's what this chapter is about.
+\newline
+
+We don't say anything about how to fit logistic regression models here.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Motivation}
+
+Last class we showed that $Y_i \sim \mathcal{N}(\beta_0 + \beta_1 x_i, \sigma^2)$, for $i = 1, \ldots, n$. So
+\[
+f(y_1, \ldots, y_n ; \beta_0, \beta_1, \sigma^2) = (2 \pi)^{-n/2} (\sigma^2)^{-n/2} \exp \left[ - \frac{\sum_i(y_i - \beta_0 - \beta_1 x_i)^2 }{2 \sigma^2} \right]
+\]
+is our likelihood that we want to maximize. 
+\[
+\log f(y_1, \ldots, y_n ; \beta_0, \beta_1, \sigma^2) = -\frac{n}{2}\log 2 \pi -\frac{n}{2} \log(\sigma^2) -  \frac{\sum_i(y_i - \beta_0 - \beta_1 x_i)^2 }{2 \sigma^2}
+\]
+
+even though the book doesn't say this, we estimate using maximum likelihood (sort of).
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Principle of Least Squares}
+
+We can estimate the $\beta$s and $\sigma^2$ separately. To estimate $\beta_0$ and $\beta_1$ we minimize this expression:
+\[
+f(\beta_0, \beta_1) = \sum_{i=1}^n \left[ y_i - (\beta_0 + \beta_1 x_i)\right]^2
+\]
+
+The $\hat{\beta_0}$ and $\hat{\beta_1}$ that minimize this are called the \textbf{least squares estimates} (they're also the same as the MLE estimates).
+\newline
+
+The \textbf{estimated regression line} is then
+\[
+\hat{y} = \hat{\beta_0} + \hat{\beta_1}x 
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Principle of Least Squares}
+
+\begin{align*}
+\frac{\partial}{\partial \beta_0} f(\beta_0, \beta_1) &= \frac{\partial}{\partial \beta_0}\sum_{i=1}^n ( y_i - \beta_0 - \beta_1 x_i)^2 \\
+&= \sum_{i=1}^n \frac{\partial}{\partial \beta_0}( y_i - \beta_0 - \beta_1 x_i)^2 \\
+&= \sum_{i=1}^n 2 ( y_i - \beta_0 - \beta_1 x_i) (-1)
+\end{align*}
+\begin{align*}
+\frac{\partial}{\partial \beta_1} f(\beta_0, \beta_1) &= \frac{\partial}{\partial \beta_1}\sum_{i=1}^n ( y_i - \beta_0 - \beta_1 x_i)^2 \\
+&= \sum_{i=1}^n \frac{\partial}{\partial \beta_1}( y_i - \beta_0 - \beta_1 x_i)^2 \\
+&= \sum_{i=1}^n 2 ( y_i - \beta_0 - \beta_1 x_i) (-x_i)
+\end{align*}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Principle of Least Squares}
+
+Setting both of these equal to $0$ gives us the \textbf{normal equations}:
+\[
+n\beta_0 + \left(\sum x_i \right)\beta_1 = \sum y_i
+\]
+\[
+\left(\sum x_i \right)\beta_0 + \left(\sum x_i^2 \right) \beta_1 = \sum x_i y_i
+\]
+Then we solve for $\beta_0$ and $\beta_1$
+\[
+\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}
+\]
+\[
+\hat{\beta}_1 = \frac{\sum x_i y_i - n \bar{x}\bar{y}}{\sum x_i^2 - n\bar{x}^2} = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}
+\]
+
+so SLR admits a {\bf closed-form} expression for the estimated coefficients.
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Estimating $\sigma^2$}
+
+First a definition:
+\newline
+
+The \textbf{fitted (predicted) values}, denoted $\hat{y}_1, \hat{y}_2, \ldots, \hat{y}_n$, are what you get when you plug in $x_1, \ldots, x_n$ into the estimated regression line $\hat{\beta}_0 + \hat{\beta}_1x$.
+\newline
+
+\[
+\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i
+\]
+for $i = 1, \ldots, n$.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Estimating $\sigma^2$}
+
+The \textbf{error (residual) sum of squares} is
+\[
+\operatorname{SSE} = \sum_i (y_i - \hat{y}_i)^2
+\]
+and our estimate for the variance of $\epsilon$ is
+\[
+\hat{\sigma}^2 = s^2 = \frac{\operatorname{SSE}}{n-2} = \frac{\sum_{i=1}^n(y_i - \hat{y}_i)^2}{n-2}
+\]
+
+Note: this ISN'T the MLE estimate of $\sigma^2$. This one is unbiased, though, so we use this one instead. 
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Coefficient of Determination}
+
+Think of SSE as the variability in $Y$ that isn't explained by $X$. The total variability in $Y$ is the \textbf{total sum of squares}
+\[
+SST = \sum_{i=1}^n(y_i - \bar{y})^2
+\]
+The coefficient of determination $R^2$ is the proportion of the total variability that is explained (higher is better)
+\[
+R^2 = \frac{SST - SSE}{SST} = 1 - \frac{SSE}{SST}
+\]
+
+with this interpretation it should be easy to remember
+\[
+0 \le R^2 \le 1
+\]
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Coefficient of Determination}
+
+$SST - SSE$ has a name. It is called the \textbf{regression sum of squares} (SSR).
+\[
+SSR = \sum(\hat{y}_i - \bar{Y})^2.
+\]
+
+A homework exercise will be to prove the following very important identity:
+\[
+SST = SSR + SSE;
+\]
+so total variation can be broken down into good and bad variation (SSR and SSE, respectively).
+\newline
+
+If we plug this into the last slide's formula, we get another expression for $R^2$
+\[
+R^2 = \frac{SSR}{SST}
+\]
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Coefficient of Determination}
+
+The book calls the coefficient of determination $r^2$. I'm calling it $R^2$. Typically $R^2$ denotes exactly what we defined $\frac{SSR}{SST}$, whereas $r^2$ denotes the sample correlation, squared $ \left( \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{ \sum(x_i-\bar{x})^2 \sum_i(y_i - \bar{y})^2 }} \right)^2$.
+\newline
+
+In the case of SLR, when we have one predictor, $r^2 = R^2$. However, it is not always clear to talk about $r$ when we talk about multiple linear regression (MLR). This is a regression model that has more than one predictor/input/covariates. You can't calculate the correlation between $Y$ and more than one set of $X$s, right? 
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+
+\end{document} 

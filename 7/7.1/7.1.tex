@@ -1,0 +1,369 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["7.1"]{7.1: General Concepts and Criteria} 
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definitions}
+
+A \textbf{point estimator} of a parameter $\theta$ is a single number that can be regarded as a sensible value for $\theta$ (e.g $\bar{X}$ is an estimator for $\mu$ when your data are iid normal). 
+\newline
+
+A \textbf{point estimate} is a particular realization for a point estimator (e.g. after you observe data $\bar{x}$ comes out to be 3.98).
+\newline
+
+This situation is analagous to the difference between $X$ and $x$ that we talked about before. 
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example 7.2 and 7.3 from the book}
+
+You want to estimate $\mu$ of a normal distribution. You can use the mean, the median, the midrange, or a trimmed mean. 
+\newline
+
+You want to estimate $\sigma^2$ of a normal distribution. You can use $S^2 = \frac{\sum_i(X_i - \bar{X})^2}{n-1}$ or $\hat{\sigma}^2 = \frac{\sum_i(X_i - \bar{X})^2}{n}$
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definition}
+
+Usually we have a few options for estimators $\hat{\theta}$. How do we compare them?
+\newline
+
+\textbf{bias} of an estimator $\hat{\theta}$ estimating the parameter $\theta$, written $\text{Bias}(\hat{\theta})$, is defined as 
+\[
+E\left[ \hat{\theta} - \theta  \right]
+\]
+
+\textbf{mean square error} of an estimator $\hat{\theta}$ estimating the parameter $\theta$, written $\text{MSE}(\hat{\theta})$, is defined as
+\[
+E\left[(\hat{\theta} - \theta )^2 \right]
+\]
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Note}
+
+Note: $(\hat{\theta} - \theta )$, $|\hat{\theta} - \theta |$ or $(\hat{\theta} - \theta )^2$ are all random variables. That's why we take the average. 
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{A result}
+
+Here's a useful result. Verify the third equality.
+
+\begin{align*}
+E\left[(\hat{\theta} - \theta )^2 \right] &= E\left[(\hat{\theta} - E(\hat{\theta}) + E(\hat{\theta}) - \theta )^2 \right] \\
+&= E\left[  \left(\hat{\theta} - E(\hat{\theta}) \right)^2  + \left( E(\hat{\theta}) - \theta \right)^2 + 2\left( \hat{\theta} - E(\hat{\theta}) \right)\left( E(\hat{\theta}) - \theta \right) \right] \\
+&= E\left[(\hat{\theta} - E\hat{\theta})^2 \right]  + E\left[(\theta - E\hat{\theta} )^2 \right] +0 \\
+&= E\left[(\hat{\theta} - E\hat{\theta})^2 \right]  + (\theta - E\hat{\theta} )^2 
+\end{align*}
+
+So $\text{MSE}(\hat{\theta}) = V(\hat{\theta}) + \left[\text{Bias}(\hat{\theta})\right] ^2$
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example 7.4 on page 335}
+
+We want to estimate the population proportion of successes ($p$). Let's take an estimator $\hat{p}$ to be the empirical proportion of successes. More specifically, let $X$ be the number of successes out of $n$ things. We know $X \sim \text{Binomial}(n,p)$. Then $\hat{p} = \frac{X}{n}$. What's its bias? What is its MSE?
+\pause
+\newline
+
+\[
+E[\hat{p}] = E\left[ \frac{X}{n} \right] =  \frac{EX}{n} = \frac{np}{n} = p
+\]
+\pause
+
+\[
+E[(\hat{p} - p)^2] = E[(\hat{p} - E[\hat{p}] )^2] = \operatorname{Var}(\hat{p}) 
+\]
+and
+\[
+\operatorname{Var}(\hat{p}) = \operatorname{Var}\left( \frac{X}{n} \right) = \frac{1}{n^2}\operatorname{Var}(X)   = \frac{np(1-p)}{n^2} = p(1-p)/n
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+
+\begin{frame}
+\frametitle{Example 7.4 on page 335}
+
+Let $X_1, \ldots, X_n \overset{iid}{\sim} \text{Poisson}(\lambda)$. Let's evaluate the estimator $\hat{\lambda} = \bar{X}$. What's its bias? What is its MSE?
+\pause
+\newline
+
+\[
+E[\hat{\lambda}] = E\left[ \frac{\sum X_i}{n}  \right] =  \lambda 
+\]
+\pause
+
+\[
+E[(\hat{\lambda} - \lambda)^2] = E[(\hat{\lambda} - E[\hat{\lambda}] )^2] = \operatorname{Var}(\hat{\lambda}) 
+\]
+and
+\[
+\operatorname{Var}(\hat{\lambda}) = \operatorname{Var}\left( \frac{\sum_i X_i }{n} \right) = \frac{1}{n^2}\sum_i \operatorname{Var}(X_i)   = \frac{n \lambda }{n^2} = \lambda/n
+\]
+
+\end{frame}
+
+
+
+
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definitions}
+
+In our last example, the mean of the estimator was the thing we were trying to estimate. This is not always the case. When this happens, it has a name.
+\newline
+
+A point estimator $\hat{\theta}$ for $\theta$ is an \textbf{unbiased estimator} if 
+\[
+E[\hat{\theta}] = \theta
+\]
+for all possible $\theta$. We can also write this as 
+\[
+E[\hat{\theta} - \theta] = 0
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example}
+
+Let's say we're getting ready to observe some data $X_1, \ldots, X_n \overset{i.i.d.}{\sim} \mathcal{N}(\mu, \sigma^2)$. Say we want to estimate $\sigma^2$ with $\hat{\sigma}^2 = \frac{\sum_i (X_i - \bar{X})^2 }{n}$. Is this estimator unbiased?
+\newline
+
+We're going to use that variance shortcut formula a lot: $E[X^2] = V[X] + (E[X])^2$. 
+\newline
+
+Also we'll use the fact that $\sum_i(x_i - \bar{x})^2 = \sum_i x_i^2 - n \bar{x}^2$ (we used this last chapter talking about the sampling distribution of $(n-1)S^2/\sigma^2)$
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example 7.5 on page 338}
+
+\begin{align*}
+E[\hat{\sigma}^2] &= E \left[\frac{\sum_i (X_i - \bar{X})^2 }{n} \right] \\
+&= \frac{1}{n} E \left[ \sum_i X_i^2 - n \bar{X}^2  \right] \\
+&= \frac{1}{n} \left[  \sum_i E[X_i^2] - n E[\bar{X}^2]   \right] \\
+&= \frac{1}{n} \sum_i E[X_i^2] -  E[\bar{X}^2] \\
+&= \frac{1}{n} \sum_i \left[ V[X_i] + (E[X_i])^2 \right] - \left[ V[\bar{X}] + (E[\bar{X}])^2\right] \\
+&= \frac{1}{n} \sum_i \left[ \sigma^2 + \mu^2 \right] - \left[ \frac{\sigma^2}{n} +  \mu^2 \right] 
+\end{align*}
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example (continued)}
+
+\begin{align*}
+... &= \frac{1}{n} \sum_i \left[ \sigma^2 + \mu^2 \right] - \left[ \frac{\sigma^2}{n} +  \mu^2 \right] \\
+&= \frac{1}{n}n(\sigma^2 + \mu^2) - \frac{\sigma^2}{n} -  \mu^2 \\
+&= \sigma^2  - \frac{\sigma^2}{n} \\ 
+&= \sigma^2 (1 - 1/n) \\
+&= \sigma^2 \frac{n-1}{n} \\
+&\neq \sigma^2
+\end{align*}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Definition}
+
+Suppose we took all the unbiased estimators that exist, $\{ \hat{\theta}_1, \hat{\theta}_2, \ldots \}$. Each of these has a variance, since it's a random variable. Sometimes their variance is a function of what they're trying to estimate ($\theta$). 
+\newline
+
+Among alll estimators of $\theta$ that are unbiased, the one with the minimum variance for all $\theta$, is called the \textbf{minimum variance unbiased estimator}. We'll talk about this more in later sections.
+\newline
+
+Note: sometimes it's called the uniformly minimum variance unbiased estimator to emphasize the fact that the variance is usually a function in $\theta$, and our choice needs to have the smallest variance for all of these $\theta$ that you can plug in
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Definition}
+
+The \textbf{standard error} of an estimator $\hat{\theta}$ is its standard deviation. 
+\[
+\operatorname{SE}(\hat{\theta}) = \sqrt{V[\hat{\theta}] }
+\]
+
+Sometimes the SE is a function of unknown parameters. The \textbf{estimated standard error} arises when we plug in estimates for the stuff we don't know for sure.
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example 7.10 on page 344}
+
+Suppose $X_1, \ldots, X_n \overset{i.i.d.}{\sim} \mathcal{N}(\mu, \sigma^2)$. Suppose further that we know $\sigma^2$, but we don't know $\mu$. Let's estimate $\mu$ with $\hat{\mu} = \bar{X}$.
+
+\[
+V[\bar{X}] = V\left[ \frac{\sum_i X_i}{n} \right] = \frac{1}{n^2} \sum_i V[X_i] = \frac{n \sigma^2}{n^2} = \frac{\sigma^2}{n}
+\]
+
+So $\operatorname{SE}(\bar{X}) = \frac{\sigma}{\sqrt{n}}$. If we didn't know $\sigma$, we could plug in $s$, the sample variance for it. This would give us an estimated standard error of $\frac{s}{\sqrt{n}}$.
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{The bootstrap}
+
+A few things
+\begin{enumerate}
+\item This is a quick intro
+\item This won't be covered on the test
+\item It's more computational than we're accustomed to
+\item It's a good last resort tool for when there's no chance we'll figure out a sampling distribution for $\hat{\theta}$
+\end{enumerate}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{The bootstrap}
+
+Here's the basic idea
+\begin{enumerate}
+\item You have some data $x_1, \ldots, x_n$
+\item You want to know the distribution of $\hat{\theta} = f(X_1, \ldots, X_n)$
+\item Computing this number from your data will give you a number, but it won't give you any idea what the distribution of $\hat{\theta}$ is like
+\end{enumerate}
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{The bootstrap}
+
+
+It basically goes like this
+\begin{enumerate}
+\item sample from $x_1, \ldots, x_n$ {\bf with replacement} a bootstrap sample $x^*_1, \ldots, x_n^*$
+\item this sample is the same length, so you're probably going to have some repeats in your sample
+\item compute an estimate $\hat{\theta}_1^*$ from this bootstrap sample. Now you have one estimate
+\item Do this over and over again, $B$ times. You get $\{\hat{\theta}_1^*, \hat{\theta}_2^*, \hat{\theta}_3^*, \ldots, \hat{\theta}_B^*\}$
+\item Now you can do whatever you want with $\{\hat{\theta}_1^*, \hat{\theta}_2^*, \hat{\theta}_3^*, \ldots, \hat{\theta}_B^*\}$. You can compute the mean, variance, standard deviation, or just plot a histogram.
+\end{enumerate}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\end{document} 

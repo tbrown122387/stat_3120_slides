@@ -1,0 +1,315 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["4.2"]{4.2: Expected Values and Moment Generating Functions}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+We did this stuff (means, moments, mgfs) with discrete rvs. Now we'll do them for cts rvs. Pretty much all the results hold in the same way, but we generally replace summation with integration.
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definition}
+
+The \textbf{expected value} of a cts rv $X$ with pdf $f(x)$ is 
+\[
+E[X] = \int_{-\infty}^{\infty}x f(x) dx
+\]
+
+and the expectation of any function $h(X)$ (LOTUS) is 
+
+\[
+E[h(X)] = \int_{-\infty}^{\infty}h(x) f(x) dx
+\]
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example}
+
+Recall a gaussian pdf is $f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{- \frac{(x-\mu)^2}{2 \sigma^2}}$
+
+Find $E[(X-\mu)^3]$
+\newline
+\pause
+
+Let $s = x-\mu$ and $t = \mu - x$
+\begin{align*}
+E[(X-\mu)^3] &= \int_{-\infty}^{\mu}f(x)(x-\mu)^3dx + \int_{\mu}^{\infty}f(x)(x-\mu)^3dx \\
+&= \int_{-\infty}^{0}f(\mu + s) s^3 ds + \int_{0}^{- \infty}f(\mu - t)(-t)^3 -dt \\
+&= \int_{-\infty}^{0}f(\mu + s) s^3 ds + \int_{0}^{- \infty}f(\mu - t)(t)^3dt \\
+&= \int_{-\infty}^{0}f(\mu + s) s^3 ds + \int_{0}^{- \infty}f(\mu + t)(t)^3dt \\
+&= \int_{-\infty}^{0}f(\mu + s) s^3 ds -  \int_{- \infty}^0f(\mu + t)(t)^3dt = 0
+\end{align*}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example continued}
+
+How can we generalize this result? We didn't even use the form of the normal distribution... we just used the fact that $f(\cdot)$ is symmetric...
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+
+\begin{frame}
+\frametitle{Definition}
+
+The \textbf{variance} of a cts rv with mean $\mu$ is
+\[
+V[X] = E[(X-\mu)^2]
+\]
+
+and this works again too:
+\[
+V[X] = E[X^2] - (E[X])^2
+\]
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Propositions}
+
+And these are true still as well:
+\[
+E[aX + b] = aE[X] + b
+\]
+\[
+V[aX + b] = a^2 V[X] 
+\]
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Definition}
+
+\begin{definition}
+The \textbf{moment generating function} (mgf) for a cts rv $X$ is 
+\[
+M_X(t) = E[e^{tX}] = \int e^{tx} f(x) dx.
+\]
+\end{definition}
+
+It exists if it's defined for every $t$ in some open interval $(- \epsilon, \epsilon)$
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Motivation}
+
+Often times we'll transform a random variable $Y = h(X)$, but it will be non-linear. Ideally we want $f_Y(y)$. If that's too difficult, we want $E(Y)$ and $V(Y)$.
+\newline
+
+Generally, there is no simple tool that always works in every scenario. But we can approximate it with the \textbf{delta method}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Definition}
+
+Suppose we take a transformation $h(\cdot)$ that we're going to apply to $X$. Suppose further that this function $h$ is differentiable and $h'(E[X]) \neq 0$. Then 
+\[
+E[h(X)] \approx h(E[X])
+\]
+
+and 
+
+\[
+V[h(X)] \approx h'(E[X])^2 V[X]
+\]
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Justification}
+
+It's basically just an application of the Taylor series centered at $E[X] = \mu$
+\[
+h(X) \approx h(\mu) + h'(\mu)(X-\mu) + \{\text{stuff we don't care about}\}
+\]
+Then you take the mean and variance treating $h(\mu)$ and $h'(\mu)$ as constants...
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example}
+
+Similar to Example 4.17 on page 176. Let $X \sim f(x) = 2e^{-2x}$ where $x > 0$. First, find the MGF. Then use it to find the mean and variance. Finally, find (approximate) the mean and variance of $Y = \exp(X)$.
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example}
+
+Similar to Example 4.17 on page 176. Let $X \sim f(x) = 2e^{-2x}$ where $x > 0$. First, find the MGF. Then use it to find the mean and variance. Finally, find (approximate) the mean and variance of $Y = \exp(X)$.
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example (continued)}
+
+finding the mgf...
+
+Let $r = x(2 - t)$, then $\frac{dr}{dx} = 2-t$ (...also we're assuming $2-t>0$)
+\begin{align*}
+M_X(t) &= \int_0^{\infty}2 e^{-2x} e^{tx}dx \\
+&= 2 \int_0^{\infty} e^{-x(2 - t)}dx \\
+&= 2 \int_0^{\infty} e^{-r} \frac{1}{2-t}dr = \frac{2}{2-t} [-e^{-r}]_{0}^{\infty} =\frac{2}{2-t}
+\end{align*}
+\pause
+
+\begin{align*}
+M'_X(t) &= \frac{d}{dt} 2(2-t)^{-1} \\
+&= 2(-1)(2-t)^{-2}(-1) \\
+&=  \frac{2}{(2-t)^{2}}
+\end{align*}
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Example (continued)}
+
+\begin{align*}
+M''_X(t) &= \frac{d}{dt} 2(2-t)^{-2} \\
+&= 2(-2)(2-t)^{-3}(-1) \\
+&= \frac{4}{(2-t)^{3}}
+\end{align*}
+\pause
+
+So $E[X] = \frac{1}{2}$ and $V[X] = E[X^2] - (E[X])^2 = \frac{1}{4}$.
+\pause
+\newline
+
+and finally
+\[
+E[\exp(X)] \approx \exp[E(X)]
+\]
+and
+\[
+V[X] \approx (\exp(E[X]))^2\frac{1}{4} = \frac{(e^{1/2})^2}{4} = \frac{e}{4}
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Entropy Again}
+
+Entropy is defined for continuous random variables just like it was defined for discrete ones:
+
+\[
+E[-\log f(X)] = \int - \log f(x) f(x) dx.
+\]
+
+\end{frame}
+\end{document} 

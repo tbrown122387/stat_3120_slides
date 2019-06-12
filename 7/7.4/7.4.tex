@@ -1,0 +1,496 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["7.4"]{7.4: Information and Efficiency}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+In this section we define \emph{Fisher Information} and two of its applications. Application 1: Find the minimum possible variance for an unbiased estimator. Application 2: Show MLE estimators are asymptotically unbiased and normally distributed. 
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Definitions}
+
+The \textbf{Fisher information} $I(\theta)$ in a single observation from a pmf or pdf $f(x;\theta)$ is the variance of the random variable $U = \frac{\partial \log f(X;\theta)}{ \partial \theta}$
+\[
+I(\theta) = V\left[ \frac{\partial \log f(X;\theta)}{ \partial \theta} \right]
+\]
+
+\pause
+$U$ is called the ``score."
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Definitions}
+
+First thing to notice is that the mean of $U = \frac{\partial \log f(X;\theta)}{ \partial \theta}$ is $0$. For this slide and the next slide we'll use this property a couple of times: $(\log f)' = \frac{f'}{f}$ for $f \ge 0$. Also we're dealing with a discrete pmf here.
+\newline
+
+\begin{align}
+EU &= E \left[\frac{\partial \log f(X;\theta)}{ \partial \theta} \right] = \sum_{x} \frac{\partial \log f(x;\theta)}{ \partial \theta} f(x; \theta)\\
+&= \sum_x \frac{\partial}{\partial \theta} f(x;\theta) = \frac{\partial}{\partial \theta} \sum_x f(x;\theta)\\
+&= \frac{\partial}{\partial \theta} 1 =0
+\end{align}
+
+This means $V\left[ \frac{\partial \log f(X;\theta)}{ \partial \theta} \right] = E\left[ \left(\frac{\partial \log f(X;\theta)}{ \partial \theta}\right)^2 \right]$
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Proposition}
+
+Now we find another expression for $I(\theta)$. Recall from the previous slide that $0 = \sum_{x} \frac{\partial \log f(x;\theta)}{ \partial \theta} f(x; \theta)$. Taking derivatives again on both sides we get:
+
+\begin{align*}
+0 &= \frac{\partial}{\partial \theta}\sum_{x} \frac{\partial \log f(x;\theta)}{ \partial \theta} f(x; \theta) \\
+&=  \sum_{x} \left\{\left( \frac{\partial^2 \log f(x;\theta)}{ \partial \theta^2} \right) f(x; \theta) + \frac{\partial \log f(x;\theta)}{ \partial \theta} \left(\frac{\partial}{\partial \theta}f(x; \theta) \right) \right\} \\
+&=  \sum_{x} \left\{\left( \frac{\partial^2 \log f(x;\theta)}{ \partial \theta^2} \right) f(x; \theta) + \frac{\partial \log f(x;\theta)}{ \partial \theta} \left(\frac{\partial \log f(x;\theta)}{ \partial \theta} f(x;\theta) \right)\right\}
+\end{align*}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Definitions}
+
+Let's rewrite that last line:
+\[
+0 = \sum_{x} \left\{\left( \frac{\partial^2 \log f(x;\theta)}{ \partial \theta^2} \right) f(x; \theta) + \frac{\partial \log f(x;\theta)}{ \partial \theta} \left(\frac{\partial \log f(x;\theta)}{ \partial \theta} f(x;\theta) \right)\right\}
+\]
+after we break up the sum, 
+\[
+ - E \left[ \frac{\partial^2 \log f(X;\theta)}{ \partial \theta^2} \right] = E\left[ \left(\frac{\partial \log f(X;\theta)}{ \partial \theta} \right)^2 \right]
+\]
+
+So whenever we're allowed to do the above steps, we have
+\[
+I(\theta) = - E \left[ \frac{\partial^2 \log f(X;\theta)}{ \partial \theta^2} \right]
+\]
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example}
+
+Let $X$ be a Bernoulli random variable. So $f(x;p) = p^x(1-p)^{1-x}$, $x=0,1$. Taking the log, we get $\log f(x;p) = x\log p + (1-x) \log (1-p)$.
+\newline
+
+Taking the derivative with respect to the parameter:
+\[
+\frac{\partial \log f(X;p)}{\partial p} = \frac{X}{p} - \frac{1-X}{1-p} = \frac{X - p}{p(1-p)}
+\]
+If we use the first way, then
+\[
+I(\theta) = V \left[\frac{X - p}{p(1-p)}  \right] = V \left[\frac{X }{p(1-p)}  \right] = \frac{1}{p^2(1-p)^2}V \left[ X  \right] = \frac{1}{p(1-p)} 
+\]
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example continued}
+
+Usually the second way is easier, although it doesn't really help that much in this problem. This is generally true, though, because taking expectations is easier than taking variances. So for practice let's do it again but using the second way.
+\newline
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example continued}
+
+Recall that our first derivative was
+\[
+\frac{\partial \log f(X;p)}{\partial p} = \frac{X}{p} - \frac{1-X}{1-p}
+\]
+
+Taking the derivative again we get 
+\[
+\frac{\partial^2 \log f(X;p)}{\partial p^2} = -X p^{-2} - (1-X)(1-p)^{-2}
+\]
+So
+\begin{align*}
+I(\theta) &= -E\left[\frac{\partial^2 \log f(x;p)}{\partial p^2}\right] = \\
+&= E[X] p^{-2} + E[1-X](1-p)^{-2} \\
+&= 1/p + 1/(1-p) \\
+&= 1/p(1-p)
+\end{align*}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Motivation}
+
+Why are we looking at the information in a data point? Shouldn't we be looking at the information in an entire data \emph{set}?
+\newline
+\pause
+
+Yeah, but we start with this because it makes the math easier. Here's the information in a data set:
+\newline
+
+Because we usually look at i.i.d data, $f(x_1, \ldots, x_n;\theta) = \prod_{i=1}^n f(x_i;\theta)$. This means 
+\[
+\log \prod_{i=1}^n f(x_i;\theta) = \sum_{i=1}^n \log f(x_i;\theta).
+\]
+\pause
+
+Finally we take the derivative and then the variance on both sides:
+\[
+I_n(\theta) = V\left[ \frac{\partial \log f(x_1, \ldots, x_n;\theta)}{\partial \theta} \right] = \sum_{i=1}^n V\left[ \frac{\partial \log f(x_i;\theta)}{\partial \theta}\right] = nI(\theta)
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Note}
+
+Be aware of which information you're using. Either you're talking about a single data point $I(\theta)$, or you're talking about the information in a dataset $I_n(\theta)$. Usually it's clear which one you should be using from the context, but be aware that confusion is a possibility.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example}
+
+Earlier we found the information in a single Bernoulli random variable to be $1/[p(1-p)]$. By the previous slides, the information for $X_1, \ldots, X_n \overset{iid}{\sim} \text{Bernoulli}(p)$ is $I_n(\theta) = nI(\theta) = \frac{n}{p(1-p)}$.
+\newline
+\pause
+
+...the information increases linearly with the sample size. And take notice that this is the reciprocal of the variance of your sample mean in this same situation.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{The Cram\'er-Rao Inequality}
+
+Assume a random sample $X_1, \ldots, X_n$ from the distribution with pmf or pdf $f(x;\theta)$ such that the set of possible values does not depend on $\theta$. If the statistics $T = t(X_1, \ldots, X_n)$ is an unbiased estimator for the parameter $\theta$, then 
+\[
+V(T) \ge \frac{1}{I_n(\theta)}
+\]
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proof}
+
+The ``idea" is to consider the correlation between $T$ and the \textbf{score} (of the entire data set) $U_n = \frac{\partial}{\partial \theta} \log f(x_1, \ldots, x_n;\theta)$, keeping in mind that $-1 \le \rho \le 1$. 
+
+\begin{align*}
+\left| \frac{\operatorname{Cov}(T,U_n) }{\sqrt{\operatorname{Var}(T) }\sqrt{\operatorname{Var}(U_n) }}\right| &\le 1 \iff \\
+\frac{ \left[ \operatorname{Cov}(T,U_n)\right]^2}{\operatorname{Var}(U_n)} &\le \operatorname{Var}(T) \iff \\
+\frac{ \left[ \operatorname{Cov}(T,U_n)\right]^2}{I_n(\theta) } &\le \operatorname{Var}(T) \iff \\
+\end{align*}
+
+The rest follows when we show $\operatorname{Cov}(T,U) = 1$ (next slide).
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Proof}
+
+Since $E[U_n] = 0$ (from a few slides ago)
+\[
+\operatorname{Cov}(T,U_n) = E[TU_n] -E(T)E(U_n) = E[TU_n].
+\]
+Now
+
+\begin{align*}
+E[TU_n] &= \sum_x t(x_1, \ldots x_n) \left[ \frac{\partial}{\partial \theta} \log f(x_1, \ldots, x_n;\theta) \right]f(x_1, \ldots, x_n;\theta) \\
+&= \sum_x t(x_1, \ldots x_n) \left[ \frac{\partial}{\partial \theta} f(x_1, \ldots, x_n;\theta) \right]\\
+&= \sum_x \frac{\partial}{\partial \theta} \left[ t(x_1, \ldots x_n)  f(x_1, \ldots, x_n;\theta)\right] \\
+&= \frac{\partial}{\partial \theta} \sum_x  t(x_1, \ldots x_n)  f(x_1, \ldots, x_n;\theta) \\
+&= \frac{\partial}{\partial \theta} E[T] = \frac{\partial}{\partial \theta} \theta = 1
+\end{align*}
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example}
+
+Let $X_1, \ldots, X_n \overset{iid}{\sim} \text{Bernoulli}(p)$. We showed a few days ago that $V[\bar{X}] = \frac{p(1-p)}{n}$. Then on slide 12 we showed $I_n(\theta) = \frac{n}{p(1-p)}$. So we say that $\bar{X}$ ``achieves" the Cram\'er-Rao lower bound. 
+\newline
+\pause
+
+This leads us to a new definition. Let $T$ be an unbiased estimator of $\theta$. The ratio of the lower bound to the variance of $T$ is its \textbf{efficiency}. So the highest possible effiency is $1$. 
+\newline
+
+$T$ is said to be \textbf{efficient} if it achieves this Cram\'er-Rao lower bound and hits this efficiency of $1$ target. 
+\newline
+
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Nota Bene}
+
+All efficient estimators are MVUE. However, all MVUEs are not necessarily efficient.
+\newline
+
+This is the only theorem you will learn in this class that shows and estimator $T$ is MVUE.
+
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Motivation}
+
+Recall the properties of MLE estimators:
+\begin{enumerate}
+\item is ``close to" $\theta$ (consistency)
+\item is approximately unbiased ($E[\hat{\theta}] \approx \theta$)
+\item has variance as nearly as small as possible
+\end{enumerate}
+
+Also recall the three different types of convergence we learned (in distribution, in mean, in probability).
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proposition}
+
+Let $\hat{\theta}$ be the MLE estimator. The first one says $\hat{\theta} \overset{p}{\rightarrow} \theta$. The book doesn't go into details of this and neither will we.
+\newline
+
+We'll deal with the last two. Together they say $\hat{\theta} \overset{D}{\rightarrow} \mathcal{N}(\theta, \frac{1}{I_n(\theta)} )$. We'll outline a proof of the equivalent statement:
+\[
+\sqrt{n} (\hat{\theta} - \theta)\overset{D}{\rightarrow} \mathcal{N}\left(0, \frac{1}{I(\theta)} \right)
+\]
+
+(also, we're going to sweep a few details under the rug)
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proof Sketch}
+
+Let's start off with a first-order Taylor approximation of the score function $U_n(\theta) = \frac{\partial}{\partial \theta} \log f(x_1, \ldots, x_n;\theta)$ about the mle estimator $\hat{\theta}$
+\[
+U_n(\theta) \approx U_n(\hat{\theta}) + \frac{U_n'(\hat{\theta})(\theta - \hat{\theta}) }{1!} = U_n'(\hat{\theta})(\theta - \hat{\theta}) 
+\]
+re-arranging (and letting $\hat{\theta} \to \theta$) we get
+% \[
+% U_n'(\theta) \approx \frac{U_n(\hat{\theta}) - U_n(\theta) }{\hat{\theta} - \theta }
+% \]
+% but $U_n(\hat{\theta}) = 0$ since it's the mle estimate, so
+\[
+\hat{\theta} - \theta \approx \frac{U_n(\theta)}{- U_n'(\theta)}
+\]
+so
+\[
+\sqrt{n}(\hat{\theta} - \theta) \approx \sqrt{n}\frac{U_n(\theta)}{- U_n'(\theta)}
+\]
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proof Sketch}
+We have
+\[
+\sqrt{n}(\hat{\theta} - \theta) = \sqrt{n}\frac{U_n(\theta)}{- U_n'(\theta)} = \frac{\frac{1}{n}U_n(\theta) / \sqrt{I(\theta) / n} }{ -\frac{1}{n} U_n'(\theta) / \sqrt{I(\theta)}}
+\]
+checking out the denominator...
+\[
+-\frac{1}{n} U_n'(\theta) = \frac{1}{n} \left\{ \left[- \frac{\partial^2}{\partial\theta^2}\log f(X_1;\theta) \right] + \cdots + \left[- \frac{\partial^2}{\partial\theta^2}\log f(X_n;\theta) \right]  \right\} 
+\]
+So by the law of large numbers 
+\[
+-\frac{1}{n} U_n'(\theta) \overset{p}{\rightarrow} E\left[- \frac{\partial^2}{\partial\theta^2}\log f(X_1;\theta) \right] = I(\theta)
+\]
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Proof Sketch}
+
+We have
+\[
+\sqrt{n}(\hat{\theta} - \theta) = \sqrt{n}\frac{U_n(\theta)}{- U_n'(\theta)} = \frac{\frac{1}{n}U_n(\theta) / \sqrt{I(\theta) / n} }{ -\frac{1}{n} U_n'(\theta) / \sqrt{I(\theta)}}
+\]
+
+Looking at the numerator...
+\[
+\frac{1}{n} U_n(\theta)/ \sqrt{I(\theta)/n} = 
+ \frac{
+\frac{1}{n} \left[ \frac{\partial}{\partial\theta }\log f(x_1;\theta) + \cdots + \frac{\partial}{\partial\theta }\log f(x_n;\theta) \right] - 0 }{
+\sqrt{I(\theta) /n}}
+\]
+So by the central limit theorem
+\[
+\frac{1}{n} U_n(\theta)/ \sqrt{I(\theta)/n}  \overset{D}{\rightarrow} \mathcal{N}(0,1)
+\]
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proof Sketch}
+
+We have
+\[
+\sqrt{n}(\hat{\theta} - \theta) = \sqrt{n}\frac{U_n(\theta)}{- U_n'(\theta)} = \frac{\frac{1}{n}U_n(\theta) / \sqrt{I(\theta) / n} }{ -\frac{1}{n} U_n'(\theta) / \sqrt{I(\theta)}} = \frac{A_n}{B_n}
+\]
+
+\begin{enumerate}
+\item $A_n \overset{D}{\rightarrow} \mathcal{N}(0,1)$
+\item $B_n \overset{p}{\rightarrow} \sqrt{I(\theta)}$
+\end{enumerate}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Finally}
+
+So 
+\[
+\sqrt{n}(\hat{\theta} - \theta) \overset{D}{\rightarrow} \mathcal{N}(0, I^{-1}(\theta))
+\]
+
+This means we don't always need to find a sampling distribution for $\hat{\theta}$. If we have enough data, we can assume it's approximately normal.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example 7.35 on page 377}
+
+Let $X_1, \ldots, X_n \overset{iid}{\sim} f(x;\theta) = \theta x^{\theta-1 }, 0 < x < 1$. Also, $\theta > 0$. Find $\hat{\theta}$ and its asymptotic distribution.
+\newline
+\pause
+
+\[
+U = \frac{\partial}{\partial \theta} \log f(x;\theta) = \frac{\partial}{\partial \theta}[ \log \theta + (\theta-1)\log x] = \frac{1}{\theta} + \log x
+\]
+The variance of this is hard to find. Let's take another derivative and find the information that way...
+\[
+U' = -\frac{1}{\theta^2}
+\]
+So $I(\theta) = \frac{1}{\theta^2}$
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example 7.35 on page 377}
+
+What about the MLE? First $ \log f(x_1, \ldots, x_n ; \theta) = \sum_i  [\log \theta + (\theta-1)\log x_i]$. So
+\[
+\frac{\partial}{\partial \theta} \log f(x_1, \ldots, x_n ; \theta) = \frac{n}{\theta} + \sum \log x_i
+\]
+Setting this equal to $0$ we get $\hat{\theta} = -\frac{n}{\sum_i \log(x_i)}$.
+\newline
+
+Remember $I(\theta) = \frac{1}{\theta^2}$. So, approximately,
+\[
+\hat{\theta} \sim \mathcal{N}(\theta, \frac{\theta^2}{n}) 
+\]
+if $n$ is really large.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\end{document} 

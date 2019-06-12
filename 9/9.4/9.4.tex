@@ -1,0 +1,180 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["9.4"]{9.4: P-Values}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definition}
+
+The \textbf{p-value} is the probability of obtaining a value of another test statistic at least as contradictory to $H_0$ as the value you just calculated from the available sample; this probability is calculated under the assumption that $H_0$ is true.
+\newline
+
+This should seem sort of complicated. We are comparing a hypothetical, unobserved test statistic, $Z$, and comparing it to our now nonrandom test statistic we just calculated, $z$.
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Definition}
+
+Say you had the setup: $X_1, \ldots, X_n \overset{iid}{\sim} \text{Normal}(\mu, \sigma^2)$, with $\sigma^2$ known. And $H_0: \mu = \mu_0$ versus $H_a: \mu > \mu_0$.
+\newline
+
+And say you calculated your test statistic $z = \frac{(\bar{x} - \mu_0)}{\sqrt{\sigma^2/n}}$ (now lowercase). Then
+\[
+\text{p-value} = P(Z>z|\mu=\mu_0)
+\]
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+
+\begin{frame}
+\frametitle{Example 9.14 on page 456}
+
+We're doing a large-sample hypothesis test here for the population mean $\mu$. $H_0: \mu = 2.0$ versus $H_a: \mu > 2$. They tell us that $z = \frac{\bar{x} - 2.0}{s/\sqrt{n}} = 3.04$. If this was a question in one of the previous sections, we would find $z_{\alpha}$ and reject if $z > z_{\alpha}$. 
+\newline
+
+But let's do it with a p-value now. The values that are at least as contradictory to $H_0$ as the test statistic is are all the numbers to the right of our test statistic. This is because $H_a: \mu > 2$.
+\newline
+
+\[
+\text{P-Value} = P(Z > 3.04 \text{ when $\mu = 2$ }) = .0012
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Decision Rule}
+
+A small p-value (near 0) indicates rare-ness. Either your assumption of $H_0$ is absurd, or you just observed some very rare data. 
+\newline
+
+If $\alpha$ is our pre-selected probability of type 1 error, the decision rule tells us to reject $H_0$ if and only if our p-value is less than $\alpha$.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Summary}
+
+Old decision rule: compare $z$ with $z_{\alpha}$. Or compare $t$ with $t_{n-1,\alpha}$.
+\newline
+
+New decision rule: compare p-value with $\alpha$. 
+\newline
+
+The p-value is based on the percentile associated with your test statistic. All of this is just two sides of the same coin. The upshot of p-values is that they're more ``report-able." 
+\newline
+
+People looking at a statistical analysis can just trust you on your methodology and glance at the p-value; they don't need to know about statistical distributions.
+\newline
+
+Also, if $\alpha = .1$, then a p-value of $.000000001$ seems to say a bit more than $.08$. 
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Summary}
+
+How to calculate p-values:
+\begin{enumerate}
+\item For an upper-tailed test: $P(Z \ge z)$ OR $P(T_{n-1} \ge t)$ 
+\item For a lower-tailed test: $P(Z \le z)$ OR $P(T_{n-1} \le t)$ 
+\item For a two-tailed test: $2 \times P(Z \le -|z|)$ OR $2 \times P(T_{n-1} \le -|t|)$ 
+\end{enumerate}
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+
+
+\end{document} 

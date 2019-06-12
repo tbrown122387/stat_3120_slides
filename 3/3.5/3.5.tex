@@ -1,0 +1,156 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["3.5"]{3.5: The Binomial Probability Distribution}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+Many experiments conform either exactly or approximately to the following list of requirements:
+\begin{enumerate}
+\item The experiment consists of a sequence of $n$ \emph{trials} ($n$ is nonrandom)
+\item Each trial results in one of two outcomes (success or failure)
+\item Trials are independent of one another
+\item The probability of a success is the same for all trials
+\end{enumerate}
+\pause
+
+An experiment for which these conditions are satisfied is called a \textbf{binomial experiment}
+\newline
+
+A \textbf{binomial rv} is the random variable denoting the number of successes for such an experiment
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definition}
+
+For a binomial rv, the pmf is 
+\[
+p(x;n,p) = P(X=x) = {n \choose x}p^x(1-p)^{n-x} \hspace{10mm} x = 0, 1, \ldots, n
+\]
+and the cdf is 
+\[
+F_X(x) = P(X\le x) = \sum_{k =0}^x p(k;n,p)
+\]
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example}
+
+A basketball player is a 70\% free-throw shooter. He has to make both of two shots to win the game for his team. What is the probability he makes one shot? What is the probability he doesn't win the game for his team?
+\pause
+
+\[
+P(\text{he makes one}) = p(1;2,.7)
+\]
+
+\[
+P(\text{loses}) = P(X < 2) = P(X \le 1) = p(0;2,.7) + p(1;2,.7)
+\]
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Mean, Variance and MGF}
+
+A few things about the binomial distribution
+\begin{enumerate}
+\item if $n=1$, it's called a Bernoulli distribution/rv
+\item in general, $EX = np$ and $V(X) = np(1-p)$
+\item also, $M_X(t) = (1 - p + pe^t)^n$
+\end{enumerate}
+
+proofs are left as exercise
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\end{document} 

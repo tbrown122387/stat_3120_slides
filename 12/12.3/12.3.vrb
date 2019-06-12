@@ -1,0 +1,17 @@
+\frametitle{A Note About Fitting Logistic Regression Models}
+
+$Y_i \sim \text{Bernoulli}[p(x_i)], i=1,\ldots,n$. The likelihood is then
+\[
+\prod_i f(y_i) = \prod_i p(x_i)^{y_i}[1-p(x_i)]^{1 - y_i}
+\]
+
+We still fit this using maximum likelihood estimation, but there's no closed-form solution for the coefficients. Also notice how each $p(x_i)$ is different possibly, so we can't combine/simplify stuff.
+\newline
+
+Many software packages fit these. In \verb|R| it would be something like
+
+\begin{verbatim}
+my_mod <- glm(y ~ x, family = "binomial")
+\end{verbatim}
+
+

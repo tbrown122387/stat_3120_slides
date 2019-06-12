@@ -1,0 +1,176 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["7.1"]{7.1: General Concepts and Criteria} 
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definitions}
+
+A \textbf{point estimator} of a parameter $\theta$ is a single number that can be regarded as a sensible value for $\theta$ (e.g $\bar{X}$ is an estimator for $\mu$ when your data are iid normal). 
+\newline
+
+A \textbf{point estimate} is a particular realization for a point estimator (e.g. after you observe data $\bar{x}$ comes out to be 3.98).
+\newline
+
+This situation is analagous to the difference between $X$ and $x$ that we talked about before. 
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example 7.2 and 7.3 from the book}
+
+You want to estimate $\mu$ of a normal distribution. You can use the mean, the median, the midrange, or a trimmed mean. 
+\newline
+
+You want to estimate $\sigma^2$ of a normal distribution. You can use $S^2 = \frac{\sum_i(X_i - \bar{X})^2}{n-1}$ or $\hat{\sigma}^2 = \frac{\sum_i(X_i - \bar{X})^2}{n}$
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definition}
+
+Usually we have a few options for estimators $\hat{\theta}$. How do we compare them?
+\newline
+
+\textbf{bias} of an estimator $\hat{\theta}$ estimating the parameter $\theta$, written $\text{Bias}(\hat{\theta})$, is defined as 
+\[
+E\left[ \hat{\theta} - \theta  \right]
+\]
+
+\textbf{mean square error} of an estimator $\hat{\theta}$ estimating the parameter $\theta$, written $\text{MSE}(\hat{\theta})$, is defined as
+\[
+E\left[(\hat{\theta} - \theta )^2 \right]
+\]
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Note}
+
+Note: $(\hat{\theta} - \theta )$, $|\hat{\theta} - \theta |$ or $(\hat{\theta} - \theta )^2$ are all random variables. That's why we take the average. 
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{A result}
+
+Here's a useful result. Verify the second equality.
+
+\begin{align*}
+E\left[(\hat{\theta} - \theta )^2 \right] &= E\left[(\hat{\theta} - E(\hat{\theta}) + E(\hat{\theta}) - \theta )^2 \right] \\
+&= E\left[  \left\{ \hat{\theta} - E(\hat{\theta}) \right\}^2  + \left\{ E(\hat{\theta}) - \theta \right\}^2 \right] \\
+&= E\left[(\hat{\theta} - E\hat{\theta})^2 \right]  + E\left[(\theta - E\hat{\theta} )^2 \right] \\
+&= E\left[(\hat{\theta} - E\hat{\theta})^2 \right]  + (\theta - E\hat{\theta} )^2 
+\end{align*}
+
+So $\text{MSE}(\hat{\theta}) = V(\hat{\theta}) + \left[\text{Bias}(\hat{\theta})\right] ^2$
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definitions}
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definitions}
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definitions}
+
+
+\end{frame}
+
+
+
+\end{document} 

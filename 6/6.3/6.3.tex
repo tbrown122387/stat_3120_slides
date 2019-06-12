@@ -1,0 +1,300 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["6.3"]{6.3: The Mean, Variance and MGF for Several Variables}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\ 
+\medskip
+\textit{} 
+}
+\date{}
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definitions}
+
+\begin{block}{Linear Combo}
+Let $X_1, \ldots, X_n$ be some r.v.s. Let $a_1, \ldots a_n$ be some real number constants. Then the new random variable
+\[
+Y = a_1 X_1 + \cdots + a_n X_n = \sum_{i=1}^n a_i X_i
+\]
+is called a {\bf linear combination}
+\end{block}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Note}
+
+\begin{itemize}
+\item $\bar{X}$ is the case when $a_1 = \cdots = a_n = \frac{1}{n}$ (check)
+\item $T_0$ is the case when $a_1 = \cdots = a_n = 1$ (check)
+\item we didn't require all the r.v.s to be independent or identically distributed here 
+\end{itemize}
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Propositions}
+
+\begin{block}{linearity of $E(\cdot)$}
+Assuming all the expectations written down exist
+\[
+E \left(\sum_{i=1}^n a_i X_i \right) = \sum_{i=1}^n a_i E(X_i)
+\]
+\end{block}
+
+Proof: just properties of integrals/sums
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Variance}
+
+\begin{block}{How $V(\cdot)$ works}
+Assuming all the expectations and variances written down exist, and assuming all $X_i$ are pairwise independent
+\[
+V\left( \sum_{i=1}^n a_i X_i \right) = \sum_{i=1}^n a_i^2 V(X_i)
+\]
+\end{block}
+
+...and if we can't assume independence...
+
+\begin{block}{How $V(\cdot)$ works}
+Assuming all the expectations and variances written down exist,
+\[
+V\left( \sum_{i=1}^n a_i X_i \right) = \sum_{i=1}^n \sum_{j=1}^n a_i a_j Cov(X_i, X_j)
+\]
+\end{block}
+
+Proof: see page 310 
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+
+\begin{frame}
+\frametitle{Note}
+
+\begin{itemize}
+\item the second one is a more general form than the first (check)
+\item $Cov(X_i, X_i) = V(X_i)$
+\item personally I think of $\sum_{i=1}^n \sum_{j=1}^n a_i a_j Cov(X_i, X_j)$ as a quadratic form (but matrix stuff isn't really part of the curriculum)
+\end{itemize}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+
+\begin{frame}
+\frametitle{Example}
+
+What if $Y = \sum_{i=1}^2 a_i X_i = (1)X_1 + (-1)X_2 = X_1 - X_2$ and $X_1$ is independent from $X_2$?
+\newline
+
+Then
+\[
+E(Y) = E(X_1) - E(X_2)
+\]
+and
+\[
+V(X_1 - X_2) = V(X_1) + V(X_2)
+\]
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Theorem}
+
+When we take a linear combination of random variables (possibly dependent ones), we have the tools to calculate the mean and variance. We would like to know more, though. We would like to know the entire probability distribution. In the case of normals, this is particularly easy:
+
+\begin{block}{The Reproductive Property of Normal r.v.s}
+If $X_1, \ldots, X_n$ are independent (not necessarily identical) normal rvs, then any linear combination  $Y = \sum a_i X_i$ is also normally distributed.
+\end{block}
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+
+\begin{frame}
+\frametitle{Notes}
+
+\begin{itemize}
+\item Proof comes later after we talk about MGFs
+\item Actually any joint normal vector stays normal under any linear (affine really) transformation
+\item We really only care about when we start off with i.i.d. normal rvs in this class, though
+\end{itemize}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+
+\begin{frame}
+\frametitle{MGFs}
+
+You learned about these already, but here's the definition again.
+
+\[
+M_X(t) = E(\exp (tX) )
+\]
+
+Remember you can also identify rvs by their MGF (instead of their density). Sometimes it's easier to work with the MGF.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{MGFs}
+
+In particular, they help out a lot with linear combinations of \emph{independent} rvs. Let $Y = \sum_i a_i X_i$
+\begin{align*}
+E[\exp(tY) ]  &= E[\exp(t \left\{ \sum_i a_i X_i  \right\}) ] \\
+&= E[\exp(t a_1 X_1) \cdots \exp(t a_n X_n) ] \\
+&= E[\exp[(t a_1)( X_1)]] \cdots E[\exp[(t a_n) (X_n)] ] \\
+&= M_{X_1}(t a_1) \cdots M_{X_n}(t a_n)
+\end{align*}
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example}
+
+Let's consider the sum of two independent Poisson count random variables. Let's call them $X$ and $Y$ with parameters $\lambda$ and $\nu$ respectively. What's the distribution of $X+Y$? \\
+
+FYI the MGF for a Poisson rv with a parameter $\theta$ is $\exp[\theta (e^t - 1)]$
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example}
+
+\begin{align*}
+M_{X+Y}(t) &= M_X(t)M_Y(t) \\
+&= \exp[\lambda (e^t - 1)] \exp[\nu (e^t - 1)]  \\
+&= \exp[ (e^t - 1)(\nu + \lambda)]
+\end{align*}
+
+... so it's still a poisson but with parameter $\lambda + \nu$
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proof}
+
+Recall 
+\[
+M_{\sum_i a_i X_i}(t) = M_{X_1}(t a_1) \cdots M_{X_n}(t a_n).
+\]
+
+Let's use this to prove the reproductive property of normals. We just need to know what an MGF for a normal distribution looks like. If $X \sim \text{Normal}(\mu, \sigma^2)$, then $M_X(t) = \exp(\mu t + \frac{1}{2}\sigma^2 t^2)$
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proof}
+
+Let $X_1, \ldots, X_n$ all be independent but follow possibly different normal distributions. Define $Y$ as the linear combination: $Y = \sum_i a_i X_i$. Then
+
+\begin{align*}
+M_{\sum_i a_i X_i}(t) &= \prod_i M_{X_i}(a_i t) \\
+&= \prod_i \exp(\mu_i a_i t + \frac{1}{2}\sigma_i^2 (a_i t)^2) \\
+&= \exp(\mu^*t + \frac{1}{2}\sigma^{*2} t^2)
+\end{align*}
+
+So $Y$ follows a normal distribution again with mean $\mu^* = \sum_i a_i \mu_i$ and variance $\sigma^{*2} = \sum_i a_i^2 \sigma_i^2$
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+
+\end{document} 

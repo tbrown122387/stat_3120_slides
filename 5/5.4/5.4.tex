@@ -1,0 +1,295 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["5.4"]{5.4: Transformations of Random Variables}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+``In the previous chapter we discussed the problem of starting with a single random variable $X$, forming some function of $X$, such as $X^2$ or $e^X$, to obtain a new random variable $Y = h(X)$, and investigating the distribution of this new random variable. We now generalize this scenario by starting with more than a single random variable."
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Notation}
+
+A few notes on notation:
+\begin{enumerate}
+\item $f(x_1, x_2)$ is the original pdf 
+\item $g(y_1, y_2)$ is the pdf of the two new rvs
+\item $Y_1 = u_1(X_1, X_2)$ and $Y_2 = u_2(X_1, X_2)$
+\item $X_1 = v_1(Y_1, Y_2)$ and $X_2 = v_2(Y_1, Y_2)$
+\end{enumerate}
+
+...and in this section we're always talking about cts rvs...
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+Remember how in the univariate case, we needed that thing $\left| \frac{d}{dy}g^{-1}(y) \right|$?
+\newline
+
+Now we have $v_1$ and $v_2$, and we can differentiate with respect to $y_1$ and $y_2$.
+\newline
+
+We can make this into a 2x2 matrix:
+\[
+\left[ \begin{array}{cc}
+\frac{\partial v_1(y_1, y_2)}{\partial y_1} & \frac{\partial v_1(y_1, y_2)}{\partial y_2} \\
+\frac{\partial v_2(y_1, y_2)}{\partial y_1} & \frac{\partial v_2(y_1, y_2)}{\partial y_2}  \end{array} \right].
+\] 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Main Theorem}
+
+Let $T = \{(y_1, y_2) : g(y_1, y_2) > 0 \}$ and suppose that all the partial derivatives we write down exist for every $(y_1,y_2)$ in $T$, and they are continuous. Let 
+\[ M = 
+\left[ \begin{array}{cc}
+\frac{\partial v_1(y_1, y_2)}{\partial y_1} & \frac{\partial v_1(y_1, y_2)}{\partial y_2} \\
+\frac{\partial v_2(y_1, y_2)}{\partial y_1} & \frac{\partial v_2(y_1, y_2)}{\partial y_2}  \end{array} \right].
+\] 
+Then $\operatorname{det}(M)$ is called the \textbf{Jacobian}, and the new joint pdf for $Y_1, Y_2$ is
+\[
+g(y_1,y_2) = f[v_1(y_1,y_2), v_2(y_1, y_2)] |\operatorname{det}(M)|
+\]
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example}
+
+Example 5.25 on page 267: Let's start off with $X_1$ and $X_2$ two independent exponential random variables both with parameter $\lambda$. Then $f_{X_1,X_2}(x_1,x_2) = \lambda^2 e^{-\lambda x_1} e^{-\lambda x_2}$. What's the distribution for $Y_1 = X_1 + X_2$ and $Y_2 = X_1/(X_1 + X_2)$?
+\pause
+
+Original transformations are 
+\[
+\left[ \begin{array}{c}
+Y_1  \\
+Y_2 \end{array} \right]
+=
+\left[ \begin{array}{c}
+X_1 + X_2  \\
+\frac{X_1}{X_1 + X_2} \end{array} \right]
+\] 
+backwards transformations are 
+\[
+\left[ \begin{array}{c}
+X_1  \\
+X_2 \end{array} \right]
+=
+\left[ \begin{array}{c}
+Y_1Y_2 \\
+Y_1(1 - Y_2) \end{array} \right]
+\] 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example (continued)}
+
+Now the jacobian
+\[
+\left[ \begin{array}{cc}
+\frac{\partial v_1(y_1, y_2)}{\partial y_1} & \frac{\partial v_1(y_1, y_2)}{\partial y_2} \\
+\frac{\partial v_2(y_1, y_2)}{\partial y_1} & \frac{\partial v_2(y_1, y_2)}{\partial y_2}  \end{array} \right]
+=
+\left[ \begin{array}{cc}
+y_2 & y_1 \\
+(1-y_2) & - y_1 \end{array} \right]
+\]
+
+So
+\[
+|\operatorname{det}(M)| = |-y_1y_2 - y_1(1-y_2)| = |y_1|
+\]
+...plug all this in to our formula and we get
+\begin{align*}
+g(y_1,y_2) &= \lambda^2 e^{-\lambda y_1 y_2} e^{-\lambda y_1(1-y_2)} |y_1|, \hspace{5mm} 0 < y_1 < \infty, 0 < y_2 < 1\\
+&= \lambda^2 e^{-\lambda y_1}y_1 \hspace{1mm} 1(0 < y_1) 1(0 < y_2 < 1)
+\end{align*}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example 5.26 on page 268}
+
+Let's start off with $f_{X_1X_2}(x_1,x_2) = x_1 + x_2, \hspace{5mm} 0 < x_1, x_2 < 1$. We ultimately want the distribution of $X_1X_2$. We need an auxiliary random variable, though. 
+\pause
+\newline
+
+
+
+Original transformations are 
+\[
+\left[ \begin{array}{c}
+Y_1  \\
+Y_2 \end{array} \right]
+=
+\left[ \begin{array}{c}
+X_1 X_2  \\
+X_2 \end{array} \right]
+\] 
+backwards transformations are 
+\[
+\left[ \begin{array}{c}
+X_1  \\
+X_2 \end{array} \right]
+=
+\left[ \begin{array}{c}
+Y_1/Y_2 \\
+Y_2 \end{array} \right]
+\] 
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example 5.26 on page 268}
+
+Now the jacobian
+\[
+\left[ \begin{array}{cc}
+\frac{\partial v_1(y_1, y_2)}{\partial y_1} & \frac{\partial v_1(y_1, y_2)}{\partial y_2} \\
+\frac{\partial v_2(y_1, y_2)}{\partial y_1} & \frac{\partial v_2(y_1, y_2)}{\partial y_2}  \end{array} \right]
+=
+\left[ \begin{array}{cc}
+1/y_2 & -y_1(y_2)^{-2} \\
+0 & 1 \end{array} \right]
+\]
+
+So
+\[
+|\operatorname{det}(M)| = |1/y_2|
+\]
+
+...plug all this in to our formula and we get
+\begin{align*}
+g(y_1,y_2) &= \left( \frac{y_1}{y_2} + y_2 \right) \frac{1}{y_2}, \hspace{5mm} 0 < \frac{y_1}{y_2} < 1, 0 < y_2 < 1 \\
+&= \left( \frac{y_1}{y_2} + y_2 \right) \frac{1}{y_2}, \hspace{5mm} 0 < y_1 < y_2 < 1 
+\end{align*}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Example 5.26 on page 268}
+
+We aren't finished yet. We have
+\[
+g(y_1,y_2) = \left( \frac{y_1}{y_2} + y_2 \right) \frac{1}{y_2}, \hspace{5mm} 0 < y_1 < y_2 < 1 
+\]
+but we want $g_1(y_1)$.
+
+\begin{align*}
+g_1(y_1) &= \int_{y_1}^1 g(y_1, y_2) dy_2 \\
+&= \int_{y_1}^1 \left( \frac{y_1}{y_2} + y_2 \right) \frac{1}{y_2} dy_2 \\
+&= \int_{y_1}^1 y_1 y_2^{-2} + 1 dy_2 \\
+&= -y_1y_2^{-1}|_{y_2 = y_1}^{y_2 = 1} + y_2|_{y_2 = y_1}^{y_2 = 1}\\
+&= -y_1(1 - \frac{1}{y_1}) + (1-y_1) = 2(1-y_1), \hspace{5mm} 0 < y_1 < 1
+\end{align*}
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Why does this work?}
+
+Recall $g(y_1,y_2)dy_1dy_2 = f[v_1(y_1,y_2), v_2(y_1, y_2)] |\operatorname{det}(M)|dy_1 dy_2$. We need
+\[
+\iint f[v_1(y_1,y_2), v_2(y_1, y_2)] |\operatorname{det}(M)|dy_1 dy_2 = \iint f(x_1,x_2)dx_1dx_2
+\]
+(integrating both sides gives you the same probabilities (or expected values)
+\newline
+
+Think of these as the sum of volumes of a bunch of prisms. 
+\begin{enumerate}
+\item heights are the same: $f(x_1,x_2) = f[v_1(y_1,y_2), v_2(y_1, y_2)]$ 
+\item bases are the same: $|\operatorname{det}(M)|dy_1 dy_2 = dx_1dx_2$
+\end{enumerate}
+
+
+\end{frame}
+
+\end{document} 

@@ -1,0 +1,213 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["4.7"]{4.7: Transformations of Random Variables}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+We transform random variables all the time. So far we talked about how to find exact and approximate expressions for the means and variances of transformed rvs in the linear and non-linear case, respectively. We've talked about how mgfs can help us finding the exact distribution (not just moments) of linear transformations of special rvs. And in the last section we kind of alluded to what we're going to do now. 
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+Here was the situation from last time. Let $X \sim f(x)$, and let $Y = cX$, with $c > 0$. What is $f(y)$? 
+\newline
+
+We did this, we basically found the cdf easily, and then differentiated to find the density
+\[
+F_Y(y) = P(Y \le y) = P(cX \le y) = P(X \le y/c) = F_X(y/c)
+\]
+so $f_Y(y) = f_X(y/c)\frac{1}{c}$ if $Y = cX$
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+Let's generalize this to monotonic function (or 1-1, so it'll have an inverse, which is what we need). Let $Y = g(X)$. I'm going to call this the original transformation. So the inverse transformation is $X = g^{-1}(Y)$ 
+\newline
+
+When $g(\cdot)$ is increasing...
+\[
+F_Y(y) = P(Y \le y) = P(g(X) \le y) = P(X \le g^{-1}(y)) = F_X(g^{-1}(y))
+\]
+and when $g(\cdot)$ is decreasing...
+\[
+F_Y(y) = P(Y \le y) = P(g(X) \le y) = P(X \ge g^{-1}(y)) = 1 - F_X(g^{-1}(y))
+\]
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+When $g(\cdot)$ is increasing...
+\[
+\frac{d}{dy}F_Y(y) = \frac{d}{dy}F_X(g^{-1}(y)) = f_X(g^{-1}(y))\frac{d}{dy}g^{-1}(y)
+\]
+and when $g(\cdot)$ is decreasing...
+\[
+\frac{d}{dy}F_Y(y) = - \frac{d}{dy}F_X(g^{-1}(y)) = f_X(g^{-1}(y)) \left| \frac{d}{dy}g^{-1}(y) \right|
+\]
+(because the negative sign cancels out with the negative slope of $\frac{d}{dy}g^{-1}(y)$)
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Note}
+
+Note: you only need this for cts distributions. If your rv is discrete it's way simpler...
+\[
+p_Y(y) = P(Y = y) = P(g(X) = y) = P(X = g^{-1}(y)) = p_X(g^{-1}(y))
+\]
+
+you just plug in $g^{-1}(y)$ everywhere you see an $x$ in the pmf of $X$
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Note}
+
+Finally, here's a statement of the transformation theorem. 
+\newline
+
+\begin{theorem}
+Let $Y$ and $X$ be two cts rvs. If $Y = g(X)$, where $g(\cdot)$ is a monotonic, and differentiable function, then
+\[
+f_Y(y) = f_X(g^{-1}(y)) \left| \frac{dg^{-1}(y)}{dy} \right|
+\]
+\end{theorem}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example}
+
+We touched on lognormal distributions a bit before. Now let's find its density.
+\newline
+
+Let $X \sim \mathcal{N}(\mu, \sigma^2)$. Let $Y = \exp[ X]$. Find $f_Y(y)$
+\pause
+\newline
+
+\[
+f_Y(y) = f_X(\log y) \left| \frac{1}{y} \right| = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp \left[- \frac{(\log y - \mu)^2}{2 \sigma^2} \right] \frac{1}{y}
+\]
+
+we can drop the absolute value because $y = e^{x} > 0$ for any $x$
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example}
+
+Earlier we used the Geometric random variable $X \in \{1, 2, \ldots\}$. It's pmf was $p(x) = p(1-p)^{x-1}$. In this case $X$ represents the \emph{total number of births} observed before a success. Or it's the \emph{trial number on which we stopped}. 
+\newline
+
+Define $Y = X-1$. What's the pmf for $Y$?
+\pause
+
+\[
+p_Y(y) = p_X(x(y)) = p(1-p)^{(y+1)-1} = p(1-p)^{y}
+\]
+
+Sometimes people also call $Y$ a Geometric random variable. But in this case it represents \emph{the number of failures} before the success. It's really annoying, and unncessarily confusing. So when people say 'geometric rv,' you should ask for clarification. 
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\end{document} 

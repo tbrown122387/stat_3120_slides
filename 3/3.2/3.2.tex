@@ -1,0 +1,222 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["3.2"]{3.2: Prob. Distributions for Discrete RVs}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+We'll work with a general discrete rv in this section. We need to do this before we start using specific discrete rvs (i.e. Binomial, Poisson, etc.)
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Definitions}
+
+A \textbf{probability distribution} is a function that shows how the total probability of $1$ is distributed among the possible values of a rv (say $X$).
+\newline
+
+A \textbf{probability mass function} is a probability distribution for a discrete random variable. For each possible number $x$ that $X$ can take on, it gives you $P(X=x)$.
+\newline
+
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Note}
+
+Note: we talked about probability function on $\mathcal{S}$ before. How does that relate to this probability function on the range of $X$? Well, for a discrete rv: $P(X=x) = P(\{s \in \mathcal{S} : X(s) = x\})$
+\newline
+
+Note: All those rules we talked about in chapter 2 still apply. Check as many as you want to. 
+\newline
+
+Note: knowing the distribution allows you to do essentially anything you want to (i.e. find the probability of any event, compute moments, etc)
+\newline
+
+Note: PMFs are usually displayed in one of two ways: a table, or a line graph or a probability histogram
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Definitions}
+
+When we're dealing with random variables and we want to specify a distribution, typically it isn't feasible to just pick numbers for the probability of each outcome...what if there are an infinite amount? Fortunately there are many probability distributions where we only have to specify one or two \textbf{parameters}, and then it fills out the rest. 
+\newline
+
+A \textbf{parameter} (for a discrete rv) is a quantity that can change (certain) distribution (probability mass) functions $P(X=x) = p(x)$. Let's say there is only one parameter in our situation, and call it $\alpha$. To make this dependence on $\alpha$ explicit, sometimes we write our pmf as $p_{\alpha}(x)$ or $p(x;\alpha)$.
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Example}
+
+Example 3.1 on page 104: we observe the gender of newborns in a hospital until a boy $(B)$ is born. So $\mathcal{S} = \{B, GB, GGB, GGGB, \ldots\}$. There are a countably inifinite number of possible situations. What if we just assume that there is one probability that an individual birth results in a boy, and all births are independent from one another? Let's call $P(B) = p$. 
+\newline
+
+$X = \text{number of births observed}$. Then $p(x) = (1-p)^{x-1}p$, $x > 0$
+\newline
+
+If our assumptions are true, we just have to pick a good value for $p$
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Definitions}
+
+The \textbf{cumulative distribution function (cdf)}: $F_X(x) = P(X \le x) = \sum_{k \le x} p(k)$
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Example}
+
+In our last example, we had $p(x) = (1-p)^{x-1}p$. The associated cdf is 
+\begin{align*}
+F_X(x) &= \sum_{k  =1}^x(1-p)^{k-1}p \\
+&= p\sum_{k  = 0}^{x-1}(1-p)^{k} \\
+&= p \left[ \frac{1 - (1-p)^x}{1 - (1-p)} \right] \\
+&= p \left[ \frac{1 - (1-p)^x}{p} \right] \\
+&=  1 - (1-p)^x 
+\end{align*}
+
+We're using that formula for the partial sum of a geometric series here..
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example}
+
+Instead of going from pmf to cdf, we can also go from cdf to pmf...
+\newline
+
+$P(X=k) = F_X(k) - F_X(k-1)$
+\newline
+
+\begin{align*}
+p(3) &= P(X=3) \\
+&= P\left[ (X \le 3) \cap (X \le 2)'\right] \\
+&= P(X \le 3) + P((X \le 2)') - P\left[ (X \le 3) \cup (X \le 2)'\right] \\
+&= P(X \le 3) + P((X \le 2)') - P\left[ (X \le 3) \cup (X > 2)\right] \\
+&= F_X(3) + (1 - F_X(2)) - 1 \\
+&= F_X(3) - F_X(2)
+\end{align*}
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Proposition}
+
+Here's a more general result:
+\newline
+
+For any $a$ and $b$, with $a \le b$
+\[
+P(a \le X \le b) = F_X(b) - F_X(a-)
+\]
+
+Note: $F_X(x-) = \lim_{\epsilon \to 0} F_X(x-\epsilon)$
+\newline
+
+Note: A lot of times $F_X(x-) = F_X(x-1)$
+
+
+
+\end{frame}
+
+\end{document} 

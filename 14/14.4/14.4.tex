@@ -1,0 +1,305 @@
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+\usepackage{listings}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["14.4"]{14.4: Bayesian Methods}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Introduction}
+
+This is the main difference between frequentist statistics and Bayesian statistics:
+\newline
+
+\emph{Frequentist} statistics assumes that parameter values are fixed.
+\newline
+
+\emph{Bayesian} statistics assumes that parameter values are random.
+\newline
+
+To emphasize this difference in notation, instead of writing $f(x_1, \ldots, x_n ; \theta)$, we will write
+\[
+f(x_1, \ldots, x_n | \theta)
+\]
+
+to emphasize that we are conditioning on a random variable $\theta$.
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Introduction}
+
+You may have seen Bayes' rule in terms of probabilities of simple events $A$ and $B$ as
+\[
+P(B|A) = \frac{P(A|B)P(B)}{P(A)} = \frac{P(A|B)P(B)}{P(A|B)P(B) + P(A|B^c)P(B^c) }
+\]
+
+Now we'll use Bayes' theorem for densities
+\[
+h(\theta| x_1, \ldots, x_n) = \frac{f(x_1, \ldots, x_n | \theta) g(\theta)  }{ \int f(x_1, \ldots, x_n | \theta) g(\theta) d \theta }
+\]
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Introduction}
+
+Here's our main formula again:
+
+\[
+h(\theta| x_1, \ldots, x_n) = \frac{f(x_1, \ldots, x_n | \theta) g(\theta)  }{ \int f(x_1, \ldots, x_n | \theta) g(\theta) d \theta }
+\]
+
+$f(x_1, \ldots, x_n|\theta)$ is still called the likelihood.  But $g(\theta)$ is called the {\bf prior distribution}. The prior distribution is chosen to reflect prior knowledge we have about the parameter before we see our data. 
+\newline
+
+After we see our data, we can compute the {\bf posterior distribution} $h(\theta|x_1, \ldots, x_n)$. This is the main thing we're after here. This is the distribution of our unknown quantity after we take into account all possible information.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Last thing before an example...}
+
+In the formula
+\[
+h(\theta| x_1, \ldots, x_n) = \frac{f(x_1, \ldots, x_n | \theta) g(\theta)  }{ \int f(x_1, \ldots, x_n | \theta) g(\theta) d \theta }
+\]
+
+The denominator $\int f(x_1, \ldots, x_n | \theta) g(\theta) d \theta$ is just a normalizing constant to make our density integrate to $1$ (make sure you see why...it isn't a function in $\theta$). Sometimes we don't care about it. Because of this, people doing Bayesian statistics will use ``proportional to" symbol a lot like this:
+
+\[
+h(\theta|\mathbf{x}) \propto f(\mathbf{x}|\theta) g(\theta)
+\] 
+
+This means that the posterior distribution is proportional to the pointwise product (in $\theta$) between $f$ and $g$.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Example 14.7}
+
+Suppose we have data from a binomial distribution. The only parameter that we are uncertain about is $p$. Let's let $p$ be a random variable now.
+\newline
+
+$p$ needs to be in the interval $(0,1)$. We might use the \emph{Beta} distribution as a prior for $p$ because its support is the interval $(0,1)$. The parameters to this distribution will be $\alpha$ and $\beta$.
+
+\[
+g(p ; \alpha, \beta) = \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha) \Gamma(\beta)} p^{\alpha-1}(1-p)^{\beta-1}
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example 14.7 continued}
+
+Remember how we said we can use the $\propto$ symbol? If we take the product $f(\mathbf{x}|\theta) g(\theta)$ and we can ``recognize" the density, then we already know the normalizing constant. This happens in our first example (but not always). And instead of writing $\theta$, we'll write our parameter as $p$.
+\newline
+
+Let $X|p \sim \text{Binomial}(n,p)$ and $p \sim \text{Beta}(\alpha, \beta)$.
+\begin{align*}
+h(p|\mathbf{x}) &\propto f(\mathbf{x}|p) g(p)\\
+&= \left[ {n \choose x} p^x(1-p)^{n-x}\right] \left[ \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha) \Gamma(\beta)} p^{\alpha-1}(1-p)^{\beta-1} \right] \\
+&\propto p^x(1-p)^{n-x} p^{\alpha-1}(1-p)^{\beta-1} \\
+&= p^{\alpha + x - 1}(1-p)^{n + \beta - x - 1}
+\end{align*}
+
+And this looks like a beta distribution, so
+\[
+h(p|\mathbf{x}) = \text{Beta}(\alpha + x, n + \beta - x)
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example 14.7 continued}
+
+\[
+h(p|\mathbf{x}) = \text{Beta}(\alpha + x, n + \beta - x)
+\]
+
+Using quick formulas for a Beta distribution
+\begin{align*}
+E[p | x_1, \ldots, x_n] &= \frac{\alpha + x}{(\alpha + x ) + (n + \beta - x)} \\
+&= \frac{\alpha + x}{\alpha + n + \beta} \\
+&= \frac{\alpha}{\alpha + n + \beta}\frac{\alpha + \beta }{\alpha + \beta} + \frac{x}{\alpha + n + \beta}\frac{n}{n} \\
+&= \frac{\alpha}{\alpha + \beta} w_1 + \frac{x}{n} w_2
+\end{align*}
+
+
+Where $w_1 = \frac{\alpha + \beta}{\alpha + n + \beta}$ and $w_2 = \frac{n}{\alpha + n + \beta}$. So the posterior average is a weighted average of the prior and likelihood averages.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example 14.7 continued}
+
+Earlier when we were doing frequentist statistics, we did point estimation, confidence intervals, and hypothesis testing. We only used the likelihood function.
+\newline
+
+Now we have a probability distribution for our parameter.  A few things worth mentioning:
+\begin{enumerate}
+\item we can calculate the mode of this distribution (kind of like MLE)
+\item we can calculate the mean of this distribution (kind of like MLE too)
+\item answer questions like ``What's the probability our parameter was less than a half"
+\item we don't have to be careful with the distinction between probability and likelihood
+\item we can predict new data like this $p(x_{new}|x_{old}) = \int p(x_{new}|\theta)p(\theta|x_{old}) d \theta$
+\item we took into account a subjective prior distribution to reflect what we already know about $p$
+\end{enumerate}
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Example 14.7 continued}
+
+Find a Bayesian \emph{credible interval} for $p$.
+\[
+h(p|\mathbf{x}) = \text{Beta}(\alpha + x, n + \beta - x)
+\]
+
+Answer...just take appropriate quantiles from the posterior distribution.
+
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Example 14.8}
+
+$X_1, \ldots, X_n \overset{iid}{\sim} \mathcal{N}(\mu, \sigma_1^2)$ and $\mu \sim \mathcal{N}(\mu_0, \sigma_0^2)$. Check that we have $f(x_1, \ldots, x_n | \mu) = (2 \pi \sigma_1^2)^{-n/2} \exp\left[ - \frac{\sum (x_1 - \mu)^2}{2\sigma_1^2} \right]$
+
+\begin{align*}
+h(\mu | x_1, \ldots, x_n) &\propto f(x_1, \ldots, x_n | \mu) g(\mu) \\
+&= (2 \pi \sigma_1^2)^{-n/2} \exp\left[ - \frac{\sum (x_1 - \mu)^2}{2\sigma_1^2} \right] \times \\
+&(2 \pi \sigma_0^2)^{-1/2} \exp\left[-\frac{(\mu - \mu_0)^2}{2 \sigma_0^2} \right] \\
+&\propto \exp\left[-\frac{1}{2}\left\{ \frac{\sum (x_1 - \mu)^2}{\sigma_1^2} + \frac{(\mu - \mu_0)^2}{ \sigma_0^2} \right\} \right] \\
+&= \exp\left[-\frac{1}{2}\left\{ \frac{\sum x_1^2 - 2\mu \sum x_i + n\mu^2}{\sigma_1^2} + \frac{(\mu - \mu_0)^2}{ \sigma_0^2} \right\} \right]
+\end{align*}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Example 14.8 continued}
+
+\begin{align*}
+\ldots &= \exp\left[-\frac{1}{2}\left\{ \frac{\sum x_1^2 - 2\mu \sum x_i + n\mu^2}{\sigma_1^2} + \frac{(\mu - \mu_0)^2}{ \sigma_0^2} \right\} \right] \\
+&= \exp\left[-\frac{1}{2}\left\{ \frac{\sum x_1^2 - 2\mu \sum x_i + n\mu^2}{\sigma_1^2} + \frac{\mu^2 - 2\mu\mu_0 +\mu_0^2}{ \sigma_0^2} \right\} \right] \\
+&\propto \exp\left[-\frac{1}{2}\left\{ \frac{- 2\mu \sum x_i + n\mu^2}{\sigma_1^2} + \frac{\mu^2 - 2\mu\mu_0 }{ \sigma_0^2} \right\} \right] \\
+&= \exp\left[-\frac{1}{2}\left\{ \mu^2 \left(\frac{n}{\sigma_1^2} + \frac{1}{\sigma_0^2} \right) - 2 \mu\left( \frac{\sum x_i}{\sigma_1^2} + \frac{\mu_0}{\sigma_0^2} \right) \right\} \right] \\
+&= \exp\left[-\frac{1}{2}\left(\frac{n}{\sigma_1^2} + \frac{1}{\sigma_0^2} \right) \left\{ \mu^2  - 2 \mu\left(\frac{n}{\sigma_1^2} + \frac{1}{\sigma_0^2} \right)^{-1}\left( \frac{\sum x_i}{\sigma_1^2} + \frac{\mu_0}{\sigma_0^2} \right) \right\} \right] \\
+&\propto \exp\left[-\frac{1}{2}\left(\frac{n}{\sigma_1^2} + \frac{1}{\sigma_0^2} \right) 
+\left\{ \mu  - \left(\frac{n}{\sigma_1^2} + \frac{1}{\sigma_0^2} \right)^{-1}\left( \frac{\sum x_i}{\sigma_1^2} + \frac{\mu_0}{\sigma_0^2} \right) \right\}^2 
+\right] \\
+\end{align*}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Example 14.8 continued}
+
+So $h(\mu | x_1, \ldots, x_n)$ is \emph{still} normally distributed with  mean
+\[
+\left(\frac{n}{\sigma_1^2} + \frac{1}{\sigma_0^2} \right)^{-1}\left( \frac{\sum x_i}{\sigma_1^2} + \frac{\mu_0}{\sigma_0^2} \right)
+\]
+and variance
+\[
+\left(\frac{n}{\sigma_1^2} + \frac{1}{\sigma_0^2} \right) ^{-1}
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Summary of Examples}
+
+In the examples we did, the posterior distribution is from the sample family as the prior distribution (but it usually has different parameters). This is a very special case; we say here that the prior is {\bf conjugate} to the data distribution. Said differently, the prior is a {\bf conjugate prior} for the likelihood.
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\end{document} 

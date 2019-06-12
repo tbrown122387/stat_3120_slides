@@ -1,0 +1,183 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["2.1"]{2.1: Sample Spaces and Events} 
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definitions}
+
+An \textbf{experiment} is any action or process whose outcome is subject to uncertainty.
+\newline
+
+The \textbf{sample space} of an experiment, $\mathcal{S}$, is the set of all possible outcomes
+\newline
+
+An \textbf{event} is any collection of outcomes of (a subset of) $\mathcal{S}$ 
+\newline
+
+An event is \textbf{simple} or \textbf{compound} if it consists of one outcome or more than one outcome, respectively.
+\newline
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definitions}
+
+Making new events from old...
+\newline
+
+The \textbf{union} of events $A$ and $B$, denoted $A \cup B$, is the event that consists of all that outcomes that are either in $A$ or $B$ or both (the inclusive or)
+\newline
+
+The \textbf{intersection} of events $A$ and $B$, denoted $A \cap B$, is the event that consists of all the outcomes for which both $A$ and $B$ occur
+\newline
+
+The \textbf{complement} of an event $A$, denoted $A'$, is the set of all outcomes in not in $A$ (but are in the bigger space $\mathcal{S}$) 
+\newline
+
+The \textbf{null set} or \textbf{empty set}, denoted $\varnothing$ is the set with nothing in it 
+\newline
+
+Two sets $A$ and $B$ are \textbf{mutually exclusive} or \textbf{disjoint} if there is nothing in their intersection (i.e. $A \cap B = \varnothing$)
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Some notation}
+
+We can intersect/union together more than two sets sets at a time
+\[
+\bigcap_{i=1}^{20} A_i = A_1 \cap A_2 \cap \cdots \cap A_{19} \cap A_{20}
+\]
+or
+\[
+\bigcup_{i=1}^{\infty} A_i = A_1 \cup A_2 \cup \cdots 
+\]
+
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Some useful stuff}
+
+Also
+\[
+A \cup (B \cap C) = (A \cup B) \cap (A \cup C)
+\]
+\[
+A \cap (B \cup C) = (A \cap B) \cup (A \cap C)
+\]
+\[
+(A \cap B)' = A' \cup B'
+\]
+\[
+(A \cup B)' = A' \cap B'
+\]
+\[
+(A \cup B) \cup (C \cup D) = A \cup B \cup C \cup D
+\]
+\[
+A \cap B = B \cap A
+\]
+\[
+A \cup B = B \cup A
+\]
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+%----------------------------------------------------------------------------------------
+
+
+
+
+\end{document} 

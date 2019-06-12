@@ -1,0 +1,399 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["5.2"]{5.2: Expected Values, Covariance and Correlation}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proposition}
+
+Let $X$ and $Y$ be jointly distributed random variables with pmf $p(x,y)$ or pdf $f(x,y)$ (according to whether the rvs are discrete or continuous). Then 
+\[
+E[h(X,Y)] = \sum_x \sum_y h(x,y)p(x,y)
+\]
+if they're jointly discrete, or
+\[
+E[h(X,Y)] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} h(x,y) f(x,y) dx dy
+\]
+if they are continuous.
+\newline
+
+Note: even though $h(X,Y)$ is a random variable itself, and it has a new density, we don't have to use that to find it's expected value. (LOTUS)
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proposition}
+
+Let $X_1, X_2, \ldots, X_n$ be independent random variables and assume that all the expected values we write down exist. Then
+\[
+E[h_1(X_1)h_2(X_2)\cdots h_n(X_n)] = E[h_1(X_1)] \times \cdots \times E[h_n(X_n)]
+\]
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definition}
+
+The \textbf{covariance} between two rvs $X$ and $Y$ is 
+\[
+\operatorname{Cov}(X,Y) = E[(X - EX)(Y - EY)]
+\]
+if these are jointly cts, then
+\[
+\operatorname{Cov}(X,Y) = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} (x - \mu_X)(y - \mu_Y) f(x,y)dx dy
+\]
+if discrete then 
+\[
+\operatorname{Cov}(X,Y) = \sum_x \sum_y (x - \mu_X)(y - \mu_Y) p(x,y)
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Covariance}
+
+If $\operatorname{Cov}(X,Y) > 0$ that means $(X-\mu_X)$ and $(Y-\mu_Y)$ tend to be the same sign (both negative, or both positive).
+\newline
+
+If $\operatorname{Cov}(X,Y) < 0$ that means $(X-\mu_X)$ and $(Y-\mu_Y)$ tend to be opposite signs (ones positive and the other is negative, and vice versa)
+\newline
+
+Remember that this is a probability weighted average. If a covariance is positive, for example, that tells you they have the same sign on \emph{average}.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proposition}
+
+\[
+\operatorname{Cov}(X,Y) = E[XY] - E[X]E[Y]
+\]
+
+Here's a proof:
+\begin{align*}
+\operatorname{Cov}(X,Y) &= E[(X - EX)(Y - EY)]\\
+&= E[XY - X(EY) - (EX)Y + (EX)(EY)] \\
+&= E[XY] - E[X(EY)] - E[(EX)Y] + E[(EX)(EY)] \\
+&= E[XY] - E[X](EY) - (EX)E[Y] + (EX)(EY) \\
+&= E[XY] - E[X]E[Y]
+\end{align*}
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+
+\begin{block}{Covariance formula}
+\[
+\operatorname{Cov}(X,Y) = E[XY] - E[X]E[Y]
+\]
+\end{block}
+
+It is sometimes easier to use this formula! For example, if you have the first two derivatives of a moment generating function.
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proposition}
+
+The following is called \emph{bilinearity}. If $a$ and $b$ are constants, $X$, $Y$ and $Z$ are three rvs...
+\[
+\operatorname{Cov}(X + Y,Z) = \operatorname{Cov}(X,Z) + \operatorname{Cov}(Y,Z)
+\]
+\[
+\operatorname{Cov}(X, Y + Z) = \operatorname{Cov}(X,Y) + \operatorname{Cov}(X,Z)
+\]
+
+\[
+\operatorname{Cov}(aX, Y) = \operatorname{Cov}(X,aY) = a \operatorname{Cov}(X,Y) 
+\]
+
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proposition}
+
+What's $\operatorname{Cov}(X,X)$?
+\pause
+
+\begin{align*}
+\operatorname{Cov}(X,X) &= E[(X - EX)(X - EX)] \\
+&= E[(X-EX)^2] \\
+&= \operatorname{Var}[X]
+\end{align*}
+
+
+
+
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+``It would appear that the relationship in the insurance example is quite strong since $\operatorname{Cov}(X,Y) = 1875$, whereas in the nut example $\operatorname{Cov}(X,Y) = -\frac{2}{75}$ would seem to imply quite a weak relationship."
+\newline
+
+This isn't true, though. You can't compare covariances. The number depends on the scale. For instance, if you compared the correlation between prices of one item with another item, it totally depends on whether you're talking about dollars or cents. 
+\newline
+
+You can see this formally just using bilinearity. For any $X$, $Y$, and $a,b \neq 1$, $\operatorname{Cov}(aX,bY) = ab\operatorname{Cov}(X,Y) \neq \operatorname{Cov}(X,Y)$.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Definition}
+
+That's why we talk about \textbf{correlation}
+\[
+\operatorname{Corr}(X,Y) = \frac{\operatorname{Cov}(X,Y)}{\sqrt{\operatorname{Var}(X) \operatorname{Var}(Y) }}
+\]
+\newline
+
+It might help to think about it like this:
+\[
+\operatorname{Corr}(X,Y) = \operatorname{Cov} \left[ \frac{X}{ \sqrt{\operatorname{Var}(X)} }, \frac{Y}{\sqrt{\operatorname{Var}(Y)} } \right]
+\]
+
+where $\operatorname{Var}  \left[ \frac{X}{ \sqrt{\operatorname{Var}(X)} } \right] = \frac{1}{\operatorname{Var}(X) } \operatorname{Var}(X) = 1$
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Correlation}
+
+A few more things (prove these on your own)
+\begin{enumerate}
+\item if $a$ and $c$ have the same sign, $\operatorname{Corr}(aX + b, cY + d) = \operatorname{Corr}(X,Y)$
+\item $-1 \le \operatorname{Corr}(X,Y) \le 1$
+\item if $X$ and $Y$ are independent, then $\operatorname{Corr}(X,Y) = 0$
+\item if $\operatorname{Corr}(X,Y) = 0$, $X$ and $Y$ can still be dependent
+\item $|\operatorname{Corr}| = 1$ if and only if $Y = aX + b$ for some scalars $a,b$ with $a \neq 0$
+\end{enumerate}
+
+Note: to prove (2) and one half of (5), you need something called the Cauchy-Schwarz inequality \\
+
+Note: also recall the old adage, ``correlation is not causation," so this one number summary says nothing about causality
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proof of 3}
+
+Prove that ``independence" is stronger than ``uncorrelated." That is prove that independence implies $\text{Corr}(X,Y) = 0$.
+\pause
+
+Using the previous slides:
+\[
+\operatorname{Cov}(X,Y) = E[XY] -E[X]E[Y] = E[X]E[Y] - E[X]E[Y] = 0
+\]
+So $\text{Corr}(X,Y) = 0$.
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Another Example}
+
+What is the correlation between $X$ and $Y = aX + b$? $a$ and $b$ are real-valued constants.
+\pause
+
+\begin{align*}
+\operatorname{Corr}(X,Y) &= \frac{\operatorname{Cov}(X,Y)}{\sqrt{\operatorname{Var}(X) \operatorname{Var}(Y) }} \\
+&= \frac{\operatorname{Cov}(X,aX+b)}{\sqrt{\operatorname{Var}(X) \operatorname{Var}(aX+b) }} \\
+&= \frac{\operatorname{Cov}(X,aX)}{\sqrt{\operatorname{Var}(X) \operatorname{Var}(aX) }} \\
+&= \frac{a \operatorname{Cov}(X,X)}{\sqrt{\operatorname{Var}(X) a^2 \operatorname{Var}(X) }} \\
+&= \frac{a}{|a|} 
+\end{align*}
+
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Another Example}
+
+What is the variance of $w_1X + w_2Y$? What if they are independent? Hint: use bilinearity!
+\pause 
+
+\begin{align*}
+\operatorname{Var}[w_1X + w_2Y] &= \operatorname{Cov}(w_1X + w_2Y, w_1X + w_2Y) \\
+&= \operatorname{Cov}(w_1X + w_2Y, w_1X ) + \operatorname{Cov}(w_1X + w_2Y,  w_2Y) \\
+&= \operatorname{Cov}(w_1X , w_1X ) + \operatorname{Cov}(w_2Y, w_1X )  + \\
+& \hspace{5mm} \operatorname{Cov}(w_1X ,  w_2Y) + \operatorname{Cov}(w_2Y,  w_2Y) \\
+&= w_1^2 \operatorname{Var}[X] + 2w_1w_2\operatorname{Cov}(X,Y) + w_2^2 \operatorname{Var}[Y] \\
+\end{align*}
+
+If they're independent, the covariance is $0$. Can you use this result to find the variance of $X-Y$?
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Joint Entropy}
+
+We don't focus that much on this sort of stuff, but Joint Entropy is another cool example and it is defined for both continuous and discrete rvs. 
+\newline
+
+Let $h(X,Y) = -\log f(X,Y)$ or $h(X,Y) = -\log p(X,Y)$, the ``surprise."
+\[
+E[-\log f(X,Y)] = \iint -\log f(x,y) f(x,y)dx dy
+\]
+or
+\[
+E[-\log p(X,Y)] = \sum_x \sum_y -\log p(x,y) p(x,y)
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Another Example}
+
+Multivariate LOTUS is a special case for univariate LOTUS. Define $h(X,Y) = h(X)$. WLOG assume $X$ and $Y$ are both continuous:
+
+\[
+E[h(X,Y)] = \iint h(x) f(x,y)dx dy = \int h(x) f(x) dx = E[h(X)]
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Example}
+
+``Kullback-Leibler (KL) Divergence:"
+\[
+KL(p || q) = E_p[\log\left(\frac{p(x)}{q(x)}\right)]
+\]
+
+Continuous:
+\[
+\int \log\left(\frac{p(x)}{q(x)}\right)p(x) dx
+\]
+or discrete:
+\[
+\sum_x \log\left(\frac{p(x)}{q(x)}\right) p(x) 
+\]
+It compares two distributions for the same random variable $X$. 
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Example (continued)}
+
+``Kullback-Leibler (KL) Divergence"
+
+We could extend this to the multivariate case as follows:
+\[
+KL(f^1_{X,Y} || f^2_{X,Y}) = E_1\left[\log\left(\frac{f^1(X,Y)}{f^2(X,Y)} \right) \right] 
+\]
+
+\begin{itemize}
+\item continuous: $\iint \log\left(\frac{f^1(x,y)}{f^2(x,y)} \right) f^1_{X,Y}(x,y) dx dy$
+\item discrete : $\sum_x \sum_y \log\left(\frac{f^1(x,y)}{f^2(x,y)} \right) f^1_{X,Y}(x,y) $
+\end{itemize}
+
+
+\end{frame}
+
+
+
+
+\end{document} 

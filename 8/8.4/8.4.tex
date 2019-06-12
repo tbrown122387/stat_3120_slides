@@ -1,0 +1,133 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["8.4"]{8.4: Confidence Intervals for the Variance and Standard Deviation of a Normal Population}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+ 
+We have the same set up as the last chapter (that is, a normal random sample). Now instead of being concerned about $\mu$, we're concerned about $\sigma$ or $\sigma^2$.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{The set-up}
+ 
+Recall that if $X_1, \ldots, X_n \overset{iid}{\sim} \mathcal{N}(\mu, \sigma^2)$, then
+\[
+\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}.
+\]
+
+Now let 
+\[
+\chi^2_{\alpha, \nu}
+\]
+denote the $(1-\alpha)$100th percentile of the $\chi^2_{\nu}$ distribution.
+\newline
+
+It is important to remember that the $\chi^2_{\nu}$ distribution isn't symmetric, so $\chi^2_{1 - \alpha, \nu} \neq -\chi^2_{\alpha, \nu}$. We have to find two quantiles per problem this time.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example}
+
+But the idea is the same as in previous chapters:
+\[
+P \left( \chi^2_{1 - \alpha/2, n-1} \le \frac{(n-1)S^2}{\sigma^2} \le \chi^2_{\alpha/2, n-1} \right) = 1- \alpha
+\]
+or
+\[
+P \left( \sigma^2 \chi^2_{1 - \alpha/2, n-1} \le (n-1)S^2 \le \sigma^2 \chi^2_{\alpha/2, n-1} \right) = 1- \alpha
+\]
+or
+\[
+P \left( \sigma^2  \le \frac{(n-1)S^2}{\chi^2_{1 - \alpha/2, n-1}} \text{  and  } \sigma^2 \ge \frac{(n-1)S^2}{\chi^2_{ \alpha/2, n-1}} \right) = 1- \alpha
+\]
+So our $(1-\alpha)$100th percentile for $\sigma^2$ is $\left[ \frac{(n-1)S^2}{\chi^2_{ \alpha/2, n-1}}, \frac{(n-1)S^2}{\chi^2_{1 - \alpha/2, n-1}} \right]$
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\end{document} 

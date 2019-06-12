@@ -1,0 +1,257 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["2.4"]{2.4: Conditional Probability}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+Sometimes the probabilities of events change with the set of available information that we have. 
+\newline
+
+Example: Let $A = \{\text{Google's share price increases tomorrow}\}$. Then $P(A) \approx .5$
+\newline
+
+But if we let $C = \{\text{the government bans access to google.com}\}$, what's $P(A \text{ given } C)$?
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Conditional Probability}
+
+The notation: we'll write  $P(A \text{ given } C)$ like $P(A|C)$. And here's the formula:
+
+\[
+P(A|C) = \frac{P(A \cap C)}{P(C)}
+\]
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Note}
+
+\begin{enumerate}
+\item It helps to think of this in the context of venn diagrams
+\item $C \neq \varnothing$, otherwise we're dividing by $0$ using this definition
+\item sometimes we'll use  $P(A|C)P(C) = P(A \cap C)$
+
+\end{enumerate}
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example 2.26 (pg. 76)}
+
+\begin{align*}
+P(A | B \cup C) &= \frac{P(A \cap (B \cup C))}{P(B \cup C)} \\
+&= \frac{P[(A \cap B) \cup (A \cap C)]}{P(B \cup C)} \\
+&= \frac{P(A \cap B) + P(A \cap C) - P((A \cap B) \cap (A \cap C)) }{P(B \cup C)} \\
+&= \frac{P(A \cap B) + P(A \cap C) - P(A \cap B \cap A \cap C) }{P(B \cup C)} \\
+&= \frac{P(A \cap B) + P(A \cap C) - P(A \cap B \cap C) }{P(B) + P(C) - P(B \cap C)} \\
+&= .255
+\end{align*}
+
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example}
+
+Remember we said we would use $P(A|C)P(C) = P(A \cap C)$ a lot? This is useful in situations where there is some sort of sequential thing going on, or there are several stages of some random process.
+\newline
+
+Example: you're only interested in if the stock market goes up or down. The events that it goes up on Monday, Tuesday, Wednesday, Thursday and Friday are $A_1, A_2, A_3, A_4$ and $A_5$, respectively. The changes that it goes up or goes down only depend on what happened the day before (unless it's a Monday in which case let's assume it goes up or down with probability .5). Say there's a 75\% chance that it does the same thing as it did the day before. This means that there is a 25\% chance it does the opposite. What's the probability the market goes up every day of the week?
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example}
+
+\begin{align*}
+P(\text{goes up every day}) &= P(A_5 \cap A_4 \cap \cdots \cap A_1) \\
+&= P(A_5 | A_4 \cap A_3 \cap A_2 \cap A_1)P(A_4 |A_3 \cap A_2 \cap A_1) \times \\
+&      P(A_3 |  A_2 \cap A_1) P(A_2 | A_1) P(A_1) \\
+&= P(A_5 | A_4)P(A_4 |A_3)P(A_3 |  A_2) P(A_2 | A_1) P(A_1) \\
+&= (.75)(.75)(.75)(.75)(.5)
+\end{align*}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Motivation}
+
+Conditional probability is also a precursor for a thing called \textbf{Bayes' Theorem}. We need a few more ideas before we get there though...
+\newline
+
+If $A_1, \ldots, A_k$ are all pairwise disjoint and if $\bigcup_{i=1}^k A_i = \mathcal{S}$, then 
+\[
+P(B) = \sum_{i=1}^k P(B|A_i)P(A_i)
+\]
+
+
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+
+\begin{frame}
+\frametitle{Proof}
+
+Notice that
+
+\begin{align*}
+P(B) &= P(B \cap \mathcal{S}) \\
+&= P(B \cap (\cup_{i=1}^k A_i)) \\
+&= P\left(\cup_{i=1}^k (A_i \cap B) \right) \\
+&= \sum_{i=1}^k P\left( A_i \cap B \right) \\
+&= \sum_{i=1}^k P\left( B | A_i \right) P(A_i)
+\end{align*}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Bayes' Rule}
+
+Here's Bayes' theorem:
+
+\[
+P(A_j | B) = \frac{P(B | A_j) P(A_j) }{\sum_{i=1}^kP(B | A_i) P(A_i)}
+\]
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Note}
+
+A key take-away here is that there's a switch thing going on...the left hand side has probabilities conditioning on $B$, whereas the right hand side has probabilities conditioning on $A$s.
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example}
+
+Example 2.30 pops up in STAT 2020/2120 a lot...
+\newline
+
+Let $D$ be the event that a person has a rare disease. Let $T$ be the event that you test positive for this disease. The bottom of page 80 gives us $P(D) = .001$, $P(T|D) = .99$ and $P(T|D') = .02$. What's the probability that a person has the disease if he/she is told that he/she has it?
+\pause 
+\newline
+
+\[
+P(D|T) = \frac{P(T|D)P(D)}{P(T|D)P(D) + P(T|D')P(D')} = .047
+\]
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+
+
+\end{document} 

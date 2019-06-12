@@ -1,0 +1,241 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["2.3"]{2.3: Counting Techniques}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+If each outcome is equally likely, and there are $N$ distinct (think disjoint) outcomes, then the probability of any outcome $O$ is $P(O) = \frac{1}{N}$. Then computing probabilities of events is basically just counting up how many outcomes are in that event (i.e. $P(A) = \frac{\text{num. outcomes in A}}{N}$) (Note: same thing as page 66) (also: why can we add probabilities like this?)
+\newline
+
+When you have discrete random variables, counting rules help you find out how big the sample space is and/or how many outcomes are in your event in question.
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Product Rule for Ordered Pairs}
+
+If you have an ordered k-tuple of $k$ elements ($O_1, O_2, \ldots O_k$), where the $i$th element can be arranged $n_i$ ways where $i = 1, \ldots, k$, then the total number of possible tuples is 
+\[
+n_1 \times n_2 \times \cdots \times n_k
+\]
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Product Rule for Ordered Pairs}
+
+Example: 
+how many 4-digit passcodes are there for your phone?
+\newline
+
+how many 4-digit passcodes are there that start with $5$?
+\newline
+
+If you know that your friends passcode starts with a $5$, what is the chance that you can guess it correctly in one try?  You will have to assume that all the passcodes are equally likely.
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Product Rule for Ordered Pairs}
+
+Note(s):
+\begin{enumerate}
+\item The author recommends drawing tree diagrams to visualize situations like these.
+\item The previous scenario's drawing mechanism is sometimes described as being \emph{with replacement} since the number of ways the $i$th element can occur doesn't affect subsequent or previous draws
+\item now we'll talk about draws that are made \emph{without replacement}
+\item we'll do a few examples to make this idea clearer
+\end{enumerate}
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Permutations}
+
+What if instead you were taking $k$ things from $n$, and when you took an item, it couldn't be chosen again (e.g. people picking a seat at a table). 
+\newline
+
+Any ordered sequence of $k$ objects taken from a set of $n$ distinct objects is called a \textbf{permutation}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Permutations}
+
+Example 2.2.1 from page 69: 10 teaching assistants are available. The professor needs a TA to grade exactly one problem each on a 4 problem test. How many ways can he pick TAs to grade his problems?
+
+\[
+\text{number of ways} = 10 * (10 - 1) * (10 - 2) * (10 - 3)
+\]
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Permutations}
+
+In general we call the number of permutatons of $k$ things from $n$ $P_{k,n}$. It's formula is:
+
+\[
+P_{k,n} = n(n-1)\cdots(n-k+2)(n-k+1) = \frac{n!}{(n-k)!}
+\]
+
+If you haven't seen factorials before: $m! = (m)(m-1)\cdots(2)(1)$
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+
+\begin{frame}
+\frametitle{Combinations}
+
+We just highlighted the distinction between \emph{with replacement} and \emph{without replacement}.
+\newline
+
+Now another distinction: \textbf{ordered} and \textbf{unordered}
+\newline
+
+Example: in the previous problem the professor cared which TA graded which problem; in other words, the order mattered. What if he only cared about which TAs he chose, and he didn't care about what assignment they had?
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Combinations}
+
+Given a set of $n$ objects, any unordered subset of size $k$ that can be formed is called a \textbf{combination}
+\newline
+
+The number of combinations of size $k$ from $n$ things is often denoted by the ${n \choose k}$, read as ``$n$ choose $k$" and its formula is 
+
+\[
+{n \choose k} = \frac{n!}{k!(n-k)!}
+\]
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{a connection...}
+
+When there is \emph{no replacement}, the connection between the number of ordered and unordered things is 
+\[
+P_{k,n} = k! {n \choose k}
+\]
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Combinations}
+
+Example: how many 5-card poker hands are there in a 52 card deck?
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+
+
+\end{document} 

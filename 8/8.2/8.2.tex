@@ -1,0 +1,338 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["8.2"]{8.2: Large-Sample Confidence Intervals for a Population Mean and Proportion}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Motivation}
+
+Last section we found intervals using an expression $h(X_1, \ldots, X_n, \theta)$. This quantity 
+
+\begin{itemize}
+\item had its representation depend on only the parameter of interest $\theta$
+\item had a known probability distribution (specifically, it did NOT depend on the unknown parameter) $\theta$
+\end{itemize}
+
+Q: What if finding  $h(X_1, \ldots, X_n, \theta)$ is difficult/impossible?\\
+A: We can find an approximate probability distribution for it.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Exact Interval 1}
+
+We saw if $X_1, \ldots, X_n \overset{iid}{\sim} \mathcal{N}(\mu, \sigma^2)$, then our confidence interval for $\mu$ was based on the fact that
+\[
+P( - z_{\alpha/2} \le \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \le z_{\alpha/2}) = 1-\alpha
+\]
+
+since $\bar{X} \sim \mathcal{N}(\mu, \frac{\sigma^2}{n})$
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Exact Interval 2}
+
+Next section, we will see if $X_1, \ldots, X_n \overset{iid}{\sim} \mathcal{N}(\mu, \sigma^2)$, and we din't know $\sigma^2$, then our confidence interval for $\mu$ will be based on 
+\[
+P\left( - t_{\alpha/2,n-1} \le \frac{\bar{X} - \mu}{s / \sqrt{n}} \le t_{\alpha/2,n-1}\right) = 1-\alpha.
+\]
+\newline
+
+This is because $\frac{\bar{X} - \mu }{s / \sqrt{n}} \sim t_{n-1}$
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+What if our data are not randomly sampled from a normal distribution though (they could be strictly positive, they could have some skew in their histogram, etc.)
+\newline
+
+An easy and still highly accurate solution is to use the Central Limit Theorem (CLT). If $X_1, \ldots, X_n$ is a random sample from some other distribution, and if it has its first and second moments, then 
+
+\[
+\bar{X} \overset{approx}{\sim} \mathcal{N}(\mu, \frac{\sigma^2}{n})
+\]
+\[
+\frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \overset{approx}{\sim} \mathcal{N}(0,1)
+\]
+\[
+\frac{\bar{X} - \mu}{s / \sqrt{n}} \overset{\text{approx}}{\sim} \mathcal{N}(0,1)
+\]
+if $n$ is *large*
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{A generalization}
+
+Then they go on to generalize this a bit. They say we can make a confidence interval for $\theta$ with $\hat{\theta}$ with this:
+\[
+P\left(- z_{\alpha/2} \le \frac{\hat{\theta} - \theta}{\sqrt{\operatorname{Var}\left(\hat{\theta} \right)} } \le z_{\alpha/2}\right) \approx 1 - \alpha
+\]
+if
+
+\begin{enumerate}
+\item $\hat{\theta}$ is approximately normal (CLT or MLE justification)
+\item $\hat{\theta}$ is approximately unbiased 
+  \begin{itemize}
+  \item if CLT justification: compute the expectation and take the limit to find out
+  \item if MLE justification: asymptotic unbiasedness is guaranteed
+  \end{itemize}
+\item the standard deviation of $\hat{\theta}$ is available: $\sigma_{\hat{\theta}}$
+  \begin{itemize}
+  \item if CLT justification: compute the variance directly
+  \item if MLE justification: reciprocal of CRLB
+  \end{itemize}
+\end{enumerate}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example}
+
+This example has its own section on page 395. Let $X \sim \text{Binomial}(n,p)$. Then we estimate $p$ with $\hat{p} = \frac{X}{n}$.
+\newline
+
+We've already showed that $E\hat{p} = p$ and $SE[\hat{p}] = \sqrt{\frac{p(1-p)}{n}}$. By the previous slide, we can use that z-score-ish confidence interval. 
+
+\[
+P \left( - z_{\alpha/2} \le \frac{\hat{p} - p}{\sqrt{\frac{p(1-p)}{n} } } \le z_{\alpha/2} \right) \approx 1 - \alpha
+\]
+
+Note, this interval is also suggested by the MLE properties: this estimator's variance achieved the CRLB, remember.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example}
+
+I leave it to you to check that this is the large-sample (CLT) CI. Isolating $p$ involves finding the roots of a quadratic polynomial. 
+\[
+\tilde{p} \pm z_{\alpha/2} \frac{\sqrt{\hat{p}\hat{q}/n + z_{\alpha/2}^2/4n^2 } }{1 + z_{\alpha/2}^2/n}
+\]
+
+where $\tilde{p} = \frac{\hat{p}+ z_{\alpha/2}^2/2n }{1  + z_{\alpha/2}^2/n }$ and $\hat{q} = 1 - \hat{p}$
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example 2}
+
+Let $X_1, \ldots, X_n \overset{iid}{\sim} \text{Poisson}( \lambda )$. By the CLT, $\frac{\bar{X} - \lambda}{\sqrt{\frac{\lambda }{n}} } \overset{approx}{\sim} \text{Normal}(0,1 )$
+
+\begin{align*}
+.95 &= P \left( -z_{.025} < \frac{\bar{X} - \lambda}{\sqrt{\frac{\lambda}{n}}} < z_{.025} \right) \\
+&= P \left(-z_{.025}\sqrt{\frac{\lambda}{n}} < \bar{X} - \lambda < z_{.025} \sqrt{\frac{\lambda}{n}} \right) \\
+&= P\left( z_{.025}^2 \frac{\lambda}{n} > (\bar{X} - \lambda)^2 \right) \\
+&= P\left( z_{.025}^2 \frac{\lambda}{n} > \bar{X}^2 + \lambda^2 - 2 \lambda \bar{X} \right) \\
+&=P\left( 0 > -z_{.025}^2 \frac{\lambda}{n} + \bar{X}^2 + \lambda^2 - 2 \lambda \bar{X} \right) \\
+\end{align*}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example 2}
+
+\begin{align*}
+\cdots &= P\left( 0 > -z_{.025}^2 \frac{\lambda}{n} + \bar{X}^2 + \lambda^2 - 2 \lambda \bar{X} \right) \\
+&= P\left( 0 > \lambda^2 \left[1 \right] + \lambda \left[-\frac{z_{.025}^2}{n} - 2 \bar{X}\right] + [\bar{X}^2] \right) \\
+&= P\left(0 > a \lambda^2 + b \lambda + c  \right)\\
+&= P\left(-\frac{b}{2a} - \frac{\sqrt{b^2-4ac}}{2a}< \lambda < -\frac{b}{2a} + \frac{\sqrt{b^2-4ac}}{2a}  \right)
+\end{align*}
+
+So our confidence interval is $\left[-\frac{b}{2a} - \frac{\sqrt{b^2-4ac}}{2a} , -\frac{b}{2a} + \frac{\sqrt{b^2-4ac}}{2a} \right]$ or 
+
+\[
+\left[-\frac{1}{2}\left[-\frac{z_{.025}^2}{n} - 2 \bar{X}\right] \pm \frac{\sqrt{\left[-\frac{z_{.025}^2}{n} - 2 \bar{X}\right]^2-4\bar{X}^2}}{2} \right]
+\]
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{An easier way...}
+
+
+And if we don't want to use $\sigma_{\hat{\theta}}$, then we can plug in its estimate $\widehat{\sqrt{\operatorname{Var}\left(\hat{\theta} \right)} } = \widehat{\sigma_{\hat{\theta}}}$. 
+
+\begin{enumerate}
+\item This will always be justified in this class, and we will never prove why.
+\item We are using a CLT-like justification
+\end{enumerate}
+
+\[
+P\left(- z_{\alpha/2} \le \frac{\hat{\theta} - \theta}{\widehat{\sigma_{\hat{\theta}}}} \le z_{\alpha/2}\right) \approx 1 - \alpha
+\]
+
+...valid under 'general conditions'
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example}
+
+
+This is an adjustment of the last example. $X \sim \text{Binomial}(n,p)$ still, and we're still estimating $p$ with $\hat{p} = \frac{X}{n}$. Recall $SE[\hat{p}] = \sqrt{\frac{p(1-p)}{n}}$. Now we just use \emph{estimated} standard error (we replace all the $p$s with $\hat{p}$s): $\sqrt{\frac{ \hat{p} (1- \hat{p} )}{n}}$
+\newline
+
+\[
+P \left( - z_{\alpha/2} \le \frac{\hat{p} - p}{ \sqrt{\frac{ \hat{p} (1- \hat{p} )}{n}} } \le z_{\alpha/2} \right) \approx 1 - \alpha
+\]
+
+...and this one is a lot easier to work with (no quadratic formula or anything)
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Overview of Approximate Intervals}
+
+If $\hat{\theta}$ is approximately normal, we can start with either
+
+\begin{enumerate}
+\item $P(-z_{\alpha/2} \le \frac{\hat{\theta}-\theta }{\sqrt{\operatorname{Var}\left(\hat{\theta} \right)} } \le z_{\alpha/2})$
+\item $P(-z_{\alpha/2} \le \frac{\hat{\theta}-\theta }{\widehat{\sigma_{\hat{\theta}}} } \le z_{\alpha/2})$
+\end{enumerate}
+
+Two justifications for $\hat{\theta}$ being normal:
+\begin{enumerate}
+\item $\hat{\theta}$ looks like a sample mean (CLT)
+\item $\hat{\theta}$ is the MLE estimator
+\end{enumerate}
+
+Two ways to handle the standard error
+\begin{itemize}
+\item exact standard error and CRLB reciprocal: $\sqrt{\operatorname{Var}\left(\hat{\theta} \right)}$
+\item estimated standard error with plug-in estimates: $\widehat{\sqrt{\operatorname{Var}\left( \hat{\theta} \right)}}$
+\end{itemize}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Definition}
+
+This chapter also shows you how to compute \textbf{one-sided confidence intervals/bounds}.
+\newline
+
+If you want a lower bound, you isolate $\mu$ inside the parentheses in this expression:
+\[
+P\left( \frac{\bar{X} - \mu}{s /\sqrt{n} } \le z_{\alpha} \right) \approx 1 - \alpha.
+\]
+
+If you want an upper bound, you isolate $\mu$ using this:
+\[
+P\left(-z_{\alpha} \le \frac{\bar{X} - \mu}{s /\sqrt{n} }  \right) \approx 1 - \alpha.
+\]
+
+...so the quantiles change, and you only need one of them instead of two.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definition}
+
+Here we write out the \textbf{large-sample upper confidence bound for $\mu$}
+\[
+(- \infty, \bar{x} + z_{\alpha} \frac{s}{\sqrt{n}}]
+\]
+and the \textbf{large-sample lower confidence bound for $\mu$}
+\[
+[\bar{x} - z_{\alpha} \frac{s}{\sqrt{n}}, \infty)
+\]
+for a reference.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\end{document} 

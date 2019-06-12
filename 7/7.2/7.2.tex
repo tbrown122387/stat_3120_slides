@@ -1,0 +1,491 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["7.2"]{7.2: Methods of Point Estimation}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+Given a model, we've learned how to answer probabilistic questions. If I tell you your data is coming from a normal distribution with parameters $\mu = 10$ and $\sigma^2 = 2$, you can answer any question you want. 
+\newline
+
+In real life, however, we won't be given a completely specified model. We'll have strong ideas about what types of procedures and distributions are appropriate, but that isn't enough. We need to figure the parameters. That's what we'll do in this section.
+\newline
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definition}
+
+Let $X_1, \ldots, X_n$ be a random sample from the pmf or pdf $f(x)$. For $k = 1, 2, \ldots$, the \textbf{k-th population moment} is $E[X^k]$. We learned about these earlier already. 
+\newline
+
+Contrast that with a \textbf{kth sample moment}, which is $\frac{ \sum_i^n X_i^k}{n}$
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Definitions}
+
+Let $X_1, \ldots, X_n$ be a random sample from a distribution with pmf or pdf $f(x; \theta_1, \ldots, \theta_m)$, where $\theta_1, \ldots, \theta_m$ are parameters whose values are unknown. The \textbf{moment estimators} $\hat{\theta}_1, \hat{\theta}_2, \ldots, \hat{\theta}_m$  are obtained by equating the first \emph{m} sample moments to the corresponding first \emph{m} population moments. 
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Definitions}
+
+If there are $m$ parameters $\theta_1, \ldots, \theta_m$, then we solve $m$ equations:
+\[ 
+\left( \begin{array}{c}
+E[X]  \\
+E[X^2]  \\
+\vdots \\
+E[X^m] \end{array} \right)
+\overset{set}{=}
+\left( \begin{array}{c}
+\frac{\sum_i^n X_i}{n}  \\
+\frac{\sum_i^n X^2_i}{n}  \\
+\vdots \\
+\frac{\sum_i^n X^m_i}{n}  \end{array} \right)
+\] 
+
+Note: the left hand side will be a vector of functions of all the different thetas, and the right hand side will be functions of the data
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+
+\begin{frame}
+\frametitle{Example (example 7.13 on page 351)}
+
+Assume $X_1, \ldots, X_n \overset{i.i.d.}{\sim} \text{Exponential}(\lambda)$. Estimate $\lambda$. 
+\newline
+\pause
+
+There's only one parameter, so we only need one equation.
+Because $EX = 1/\lambda$, we get $\hat{\lambda} = \frac{1}{\bar{X}}$
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example 2}
+
+Assume $X_1, \ldots, X_n \overset{i.i.d}{\sim} \mathcal{N}(\mu, \sigma^2)$. Estimate $\mu$ and $\sigma^2$. 
+\newline
+\pause
+
+Recall $EX = \mu$ and $E[X^2] = V[X] + (EX)^2 = \sigma^2 + \mu^2$. So we solve the following system of equations:
+
+\[ 
+\left( \begin{array}{c}
+\mu  \\
+\sigma^2 + \mu^2  \end{array} \right)
+\overset{set}{=}
+\left( \begin{array}{c}
+\frac{\sum_i^n X}{n}  \\
+\frac{\sum_i^n X^2}{n}  \end{array} \right)
+\] 
+
+which yields 
+\[
+\hat{\mu} = \bar{X}
+\]and 
+\begin{align*}
+\hat{\sigma}^2 &= \frac{\sum_i X_i^2}{n} - (\hat{\mu})^2 = \frac{\sum_i X_i^2}{n} - (\bar{X})^2 \\
+&= \frac{\sum_i X_i^2 - n \bar{X}^2}{n} = \frac{1}{n}\sum_i(X_i - \bar{X})^2
+\end{align*}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Definitions}
+
+We will also learn another way to estimate parameters. This way usually has nicer properties. It's called \textbf{maximum likelihood estimation}. First, we have to set this up a bit.
+\newline
+
+Without loss of generality, let's talk about cts rvs. So we have a density function $f(x; \theta)$. Until now, we've assumed we're given the parameters $\theta$, so it's a function in $x$. However, what if we look at it after we get data (so the $x$ is known), and we're thinking about it like a function in $\theta$? 
+\newline
+
+It's the same function, but we're thinking about it two different ways. We used to hold $\theta$ fixed, but now we're fixing the data, $x$. 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example 7.16 on page 352 (ten people and their bike helmets)}
+
+Let $X_1, \ldots, X_n \overset{i.i.d.}{\sim} \text{Bernoulli}(p)$. Then
+\[
+f(x_1, \ldots, x_n; p) = \prod_i^n p(x_i;p) = \prod_i^n p^{x_i}(1-p)^{1 - x_i} = p^{\sum_i x_i}(1-p)^{n - \sum_i x_i}
+\]
+
+If our data set is $1, 0, 1, 0, 0, 0, 0, 0, 0, 1$, then 
+\[
+f(x_1, \ldots, x_n; p) = p^3(1-p)^7
+\]
+
+This is a function of $p$ now. If we plug in a value of $p$, this function will tell us how \emph{likely} that value is. We don't say how \emph{probable} it is, because technically, there is nothing random going on if we've already observed the data. 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{A word on notation}
+
+The likelihood function has nothing to do with probability, since there is nothing random going on. That's why we say \emph{likely} instead of \emph{probable}. These are synonyms in real life, but in statistics they are jargon. 
+\newline
+
+So even though densities/pmfs have the same formulas as likelihood functions, they have different interpretations in this chapter. That's why in many textbooks, to emphasize this, they will write the likelihood as $L(\theta ; \mathbf{X})$ instead of $f(\mathbf{X}; \theta)$ . 
+\newline
+
+However, the authors of this textbook seem to favor consistency in notation. I'm going to stick with the book and keep writing $f(x_1, \ldots, x_n; \theta)$, so that my slides cohere. 
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{And another thing}
+
+Instead of maximizing the likelihood, we will often maximize the log of the likelihood. $f' = 0$ if and only if $(\log f)' = 0$, so these functions have the same maximizers. 
+\newline
+
+We do this because it's easier to handle mathematically. Because we are assuming independence all the time, our likelihoods are going to be in the form of a big product a lot:
+
+\[
+f_{X_1, \ldots, X_N}(x_1, \ldots, x_n) = \Pi_{i=1}^n f_{X_i}(x_i).
+\]
+
+When you take the log of this product, it turns into a big sum. And sums are easier to take the derivative of!
+
+\[
+\log f_{X_1, \ldots, X_N}(x_1, \ldots, x_n) = \log \Pi_{i=1}^n f_{X_i}(x_i) = \sum_{i=1}^n \log f_{X_i}(x_i).
+\]
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example 7.16 again}
+
+Recall that we had 
+\[
+f(x_1, \ldots, x_n; p) = p^3(1-p)^7.
+\]
+
+You can try setting the derivative of that thing equal to $0$, or you can set the derivative of the log likelihood equal to $0$:
+\[
+\log f(x_1, \ldots, x_n; p) = 3 \log p + 7 \log(1-p).
+\]
+We set the derivative of this equal to $0$. $3/p - 7/(1-p) \overset{set}{=} 0$ gives us $\hat{p} = 3/10$.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Definitions}
+
+For a joint pmf or pdf $f(x_1, \ldots, x_n; \theta_1, \ldots, \theta_m)$, the \textbf{maximum likelihood estimates} $\hat{\theta}_1, \ldots, \hat{\theta}_m$ for the parameters are such that
+\[
+f(x_1, \ldots, x_n; \hat{\theta}_1, \ldots, \hat{\theta}_m) \ge f(x_1, \ldots, x_n; \theta_1, \ldots, \theta_m)
+\]
+for any m-tuple $\theta_1, \ldots, \theta_m$.
+\newline
+
+The \textbf{maximum likelihood estimator} is the same as above but when we replace each $x_i$ with $X_i$.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+% \begin{frame}
+% \frametitle{Example 7.20 from page 356}
+% 
+% Let $X_1, \ldots, X_n \overset{i.i.d}{\sim} \text{Weibull}(\alpha, \beta)$. So
+% \[
+% f(x;\alpha,\beta) = \frac{\alpha}{\beta^{\alpha}} x^{\alpha - 1} e^{-(x/\beta)^{\alpha}}
+% \]
+% So
+% \begin{align*}
+% f(x_1, \ldots, x_n;\alpha,\beta) = \frac{\alpha^n}{\beta^{n\alpha} } \left[ \prod_i^n x_i^{\alpha - 1}\right] \exp \left[- \sum_i \left( \frac{x_i}{\beta} \right)^\alpha \right]
+% \end{align*}
+% So
+% \[
+% \ln[f] = n \ln \alpha - n \alpha \ln \beta + (\alpha - 1) \sum_i \ln(x_i) - \sum_i \left( \frac{x_i}{\beta} \right)^\alpha
+% \]
+% 
+% \end{frame}
+\begin{frame}
+\frametitle{More examples!}
+
+Let $X_1, \ldots, X_n \overset{iid}{\sim} \text{Gamma}(1,\theta)$. Each rv has a density $f(x;\theta) = \frac{1}{\theta} e^{-x/\theta}$. For this density, $\theta >0$, as well as $x>0$. Find the MLE of $\theta$.
+\pause
+
+\[
+f(x_1,\ldots,x_n;\theta) = \prod_i \left[\frac{1}{\theta} e^{-x_i/\theta}\right] = \theta^{-n} e^{-\sum_i x_i / \theta}.
+\]
+\pause
+
+\[
+\log f(x_1,\ldots,x_n;\theta) = -n\log \theta - \theta^{-1} \sum_i x_i 
+\]
+\pause
+
+\[
+\frac{ d  \log f(x_1,\ldots,x_n;\theta)}{d \theta} = - \frac{n}{\theta} + \theta^{-2} \sum_i x_i
+\]
+\pause
+
+Setting the last expression equal to zero and solving yields $\hat{\theta} = \bar{X}$.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{More examples!}
+
+Let $X_1, \ldots, X_n \overset{iid}{\sim} f(x;\theta)$, where $f(x;\theta) = (\theta+1)x^{\theta}$.
+\pause
+
+\[
+f(x_1,\ldots,x_n;\theta) = \prod_i \left[(\theta+1)x_i^{\theta} \right] = (\theta+1)^n (\prod_i x_i)^{\theta}.
+\]
+\pause
+
+\[
+\log f(x_1,\ldots,x_n;\theta) = n\log(1+ \theta) + \theta \sum_i \log (x_i) 
+\]
+\pause
+
+\[
+\frac{ d  \log f(x_1,\ldots,x_n;\theta)}{d \theta} = \frac{n}{1+\theta} + \sum_i \log (x_i) .
+\]
+\pause
+
+Setting the last expression equal to zero and solving yields $\hat{\theta} = - \frac{n}{\sum_i \log x_i} - 1$.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+
+
+
+\begin{frame}
+\frametitle{Some Complications}
+
+Sometimes the maximum isn't where the derivative is $0$. 
+\newline
+
+Suppose we have $X_1, \ldots, X_n \overset{iid}{\sim} \text{Uniform}([0,\theta])$. Then $f(x;\theta) = 1/\theta, \hspace{2mm} 0 \le x \le \theta$. That means our joint density is 
+\[
+f(x_1, \ldots, x_n; \theta) = \theta^{-n}, \hspace{5mm} 0 \le x_1, \ldots, x_n \le \theta
+\]
+or equivalently
+\[
+f(x_1, \ldots, x_n; \theta) = \theta^{-n}, \hspace{5mm} 0 \le \max(x_1, \ldots, x_n) \le \theta
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+
+\begin{frame}
+\frametitle{Another complication}
+
+Sometimes the you can't take the deriative at all.
+\newline
+
+Recall a hypergeometric distribution. We have $N$, the size of the total population, $M$, which is the number of things in the population that have some characteristic, and $n$, our sample size.
+\[
+p(x;n,M,N) = \frac{{M \choose x}{N-M \choose n-x } }{{N \choose n }}
+\]
+
+In a capture/recapture experiment, the objective is to estimate $N$. You start of by capturing and tagging $M$ animals. You release them into the wild, and wait a bit for them to mix back in with their species. After that, you collect your data. $X$ is the number of animals out of a sample size of $n$ that you tagged.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+
+\begin{frame}
+\frametitle{Another complication (continued)}
+
+Since $N$ is an integer, $p(\mathbf{x};N)$ isn't defined on a subset of the real line; it isn't differentiable. This is how the book does it. Recall $p(x;N) = \frac{{M \choose x}{N-M \choose n-x } }{{N \choose n }}$
+
+\begin{align*}
+&p(\mathbf{x};N)  \text{ is increasing} \\
+&p(\mathbf{x};N) > p(\mathbf{x};N-1) \\
+&\frac{ p(\mathbf{x};N) }{ p(\mathbf{x};N-1) } > 1 \\
+&\frac{{N-M \choose n-x }}{{N \choose n} } \bigg/ \frac{{N - 1-M \choose n-x }}{{N - 1 \choose n} }  > 1 \\
+&\frac{(N-M)(N-n)}{N(N-M-n+x)} > 1 \\
+&N < Mn/x
+\end{align*}
+
+This means $\hat{N} = \lfloor{Mn/x} \rfloor$
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Proposition}
+
+Here's a cool property of MLE estimators called the \textbf{invariance principle}:
+\newline
+
+Let $\hat{\theta}_1, \hat{\theta}_2, \ldots, \hat{\theta}_m$ be the mles of the parameters $\theta_1, \ldots, \theta_m$. Then the mle of any function $h(\theta_1, \ldots, \theta_m)$ of these parameters is the function $h(\hat{\theta}_1, \hat{\theta}_2, \ldots, \hat{\theta}_m)$. In other words:
+
+\[
+\widehat{h(\theta_1, \ldots, \theta_m)} = h(\hat{\theta}_1, \hat{\theta}_2, \ldots, \hat{\theta}_m)
+\]
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example}
+
+Let $X_1, \ldots, X_n \overset{i.i.d.}{\sim} \mathcal{N}(\mu, \sigma^2)$. We (will) know $\hat{\mu} = \bar{X}$ and $\hat{\sigma^2} = \sum_i(X_i - \bar{X})^2 / n$. Estimate the \textbf{coefficient of variation}: $\sigma/\mu$.
+\newline
+\pause
+
+The mle estimator of this quantity is then 
+\[
+\sqrt{\hat{\sigma}^2 }/ \hat{\mu}  = \frac{\sqrt{\sum_i(X_i - \bar{X})^2 / n} }{\bar{X}}
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Another Example}
+
+Let $X_1, \ldots, X_n \overset{i.i.d.}{\sim} \mathcal{N}(\mu, \sigma^2)$. Estimate $P(X > 100) = 1 - \Phi\left(\frac{100 - \mu}{\sigma/\sqrt{n}}\right)$
+\newline
+\pause
+
+
+Just plug in $\hat{\mu}$ for $\mu$ and $\hat{\sigma}^2$ for $\sigma^2$:
+\[
+1 - \Phi\left(\frac{100 - \hat{\mu} }{ \sqrt{\hat{\sigma}^2/n} }\right)
+\]
+where $\hat{\mu} = \bar{X}$ and $\hat{\sigma^2} = \sum_i(X_i - \bar{X})^2 / n$.
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Large Sample Behavior of the MLE}
+
+Under very general conditions on the joint distribution of the sample, when the sample size is large, the MLE of any parameter $\theta$ 
+\begin{enumerate}
+\item is ``close to" $\theta$ (consistency)
+\item is approximately unbiased ($E[\hat{\theta}] \approx \theta$)
+\item has variance as nearly as small as possible
+\end{enumerate}
+
+So it's asymptotically the MVUE.
+
+\end{frame}
+
+
+
+
+\end{document} 

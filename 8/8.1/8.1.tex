@@ -1,0 +1,242 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["8.1"]{8.1: Statistical Intervals Based on a Single Sample}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+Say you want to estimate $\theta$ with $\hat{\theta}$. It's never going to be the case (with probability 1) that $\hat{\theta} = \theta$.
+\newline
+
+We need some routine where we can pick a confidence level (0-100\%) and be able to get an interval that we know will contain $\theta$ that percent of the time.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example}
+
+Recall that when $X_1, \ldots, X_n \overset{iid}{\sim} \mathcal{N}(\mu, \sigma^2)$, we have $\bar{X} \sim \mathcal{N}(\mu, \sigma^2/n)$. So we can say stuff like
+\[
+P(- z_{\alpha/2} \le \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \le z_{ \alpha/2}) = 1 - \alpha
+\]
+where $z_c$ is the $1-c$th standard normal percentile.
+\newline
+
+In this example we'll assume $\mu$ is unknown, but $\sigma^2$ is known. This is unrealistic, but it's our first example.
+
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+Remember how we can do algebra inside the probability parentheses. Then we have 
+\[
+P\left(- \frac{\sigma}{\sqrt{n}} z_{\alpha/2} \le \bar{X} - \mu \le \frac{\sigma}{\sqrt{n}} z_{ \alpha/2}\right) = 1 - \alpha
+\]
+or
+\[
+P\left(\frac{\sigma}{\sqrt{n}} z_{\alpha/2} \ge  \mu - \bar{X} \ge -\frac{\sigma}{\sqrt{n}} z_{ \alpha/2}\right) = 1 - \alpha
+\]
+
+or
+\[
+P\left(\bar{X} + \frac{\sigma}{\sqrt{n}} z_{\alpha/2} \ge  \mu  \ge \bar{X} -\frac{\sigma}{\sqrt{n}} z_{ \alpha/2}\right) = 1 - \alpha
+\]
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Motivation}
+
+So before we even observe any random data, if our data are a random sample from a normal distribution, and we know $\sigma$, we know that $\bar{X} \pm \frac{\sigma}{\sqrt{n}} z_{\alpha/2}$ covers/contains $\mu$ exactly $(1-\alpha)$ percent of the time.
+\newline
+
+It's important to mention, however, that after we observe data, and we compute this interval, we can no longer use the word ``probability" since nothing is random after the data are observed. If you are asked to interpret a confidence interval, you're not allowed to do this. Rather, you should say that if we were allowed to repeat this data collection procedure over and over again, and we computed the same interval each time, then in the long run $(1-\alpha)$ percent of these would cover the true $\mu$.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Motivation}
+
+Let's take a closer look at our first CI formula: $\bar{X} \pm \frac{\sigma}{\sqrt{n}} z_{\alpha/2}$. The width of this interval is  
+\[
+w = (\bar{X} +\frac{\sigma}{\sqrt{n}} z_{\alpha/2}) -  (\bar{X} - \frac{\sigma}{\sqrt{n}} z_{\alpha/2}) = 2 \frac{\sigma}{\sqrt{n}} z_{\alpha/2}
+\]
+
+\begin{enumerate}
+\item if $n \uparrow$,  then width $\downarrow$
+\item if $\sigma^2 \uparrow$,  then width $\uparrow$
+\item if $(1-\alpha) \uparrow$, then $z_{\alpha/2} \uparrow$, which means width $\uparrow$
+\end{enumerate}
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Motivation}
+
+Sometimes you are given a width, and a desired confidence level, and then asked how much data are needed to achieve this desired width. This new formula
+\[
+n = \left( 2 z_{\alpha/2} \frac{\sigma}{w} \right)^2
+\]
+ is just a rearrangement of the old formula 
+ \[
+ w = 2 \frac{\sigma}{\sqrt{n}} z_{\alpha/2}.
+ \]
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Motivation}
+
+How can we generalize our process to give us a confidence interval for more parameters, taken one at a time?
+\newline
+
+We need two things. First, we need a random variable that depends on \emph{both} the data \emph{and} the parameter of interest. We'll call this $h(X_1, \ldots, X_n; \theta)$. Second, we need the probability distribution of this $h(X_1, \ldots, X_n; \theta)$ to not have any $\theta$ involved in it.
+\newline
+
+If you want to think in terms of the last example. $h(X_1, \ldots, X_n; \theta) = Z = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}}$. Notice that the representation/label of $Z$ depends on $\mu$, but its probability distribution doesn't have a $\mu$ in it.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Note}
+
+Some textbooks call $h(X_1, \ldots, X_n; \theta)$ a pivotal quantity, but this textbook doesn't give this thing a name. 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example 8.5 on page 389}
+
+$X_1, \ldots, X_n \overset{iid}{\sim} \text{Exponential}(\lambda)$. Find a 95\% confidence interval for $\lambda$.
+\pause
+\newline
+
+Let $h(X_1, \ldots, X_n;\lambda) = 2 \lambda \sum_i X_i$. Using the arguments we've talked about for gamma random variables
+\begin{enumerate}
+\item $X_1, \ldots, X_n \overset{iid}{\sim} \text{Exponential}(\lambda)$ so
+\item $X_1, \ldots, X_n \overset{iid}{\sim} \text{Gamma}(1, \frac{1}{\lambda})$ so
+\item $\sum_i X_i \sim \text{Gamma}(n, \frac{1}{\lambda})$ so
+\item $2 \lambda \sum_i X_i \sim \text{Gamma}(n, 2)$ so
+\item $2 \lambda \sum_i X_i \sim \chi^2_{2n}$
+\end{enumerate}
+
+This distribution depends functionally on the unknown parameter of interest, but it has a known distribution... 
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example 8.5 on page 389}
+
+Let's use specific numbers now. We have $n = 10$ data points. So we get the .025 and the .975 quantiles from that $\chi^2_{2\cdot 10}$ distribution (use excel/tables/calculator or some software you have). They turn out to be $9.590777$ and $34.16961$, respectively.
+\newline
+
+\[
+P(9.590777 \le 2 \lambda \sum_i X_i \le 34.16961) = .95
+\]
+which is true if and only if
+\[
+P\left(\frac{9.590777}{2 \sum_i X_i} \le  \lambda  \le \frac{34.16961}{2 \sum_i X_i}\right) = .95
+\]
+
+This means our confidence interval is $[\frac{9.590777}{2 \sum_i X_i}, \frac{34.16961}{2 \sum_i X_i}]$
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+
+\end{document} 

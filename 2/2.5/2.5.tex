@@ -1,0 +1,193 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["2.5"]{2.5: Independence}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+When we were talking about conditional probability before we usually talked about examples where either $P(A) > P(A|B)$ or $P(A) < P(A|B)$. Quite often we'll assume that this isn't true when we're putting together statistical models, though. 
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definition}
+
+Two events $A$ and $B$ are \textbf{independent} if $P(A|B) = P(A)$.
+\newline
+
+Two events $A$ and $B$ are \textbf{dependent} if $P(A|B) \neq P(A)$
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Motivation}
+
+The following are equivalent (you should check all of these):
+\begin{enumerate}
+\item $P(A|B) = P(A)$
+\item $P(A|B') = P(A)$
+\item $P(A'|B) = P(A')$
+\item $P(A'|B') = P(A')$
+\end{enumerate}
+\pause
+
+Also, these are too
+\begin{enumerate}
+\item $P(A|B) = P(A)$
+\item $P(B|A) = P(B)$
+\end{enumerate}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Another definition}
+
+Another definition:
+\newline
+
+Events $A$ and $B$ are \textbf{independent} if 
+\[
+P(A \cap B) = P(A)P(B)
+\]
+
+this one is less intuitive but more general; it holds when we're talking about events that might have probability $0$. It also extends more easily to when we talk about independence between more than two things at a time. 
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Definition}
+
+$A_1, \ldots A_n$ are \textbf{mutually independent} if for every $k = 1, 2, \ldots, n$ and every subset of indices you can make with such a $k$ $i_1, \ldots, i_k$
+\[
+P(A_{i_1} \cap \cdots \cap A_{i_k}) = P(A_{i_1}) \times \cdots \times P(A_{i_k})
+\]
+\pause
+
+Note that this is stronger than pairwise independence...
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example}
+
+Let's try number 70 on page 89.
+\pause
+\newline
+
+Let $T_1$ and $T_2$ be the blood types for the first and second persons. Then $P(\{T_1=O\} \cap \{T_2=0\}) = P(\{T_1=O\}) P(\{T_2=O\})= .44^2 = .1936$
+\pause
+\newline
+
+
+\begin{align*}
+P(\text{both match}) &= P(\text{both O or both A or both B or both AB})\\
+&= P\left[ (\{T_1 = O\} \cap \{T_2 = O\}) \cup  \cdots \right] \\
+&= P(\{T_1 = O\} \cap \{T_2 = O\}) + \cdots  \\
+&= P(\{T_1 = O\}) P(\{T_2 = O\}) + \cdots \\
+&= .42^2 + .1^2 + .04^2 + .44^2 \\
+&= .3816
+\end{align*}
+
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+
+
+
+\end{document} 

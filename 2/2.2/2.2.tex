@@ -1,0 +1,144 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["2.2"]{2.2: Axioms, Interpretations and Properties of Probability}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+The sets are basically questions we can ask about something random...but how do we talk about the chances that those things will occur? A: we need a function that takes events as input, and as output gives us a number between $0$ and $1$. This is our probability function $P( \cdot ) $. 
+\newline
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Properties of $P$}
+
+Here are the rules any probability function has to satisfy;
+
+\begin{enumerate}
+\item For any event $A$, $P(A) \ge 0$
+\item $P(\mathcal{S}) = 1$
+\item let $A_1, A_2, \ldots$ be a countably infinite collection of disjoint sets; then $P(A_1 \cup A_2 \cup \cdots ) = \sum_{i=1}^{\infty}P(A_i)$
+\end{enumerate}
+
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Derived Properties}
+
+Here are some things you can make sure are true using only the stuff from the previous slide:
+\newline
+
+\begin{enumerate}
+\item $P(\varnothing) = 0$
+\item $P(\bigcup_{i=1}^n A_i) = \sum_{i=1}^n P(A_i)$ if $A_1, \ldots, A_n$ are all disjoint
+\item $P(A') = 1-P(A)$ for any $A$
+\item if $A \subset B$ then $P(A) \le P(B)$
+\item (in particular) for any $A$, $P(A) \le 1$
+\item for any $A$ and $B$ (not necessarily disjoint), $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+\end{enumerate}
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Note}
+
+Keep in mind that we are talking about a general $P(\cdot)$. In practice, you don't know it. However, every possibility must satisfy all these rules we have talked about.
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+
+
+
+\end{document} 

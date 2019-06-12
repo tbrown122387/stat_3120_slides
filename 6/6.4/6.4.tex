@@ -1,0 +1,435 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["6.4"]{6.4: Distributions Based on a Normal Random Sample} 
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} % Your email address
+}
+\date{} % Date, can be changed to a custom date
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definitions}
+
+This is the density of a chi-squared ($\chi ^2 _{\nu}$) distribution with $\nu$ degrees of freedom. 
+\[
+p(x) = \frac{1}{2^{\nu/2} \Gamma(\nu /2 )} x^{(\nu / 2) - 1} \exp(-x/2), \hspace{10mm} x > 0
+\]
+
+Sometimes we'll write this for shorthand $X \sim \chi ^2 _{\nu}$.
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{chi-squared distribution}
+
+If $X \sim \chi ^2 _{\nu}$, then 
+\begin{itemize}
+\item $E(X) = \nu$, 
+\item $V(X) = 2\nu$ and 
+\item $M_X(t) = (1 - 2t)^{-\nu/2}$
+\end{itemize}
+
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{chi-squared distribution}
+
+They often say that chi-squared rvs with $\nu = 1$ are formed by squaring standard normal random variables. We can prove that. Let $Z$ be a standard normal rv. Let $X = Z^2$. Then 
+
+\begin{align*}
+P(X \le x) &= P(Z^2 \le x) \\
+&= P( -\sqrt{x} \le Z \le \sqrt{x}) \\
+&= 2P(0 \le Z \le \sqrt{x}) \\
+&= 2\Phi(\sqrt{x}) - 2\Phi(0)
+\end{align*}
+
+Then take the derivative...
+\begin{align*}
+p(x) &= 2 \phi(\sqrt{x}).5 x^{-.5} \\
+&= 2 \frac{1}{\sqrt{2 \pi}} e ^{-.5x} (.5 x^{-.5}) \\
+&= \frac{1}{2^{1/2} \Gamma(1/2)} x^{1/2 - 1} e^{-x/2}
+\end{align*}
+
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{chi-squared distribution}
+
+That just takes care of $\chi_1^2$. What about $\chi_\nu^2$ with $\nu > 1$?  Let $X_1, \ldots X_\nu \overset{iid}{\sim} \chi^2_1$
+
+\[
+M_{\sum_{i=1}^{\nu} X_i }(t) =  \prod_{i=1}^{\nu} M_{X_i}(t) = \prod_{i=1}^{\nu} [(1 - 2t)^{- 1 / 2}] = (1 - 2t)^{- \nu / 2}
+\]
+
+
+So we can add $\nu$ independent $\chi^2_1$s to get this.
+
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{chi-squared distribution}
+
+Actually it's more general. As long as some chi-squared rvs are independent, we can add them together nicely. It doesn't matter what their degrees of freedom are. 
+\newline
+
+This is the proposition on page 316. The proof uses the same technique as above. 
+
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Note}
+
+So if we have $X_1, \ldots X_n \overset{iid}{\sim} \text{Normal}(\mu, \sigma^2)$...
+
+\[
+\sum_{i=1}^n \left( \frac{X_i - \mu}{\sigma}\right)^2 \sim \chi^2_{n}
+\]
+
+But we don't know $\mu$ usually so this doesn't always help...
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{A trick}
+
+check this:
+
+\[
+\sum_i (X_i - \mu)^2 = \sum_i (X_i - \bar{X} + \bar{X} - \mu)^2 = \sum_i(X_i - \bar{X})^2 + n(\bar{X} - \mu)^2
+\]
+
+which implies this:
+\begin{align*}
+\sum_i \left( \frac{X_i - \mu}{\sigma} \right) ^2 &= \frac{1}{\sigma^2}\sum_i (X_i - \mu)^2 \\
+&= \frac{1}{\sigma^2}\sum_i(X_i - \bar{X})^2 + \frac{n}{\sigma^2} (\bar{X} - \mu)^2 \\
+&= \sum_i \left(\frac{X_i - \bar{X}}{\sigma} \right)^2 + \left( \frac{ \bar{X} - \mu }{ \frac{\sigma}{\sqrt{n}}  } \right)^2
+\end{align*}
+
+\end{frame}
+
+
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Definitions}
+
+We know the LHS is a $\chi^2_n$ and the right side of the RHS is a $\chi^2_1$. Does this mean $\sum_i \left(\frac{X_i - \bar{X}}{\sigma} \right)^2$ is a $\chi^2_{n-1}$?
+
+\[
+\sum_i \left( \frac{X_i - \mu}{\sigma} \right) ^2 
+= \sum_i \left(\frac{X_i - \bar{X}}{\sigma} \right)^2 + \left( \frac{ \bar{X} - \mu }{ \frac{\sigma}{\sqrt{n}}  } \right)^2
+\]
+
+We need to show two things: 
+\begin{itemize}
+\item $\sum_i \left(\frac{X_i - \bar{X}}{\sigma} \right)^2$ is indep. of $\left( \frac{ \bar{X} - \mu }{ \frac{\sigma}{\sqrt{n}}  } \right)^2$
+\item $\sum_i \left(\frac{X_i - \bar{X}}{\sigma} \right)^2$ is distributed as a $\chi^2_{n-1}$
+\end{itemize}
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{First Bullet Point}
+
+% Recall bilinearity of the $\operatorname{Cov}(\cdot,\cdot)$ i.e. $\operatorname{Cov}(aX , bY) = ab \operatorname{Cov}(X,Y)$. Then for any $i = 1, \ldots, n$
+% 
+% \begin{align*}
+% \operatorname{Cov}(X_i - \bar{X}, \bar{X}) &= \operatorname{Cov}(X_i, \bar{X}) - V[\bar{X}]\\
+% &= \frac{1}{n}\operatorname{Cov}(X_i, \sum_j X_j) - V[\bar{X}] \\
+% &= \frac{1}{n} \operatorname{Cov}(X_i, X_i) - \frac{\sigma^2}{n} = 0
+% \end{align*}
+
+It is possible to show that $\bar{X}$ and $X_i - \bar{X}$ $i=2,\ldots,n$ are independent by using the transformation theorem. 
+\newline
+
+It is also possible to use the transformation theorem again to show that $\sum_i \left(\frac{X_i - \bar{X}}{\sigma} \right)^2$ and $\left( \frac{ \bar{X} - \mu }{ \frac{\sigma}{\sqrt{n}}  } \right)^2$ are independent (because they're functions of independent rvs the Jacobian factors). 
+
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Second Bullet Point}
+Let's rewrite 
+\[
+\sum_i \left( \frac{X_i - \mu}{\sigma} \right) ^2 
+= \sum_i \left(\frac{X_i - \bar{X}}{\sigma} \right)^2 + \left( \frac{ \bar{X} - \mu }{ \frac{\sigma}{\sqrt{n}}  } \right)^2
+\]
+as
+\[
+X = Y + Z
+\]
+then
+\[
+M_X(t) = M_Y(t)M_Z(t)
+\]
+or more specifically
+\[
+(1-2t)^{-n/2} = M_Y(t) (1-2t)^{-1/2}
+\]
+After rearranging we see $Y = \sum_i \left(\frac{X_i - \bar{X}}{\sigma} \right)^2 \sim \chi^2_{n-1}$
+
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Recap}
+
+We just proved $\sum_i \left(\frac{X_i - \bar{X}}{\sigma} \right)^2 \sim \chi^2_{n-1}$. Sometimes people write this as 
+\[
+\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}
+\]
+
+We're going to use this all the time. 
+\newline
+
+Also remember a lot of this stuff isn't true in general -- we had to assume Normality! 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+% \begin{frame}
+% \frametitle{Next}
+% 
+% Before we start talking about t Distributions, we'll talk a little about gamma functions (not gamma rvs). These help us with integrating things all the time in statistics. 
+% 
+% \end{frame}
+% 
+% %----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Refresher}
+
+Recall the gamma function:
+
+\[
+\Gamma(z) =  \int_0^{\infty} e^{-x} x^{z - 1} dx
+\]
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Refresher}
+
+These were the main properties:
+\begin{enumerate}
+\item if $z$ is an integer, $\Gamma(z) = (z-1)!$
+\item or more generally (not just if $z$ is an integer), $\Gamma(z) = (z-1)\Gamma(z-1)$
+\item we can go to someplace like wolframalpha.com and type in ``Gamma(1/2)" and get $\sqrt{\pi}$
+\end{enumerate}
+
+So a lot of times when we're doing integration, we want to be able to recognize a gamma function and use these results.
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+% \begin{frame}
+% \frametitle{Example}
+% 
+% This is best illustrated with an example. Let's find the mean of an exponential distribution with parameter $\lambda$. We usually have to use a change of variable move on stuff like this. Let $s = \lambda x$. Then $dx = \frac{1}{\lambda} ds$. 
+% 
+% \begin{align*}
+% E[X] &= \int_{x=0}^{\infty} x \lambda e^{-\lambda x} dx \\
+% &= \int_{s = 0}^{\infty} \frac{s}{\lambda} \frac{\lambda}{\lambda} e^{-s} ds \\
+% &= \frac{1}{\lambda} \int_0^{\infty} s^{2-1} e^{-s} ds \\
+% &= \frac{1}{\lambda} \Gamma(2) = \frac{1}{\lambda}
+% \end{align*}
+% 
+% \end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{The t-Distribution}
+
+So now let's get back to the t-distribution. First, let's look at its representation. 
+\newline
+
+Let $Z$ be a standard normal, and let $X$ be an independent $\chi^2_{\nu}$ random variable. Then $T \sim \text{t}_{\nu}$ if we can write it like this:
+
+\[
+T = \frac{Z}{\sqrt{X/\nu}}
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example}
+
+In STAT 2120 we always talk about how $T = \frac{\bar{X}- \mu}{S/\sqrt{n}} \sim \text{t}_{n-1}$
+\newline
+
+\[
+\frac{\bar{X}- \mu}{S/\sqrt{n}} = \frac{\sigma/\sqrt{n}}{\sigma/\sqrt{n}} \left( \frac{\bar{X}- \mu}{S/\sqrt{n}} \right) = 
+\left(\frac{\bar{X} - \mu}{\sigma/\sqrt{n}}\right) \div \sqrt{\frac{(n-1)S^2}{\sigma^2} / (n-1)}
+\]
+
+Keep in mind we're using the fact that $\bar{X}$ and $S^2$ are independent for normal rvs. That's from slide 10.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proof}
+
+This is straight off of page 321 in the text. 
+
+\begin{align*}
+F_T(t) &= P\left( \frac{Z}{\sqrt{X/\nu}} \le t \right) \\
+&= P\left( Z \le t\sqrt{X/\nu} \right) \\
+&= \int_{0}^{\infty} \int_{-\infty}^{t \sqrt{x / \nu}} f_X(x) f_Z(z) dz dx \\
+&= \int_{0}^{\infty} f_X(x) \left[ \int_{-\infty}^{t \sqrt{x / \nu}} f(z) dz \right]  dx \\
+&= \int_{0}^{\infty} f_X(x) \left[ F_Z(t \sqrt{x / \nu}) \right]  dx
+\end{align*}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proof (continued)}
+
+Let's take the derivative now. That last step is left as an exercise. Hint: recognize gamma functions. 
+
+\begin{align*}
+f_T(t) &= \frac{d}{dt} \int_{0}^{\infty} f_X(x) \left[ F_Z(t \sqrt{x / \nu}) \right]  dx \\
+&= \int_{0}^{\infty} \frac{d}{dt}  f_X(x) \left[ F_Z(t \sqrt{x / \nu}) \right]  dx \\
+&= \int_{0}^{\infty} f_X(x) \frac{d}{dt} \left[ F_Z(t \sqrt{x / \nu}) \right]  dx \\
+&= \int_{0}^{\infty} f_X(x) \left[ f_Z(t \sqrt{x / \nu}) \sqrt{x / \nu} \right]  dx \\
+&= \frac{   \Gamma\left( \frac{v+1}{2} \right)   }{  \sqrt{\pi \nu } \Gamma(\nu / 2)   } \left( 1 + t^2/\nu \right)^{-(\frac{\nu + 1 }{2})}
+\end{align*}
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{F distributions}
+
+Another commonly used distribution is an F distribution. Here is it's representation:
+
+\[
+F_{\nu_1, \nu_2} = \frac{X_1 / \nu_1 }{X_2 / \nu_2 }
+\]
+
+where $X_1 \sim \chi^2_{\nu_1}$,  $X_2 \sim \chi^2_{\nu_2}$ and $X_1$ is independent of $X_2$.
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example}
+
+F distributions are sometimes used to test if two independent groups of randomly sampled data have the same variance. We know for the first group that $\frac{(n-1)S_1^2}{\sigma_1^2} \sim \chi^2_{n-1}$ and for the second group $\frac{(m-1)S_2^2}{\sigma_2^2} \sim \chi^2_{m-1}$. We can easily make an F random variable with this:
+
+\[
+F_{m-1, n-1} =  \frac{(m-1)S_2^2}{\sigma_2^2 (m-1) } \div \frac{(n-1)S_1^2}{\sigma_1^2 (n-1) } = \frac{S_2^2}{\sigma_2^2 } \div \frac{S_1^2}{\sigma_1^2}
+\]
+
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Notes}
+
+\begin{enumerate}
+\item When we do hypothesis testing, sometimes $H_0: \sigma_1^2 = \sigma_2^2$, which reduces our F statistic a bit further to $S_1^2 / S_2^2$. 
+\item $1/F_{\nu_1, \nu_2} = F_{\nu_2, \nu_1}$ (check using it's representation)
+\end{enumerate}
+\end{frame}
+
+
+
+\end{document} 

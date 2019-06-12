@@ -1,0 +1,220 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["3.4"]{3.4: Moments and Moment Generating Functions}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+The last selection dealt with expectations of transformations of our random variable like this
+\[
+E[h(X)] = c.
+\]
+
+In particular we had
+
+\[
+E[(X- \mu)^2] .
+\]
+We could get number summaries for our random variable/probability distribution. 
+\newline
+
+In this section we'll talk about the expectation of a certain function that looks like this:
+
+\[
+E[h(X,t)] = f(t).
+\]
+
+We'll find out why this is very useful.
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definition}
+
+A \textbf{central} or \textbf{moment about the mean} is the expectation of some power of the difference between $X$ and its expected value $\mu$. That is, for some $k \in \{1,2,3,\ldots\}$
+\[
+E[(X-\mu)^k]
+\]
+
+A \textbf{noncentral} or \textbf{raw} or \textbf{moment about 0} is the expectation of a power of a random variable. That is, for some $k \in \{1,2,3,\ldots\}$
+\[
+E[X^k]
+\]
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example}
+
+Recall that for the discrete case, we can use the formula for $E[h(X)]$ to get a moment (say central) because
+
+\[
+E[(X-\mu)^3] = E[h(X)]
+\]
+where $h(x) = (x-\mu)^3$. 
+
+\begin{align*}
+E[(X-\mu)^3] &= \sum_{x} (x-\mu)^3 p(x)
+\end{align*}
+
+so if there are $20$ possible values for $x$, then we have to sum together $20$ products...
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Motivation}
+
+This is a partial motivation for the \textbf{moment generating function}. The \textbf{moment generating function} (mgf) is defined as 
+\[
+M_X(t) =  E(\exp[tX])
+\]
+
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Properties}
+
+Some properties:
+
+\begin{enumerate}
+\item $E[X^k] = M_X^{(k)}(0)$
+\item $M_X(0) = 1$
+\item MGFs uniquely determine an rv's distirbution (we will use this a lot more later)
+\item If $Y=aX+b$, then $M_Y(t) = e^{bt}M_X(at)$
+\end{enumerate}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Proof}
+
+Proving (2) and (4) is left as exercise. Proof of (3) is ommitted. Proving 1:
+
+\begin{align*}
+\frac{d}{dt}M_X(t) &= \frac{d}{dt} Ee^{t X} \\
+&= E \left[ \frac{d}{dt}e^{t X} \right] \\
+&= E \left[ X e^{tX} \right]
+\end{align*}
+
+so then $\frac{d}{dt}M_X(t)|_{t=0} = E[X]$. To find higher moments, use induction...
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example}
+
+Here's an example to see why differentiating is more convenient. Find the second raw moment of a binomial distribution with parameters $n$ and $p$. Hint: $M_X(t) = (1 - p + pe^t)^n$
+\pause
+\newline
+
+$\frac{d^2}{dt^2}M_X(t) = n(n-1)(1-p+pe^t)^{n-2}(pe^t)^2 + n(1-p+pe^t)^{n-1}(pe^t)$
+and 
+$\frac{d^2}{dt^2}M_X(t)|_{t=0} = n(n-1)p^2 + np = np(1-p) + n^2p^2$
+\newline
+
+contrast this doing 
+$\sum_{x = 0}^n p(x)x^2$
+
+
+\end{frame}
+
+
+\end{document} 

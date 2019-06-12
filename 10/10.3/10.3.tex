@@ -1,0 +1,133 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["10.3"]{10.3: Analysis of Paired Data}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Motivation}
+
+In the last section we assumed that the two samples (the $X$s and the $Y$s) were independent from each other. In this section we will assume they are dependent.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Assumptions}
+
+We assume that the data consists of $n$ independently selected pairs $(X_1,Y_1),\ldots,(X_n,Y_n)$, with $EX_i = \mu_1$ and $EY_i = \mu_2$. Let $D_i = X_i - Y_i$ for $i =1, \ldots, n$. Assume further that all $D_i$s are normally distributed with $\mu_D$ and $\sigma^2_D$. 
+\newline
+
+Note: since $X_i$ and $Y_i$ are not necessarily independent, $V(\bar{X} - \bar{Y}) \neq V(\bar{X}) + V\bar{Y})$.
+
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Easy}
+
+So $D_1, \ldots, D_n \overset{iid}{\sim} \mathcal{N}(\mu_d, \sigma_d^2)$ where $\mu_d = \mu_1 - \mu_2$ (linearity of expectation works even if we have dependence). So
+\[
+\frac{\bar{D} - \mu_d}{S_d/\sqrt{n}} \sim t_{n-1}
+\]
+
+It's EXACTLY the same as a one-sample t-test (but we just have slightly different notation).
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Easy}
+
+For the sake of completeness, our paired confidence interval is 
+\[
+\bar{d} \pm t_{\alpha/2,n-1} \frac{s_d}{\sqrt{n}}
+\]
+and our paired hypothesis test is
+\begin{enumerate}
+\item $H_0: \mu_d = \Delta_d$
+\item $t = \frac{\bar{d} - \Delta_d}{s_d / \sqrt{n}}$
+\item if $H_a: \mu_d > \Delta_0$, reject when $t > t_{\alpha, n-1}$
+\item if $H_a: \mu_d < \Delta_0$, reject when $t < -t_{\alpha, n-1}$
+\item if $H_a: \mu_d \neq \Delta_0$, reject when $t > t_{\alpha/2, n-1}$ or when $t < - t_{\alpha/2,n-1}$
+\end{enumerate}
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\end{document} 

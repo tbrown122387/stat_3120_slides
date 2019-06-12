@@ -1,0 +1,186 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["10.2"]{10.2: The Two-Sample t Test and Confidence Interval}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Motivation}
+
+Most of the time population variances are unknown. If we use sample variances, we can use CLT justification to show that z-score like test statistics are approximately normally distributed for large data. However, this section comes in handy when at least one of the sample sizes is smaller, but we can still assume all the data is randomly sampled from normal distributions.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Assumptions for Approximate Inference}
+
+\begin{enumerate}
+\item $X_1, \ldots, X_m \overset{iid}{\sim} \mathcal{N}(\mu_1, \sigma_1^2)$
+\item $Y_1, \ldots, Y_n \overset{iid}{\sim} \mathcal{N}(\mu_2, \sigma_2^2)$
+\item The $X$s and $Y$s are independent
+\end{enumerate}
+
+We can check (1) and (2) by looking at the two histograms or by looking at two normal probability plots (we didn't learn about the latter, though).
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Theorem}
+
+\[
+T = \frac{\bar{X} - \bar{Y} - (\mu_1 - \mu_2)}{\sqrt{\frac{S_1^2}{m} + \frac{S_2^2}{n}} }
+\]
+APPROXIMATELY follows a t-distribution with degrees of freedom 
+\[
+\nu = \frac{\left(\frac{s_1^2}{m} + \frac{s_2^2}{n}\right)^2 }{\frac{(s_1^2/m)^2}{m-1} + \frac{(s_2^2/n)^2}{n-1} }
+\]
+
+\begin{enumerate}
+\item Proof is a quiz question. Follow page 500 for help.
+\item if $\nu$ is a decimal, round down.
+\end{enumerate}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{CI}
+
+Our two sample confidence approximate confidence interval is then:
+\[
+\bar{x} - \bar{y} \pm t_{\alpha/2, \nu} \sqrt{\frac{s_1^2}{m} + \frac{s_2^2}{n}}
+\]
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Hypothesis Test}
+
+And our two sample approximate hypothesis test is:
+
+\begin{enumerate}
+\item $H_0: \mu_1 - \mu_2 = \Delta_0$
+\item $t = \frac{\bar{x} - \bar{y} - \Delta_0}{\sqrt{\frac{s_1^2}{m} + \frac{s_2^2}{n}}}$
+\item If $H_a: \mu_1 - \mu_2 > \Delta_0$, then reject when $t > t_{\alpha, \nu}$
+\item If $H_a: \mu_1 - \mu_2 < \Delta_0$, then reject when $t < -t_{\alpha, \nu}$
+\item If $H_a: \mu_1 - \mu_2 \neq \Delta_0$, then reject when $t > t_{\alpha/2, \nu}$ or $t < -t_{\alpha/2, \nu}$
+\end{enumerate}
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Assumptions for Exact Inference}
+
+There is another method for two sample t-distribution inference, though. The book's section on this is called ``Pooled t Procedures." We stick with our original assumptions:
+\begin{enumerate}
+\item $X_1, \ldots, X_m \overset{iid}{\sim} \mathcal{N}(\mu_1, \sigma_1^2)$
+\item $Y_1, \ldots, Y_n \overset{iid}{\sim} \mathcal{N}(\mu_2, \sigma_2^2)$
+\item The $X$s and $Y$s are independent
+\end{enumerate}
+
+but then we ALSO assume that $\sigma_1^2 = \sigma_2^2 = \sigma^2$
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Derivation}
+
+We know how $\frac{(m-1)S_1^2}{\sigma^2}$ and $\frac{(n-1)S_2^2}{\sigma^2}$ are two independent $\chi^2$ rvs. So adding them together gives us another $\chi^2$ rv
+\[
+\frac{(m-1)S_1^2}{\sigma^2} + \frac{(n-1)S_2^2}{\sigma^2} = \frac{(m+n-2)S_p^2}{\sigma^2}
+\]
+where $S_p^2 = \frac{(m-1)S_1^2 + (n-1)S_2^2}{m+n-2}$
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Derivation}
+
+So in this case we get an exact t distribution
+\[
+\frac{\bar{X} - \bar{Y} - (\mu_1 - \mu_2)}{\sqrt{\sigma^2(1/m + 1/n)}}\div \sqrt{ \frac{(m+n-2)S_p^2}{\sigma^2} \frac{1}{m+n-2}} = \frac{\bar{X} - \bar{Y} - (\mu_1 - \mu_2)}{\sqrt{S_p^2 \left(\frac{1}{m} + \frac{1}{n})\right)}}
+\]
+
+So this expression follows a t distribution with $n+m-2$ degrees of freedom.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+
+
+\end{document} 

@@ -1,0 +1,222 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%  TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["8.3"]{8.3: Intervals Based on a Normal Population Distribution}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+This section talks about the difference between three types of intervals when dealing with normal data. Unlike last section, the assumption of normal data is required here.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proposition}
+
+First let's recall some facts about a $t_{\nu}$ distribution:
+
+\begin{enumerate}
+\item it has one parameter: $\nu$
+\item it doesn't have an MGF
+\item it only has a mean if $\nu > 1$
+\item it only has a variance if $\nu > 2$
+\item it's basically a standard normal distribution with fatter tails
+\item as $\nu \to \infty$, $t_{\nu} \overset{D}{\to} \mathcal{N}(0,1)$
+\end{enumerate}
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+In this chapter, we only use it for its percentiles:
+\[
+t_{\alpha,\nu}
+\]
+will denote the ($1-\alpha$) 100th percentile.
+\newline
+
+The book calls these \textbf{critical values}.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definition}
+
+Recall in section 6.4 We proved that $T = \frac{(\bar{X} - \mu)}{s / \sqrt{n}} \sim t_{n-1}$ when $X_1, \ldots, X_n \overset{iid}{\sim} \mathcal{N}(\mu, \sigma^2)$.
+\newline
+
+so
+\[
+P \left(-t_{n-1, \alpha/2} \le T \le t_{n-1, \alpha/2} \right) = 1- \alpha
+\]
+and with a little algebra we can show that 
+\[
+P \left(\bar{X} -t_{n-1, \alpha/2}\frac{s}{\sqrt{n}} \le \mu \le \bar{X} +t_{n-1, \alpha/2}\frac{s}{\sqrt{n}}  \right) = 1- \alpha
+\]
+...so our \textbf{confidence interval} \emph{for $\mu$} is $[\bar{x} \pm t_{n-1, \alpha/2}\frac{s}{\sqrt{n}}]$
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+This is an interval for $\mu$. That means that in the long run, CIs constructed this way will cover $\mu$ ($1-\alpha$)100 percent of the time. 
+\newline
+
+What if our real goal is to predict the next data point? We want something like this:
+
+\[
+P(lower \le X_{n+1} \le upper) = 1 - \alpha
+\]
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Prediction Error}
+
+First, $X_{n+1} - \bar{X}$ is going to be the random prediction error. $X_{n+1}$ is still coming from a normal distribution with center $\mu$, so we're going to use $\bar{X}$ again as a point estimate. 
+\newline
+
+\[
+E(\text{prediction error}) = E[X_{n+1} - \bar{X}] = EX_{n+1} - E\bar{X} = 0
+\]
+and
+\[
+V[\text{prediction error}] = V[X_{n+1} - \bar{X}] = V[X_{n+1}] + V[\bar{X}] = \sigma^2 + \frac{\sigma^2}{n}
+\]
+
+We're using independence in the variance calculation.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Prediction Error}
+
+Since a linear combination of normals is normally distributed, we have
+\[
+\frac{(X_{n+1} - \bar{X}) - 0}{\sqrt{\sigma^2 + \frac{\sigma^2}{n}} } \sim \mathcal{N}(0, 1)
+\]
+and by similar reasoning as in section 6.4 (this will be a quiz problem), we can show that 
+\[
+\frac{(X_{n+1} - \bar{X}) - 0}{\sqrt{s^2 + \frac{s^2}{n}} } \sim t_{n-1}
+\]
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Prediction Error}
+
+Last steps:
+\[
+P \left( -t_{\alpha/2, n-1} \le \frac{(X_{n+1} - \bar{X}) - 0}{\sqrt{S^2 + \frac{S^2}{n}} } \le t_{\alpha/2,n-1} \right) = 1-\alpha
+\]
+\[
+P \left( -t_{\alpha/2, n-1}\sqrt{S^2 + \frac{S^2}{n}} \le X_{n+1} - \bar{X} \le t_{\alpha/2,n-1}\sqrt{S^2 + \frac{S^2}{n}} \right) = 1-\alpha
+\]
+\[
+P \left(\bar{X}  -t_{\alpha/2, n-1} S \sqrt{1+ \frac{1}{n}} \le X_{n+1} \le \bar{X}  + t_{\alpha/2,n-1} S\sqrt{1 + \frac{1}{n}} \right) = 1-\alpha
+\]
+so $[\bar{x} \pm t_{\alpha/2, n-1} s \sqrt{1+ \frac{1}{n}}]$ is our $(1-\alpha)$100th \textbf{prediction interval}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+Key points so far
+\begin{enumerate}
+\item CIs are for inferring about \emph{parameters}
+\item PIs are for inferring about future \emph{obeservations}
+\item Prediction variance is non-vanishing, no matter how much data you throw at it
+\end{enumerate}
+
+\end{frame}
+
+\end{document} 

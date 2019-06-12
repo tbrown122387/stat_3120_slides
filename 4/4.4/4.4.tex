@@ -1,0 +1,265 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["4.4"]{4.4: The Gamma Distribution and Its Relatives}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+Normal distributions are probably the most popular but are defined for rvs that take on values on any part of the real line $(-\infty, \infty)$. Gamma rvs are defined for only positive numbers. Also, they include a lot of useful specific distributions. 
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definition}
+
+This is a special function; it isn't a pdf or cdf. We use it a lot whenever we work with integrals for gamma-ish pdfs.
+\newline
+
+\begin{definition}
+For $\alpha > 0$, the \textbf{gamma function} $\Gamma(\alpha)$ is defined by
+\[
+\Gamma(\alpha) = \int_{0}^{\infty} e^{-z} z^{\alpha - 1} dz
+\]
+\end{definition}
+
+Note: $z$ is just a dummy variable. This is a function in $\alpha$
+\newline
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Properties}
+
+\begin{enumerate}
+\item $\Gamma(\alpha) = (\alpha - 1) \Gamma(\alpha-1)$ for $\alpha > 1$ 
+\item $\Gamma(\frac{1}{2}) = \sqrt{\pi}$
+\end{enumerate}
+
+So it generalizes the factorial function for non-integral arguments, and it comes up with ``special numbers" a lot. 
+\newline
+
+Note: you can always just use wolfram alpha or some other symbolic computational thing to evaluate the gamma function
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definition}
+
+\begin{definition}
+A cts rv $X$ is a \textbf{Gamma Distribution} if it has pdf 
+\[
+f(x; \alpha, \beta) = \frac{1}{\beta^{\alpha} \Gamma(\alpha)} x^{\alpha-1} e^{-\frac{x}{\beta}}
+\]
+with $x, \alpha$ and $\beta$ all being positive.
+\end{definition}
+
+it's MGF is 
+\[
+M_X(t) = (1 - \beta t)^{- \alpha}
+\]
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proof}
+
+It has simple-to-remember mean and variance
+\[
+EX = \alpha\beta
+\]
+\[
+VX = \alpha\beta^2
+\]
+
+Also you can multiply gamma rvs by a constant and they're still gamma (you can't add constants though)
+\[
+X \sim \text{Gamma}(\alpha, \beta) \rightarrow cX \sim \text{Gamma}(\alpha, c \beta)
+\]
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proof}
+
+Sometimes ``recognizing different gamma densities" is even easier than ``recognizing gamma functions"
+\begin{align*}
+EX &= \int_0^{\infty} x \frac{1}{\beta^{\alpha} \Gamma(\alpha)} x ^{\alpha - 1} e^{-x/\beta} dx \\
+&= \frac{1}{\beta^{\alpha} \Gamma(\alpha)} \int_0^{\infty}  x ^{(\alpha + 1) - 1} e^{-x/\beta} dx \\
+&= \frac{1}{\beta^{\alpha}\Gamma(\alpha)} \frac{\beta^{\alpha+1} \Gamma(\alpha+1) }{1} 
+    \left[\frac{1}{\beta^{\alpha+1} \Gamma(\alpha+1)} \int_0^{\infty}  x ^{(\alpha + 1) - 1} e^{-x/\beta} dx \right] \\
+&= \frac{1}{\beta^{\alpha}\Gamma(\alpha)} \frac{\beta^{\alpha+1} \Gamma(\alpha+1) }{1} \\
+&= \beta \frac{\Gamma(\alpha+1)}{\Gamma(\alpha)} \\
+&= \beta \alpha \frac{\Gamma(\alpha)}{\Gamma(\alpha)} \\
+\end{align*}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proof}
+
+Let's start out with $X \sim \text{Gamma}(\alpha, \beta)$. We want to show that $Y = cX$ follows a $\text{Gamma}(\alpha, c\beta)$ distribution. This is easiest to do with mgfs..
+\newline
+
+\[
+M_Y(t) = E[e^{tY}] = E[e^{tcX}] = E[e^{(tc)X}] = M_X(tc) = (1 - \beta c t)^{-\alpha}
+\]
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proof}
+
+Another way to prove it:
+
+\[
+F_Y(y) = P(Y \le y) = P(cX \le y) = P(X \le y/c) = F_X(y/c)
+\]
+
+So $F_Y(y) = F_X(y/c)$. 
+\newline
+So $f_Y(y) = f_X(y/c) \frac{1}{c}$ (by the chain rule)
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Some special cases}
+
+A \textbf{chi-squared distribution} with parameter $\nu$ is the same as a $\text{Gamma}(\nu/2, 2)$
+
+So it's density is $f(x; \nu) = \frac{1}{2^{\nu/2} \Gamma(\nu/2)} e^{-x/2} x^{\nu/2 - 1}$
+\newline
+
+A \textbf{exponential distribution} with parameter $\lambda$ is the same as a $\text{Gamma}(1, \frac{1}{\lambda})$
+
+So it's density is $f(y;\lambda) = \lambda e^{-y\lambda}$
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Exercise}
+
+This is similar to example 4.30 on page 199. Let $T \sim \text{Exponential}(\lambda)$ denote the waiting time until a call arrives (in days). Find it's cdf. Then use it's cdf to find the probability that we wait more than $2$ days for a call (use $\lambda = .5$).
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Exercise}
+
+\[
+P(T \le t) = \int_{0}^{t} \lambda e^{- \lambda x}dx = [- e^{-\lambda x} ]|_{x = 0}^{x=t} = -e^{-\lambda t} + 1
+\]
+
+So $F_T(t) = 1 - e^{-\lambda t}$. Then 
+\[
+P(T > 2) = 1-P(T\le 2) = 1 - [1 - e^{-\lambda 2}] =  e^{-\lambda 2}
+\]
+
+So if we use $\lambda = \frac{1}{2}$, then $P(T > 2) = \frac{1}{e}$
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+\end{document} 

@@ -1,0 +1,201 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+\usepackage{listings}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["12.3"]{12.3: Inferences About the Regression Coefficient $\beta_1$}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Introduction}
+
+When we estimate the $\beta$s, we usually are much more interested in $\beta_1$. If this number is non-zero, then there is a relationship between the inputs and the outputs. 
+\newline
+
+Our estimate $\hat{\beta}_1$ is based on random data, so it is random itself. $\hat{\beta}_1$ is a point estimator for $\beta_1$. We can do a lot of the same stuff we did when we were estimating $\mu$ with $\bar{X}$.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Notation}
+
+Assuming all the $X$s are known/nonrandom, then we can write the estimated slope coefficient like this
+\[
+\hat{\beta}_1 = \frac{\sum (x_i - \bar{x})(Y_i - \bar{Y})}{\sum(x_i - \bar{x})^2}
+\]
+
+The book is capitalizing the $Y$s to emphasize that this is the source if randomness.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{A Little Trick}
+
+Call $\sum(x_i - \bar{x})^2 = S_{xx}$
+\begin{align*}
+\hat{\beta}_1 &= \frac{\sum (x_i - \bar{x})(Y_i - \bar{Y})}{S_{xx}} \\
+&= \frac{\sum (x_i - \bar{x})Y_i  - \sum (x_i - \bar{x})\bar{Y}}{S_{xx}}\\
+&= \frac{\sum (x_i - \bar{x})Y_i  }{S_{xx}} \\
+&= \sum_i c_i Y_i
+\end{align*}
+
+because $\sum(x_i - \bar{x}) = 0$. This is a linear combination of independent (but not identical) normal rvs.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{A Distribution for $\hat{\beta}_1$}
+
+So 
+\begin{enumerate}
+\item $\hat{\beta}_1 \sim \mathcal{N}(\beta_1, \frac{\sigma^2}{S_{xx}})$
+\item $\frac{(n-2) \hat{\sigma}^2}{\sigma^2} \sim \chi^2_{n-2}$
+\item $\hat{\beta}_1$ is independent from $\frac{(n-2) \hat{\sigma}^2}{\sigma^2}$
+\end{enumerate}
+
+where $\hat{\sigma}^2 = \sum_i\frac{(y_i - \hat{y}_i)^2}{n-2}$
+\newline
+
+
+so that means...
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Our distribution}
+
+\[
+T = \left[ \frac{\hat{\beta}_1 - \beta_1}{\frac{\sigma}{\sqrt{S_{xx}} }}\right] \div \left[\sqrt{\frac{(n-2) \hat{\sigma}^2}{\sigma^2 (n-2)} }\right] = \frac{\hat{\beta}_1 - \beta_1}{\hat{\sigma} / \sqrt{S_{xx}}}
+\]
+
+follows a $t_{n-2}$ distribution.
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{A CI for $\beta_1$}
+
+Based on
+\[
+P\left( - t_{\alpha/2,n-2} \le \frac{\hat{\beta}_1 - \beta_1}{\hat{\sigma} / \sqrt{S_{xx}}} \le t_{\alpha/2,n-2} \right) = 1-\alpha
+\]
+we can do a bit of arithmetic and 
+\[
+\hat{\beta}_1 \pm t_{\alpha/2,n-2} \frac{\hat{\sigma} }{ \sqrt{S_{xx}}}
+\]
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{A Hypothesis Test for $\beta_1$}
+
+\begin{enumerate}
+\item $H_0: \beta_1 = \beta_{1,0}$
+\item $t = \frac{\hat{\beta}_1 - \beta_{1,0} }{\hat{\sigma} / \sqrt{S_{xx}}}$
+\item if $H_a: \beta_1 > \beta_{1,0}$, reject if $t > t_{\alpha,n-2}$
+\item if $H_a: \beta_1 < \beta_{1,0}$, reject if $t < -t_{\alpha,n-2}$
+\item if $H_a: \beta_1 \neq \beta_{1,0}$, reject if $t > t_{\alpha/2,n-2}$ or if $t < -t_{\alpha/2,n-2}$
+\end{enumerate}
+
+
+
+
+The most common situation is when $H_0:\beta_1 = 0$ versus $H_a: \beta_1 \neq 0$. This is basically testing if $X$ is associated (linearly) with $Y$.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{A Note About Fitting Logistic Regression Models}
+
+$Y_i \sim \text{Bernoulli}[p(x_i)], i=1,\ldots,n$. The likelihood is then
+\[
+\prod_i f(y_i) = \prod_i p(x_i)^{y_i}[1-p(x_i)]^{1 - y_i}
+\]
+
+We still fit this using maximum likelihood estimation, but there's no closed-form solution for the coefficients. Also notice how each $p(x_i)$ is different possibly, so we can't combine/simplify stuff.
+\newline
+
+Many software packages fit these. In \verb|R| it would be something like 
+
+\begin{verbatim} 
+my_mod <- glm(y ~ x, family = "binomial")
+\end{verbatim}
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\end{document} 

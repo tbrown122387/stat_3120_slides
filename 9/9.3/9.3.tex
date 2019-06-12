@@ -1,0 +1,257 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["9.3"]{9.3: Tests Concerning a Population Proportion}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+Recall in 8.2 we talked about large-sample confidence intervals for some $\theta$. They were justified with a CLT argument. Basically, both of these z-like quantities were approximately standard normal rvs.
+
+\[
+ \frac{\hat{\theta} - \theta}{\sigma_{\hat{\theta} }} \overset{\text{approx.}}{\sim} \mathcal{N}(0,1)
+\]
+
+\[
+\frac{\hat{\theta} - \theta}{\widehat{\sigma_{\hat{\theta}}}} \overset{\text{approx.}}{\sim} \mathcal{N}(0,1)
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Motivation}
+
+That means if we further assume that $H_0$ is true:
+\[
+\frac{\hat{\theta} - \theta_0}{\sigma_{\hat{\theta} }} \overset{\text{approx.}}{\sim} \mathcal{N}(0,1)
+\]
+\[
+\frac{\hat{\theta} - \theta_0}{\widehat{\sigma_{\hat{\theta}}}} \overset{\text{approx.}}{\sim} \mathcal{N}(0,1)
+\]
+
+We use the first one if $\sigma_{\hat{\theta} }$ is known, and we use the second if it isn't.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{a large-sample test}
+
+When we're making a hypothesis about a population proportion, though, the mean and the variance are related. For a bernoulli rv $X$, 
+\[
+E[X] = p, \hspace{5mm} V[X] = p(1-p)
+\]
+so for an average of independent bernoullis $\bar{X}$ we have
+\[
+E[\bar{X}] = p, \hspace{5mm} V[\bar{X}] = \frac{p(1-p)}{n}
+\]
+
+For this reason $H_0: p = p_0$ is a hypothesis about the mean and the variance.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{a large-sample test}
+
+Here's our test:
+
+\begin{enumerate}
+\item $H_0: p = p_0$
+\item our test statistic is $Z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}$ (we're plugging it in in more than one place)
+\item if $H_a: p > p_0$ we reject when $Z > z_{\alpha}$
+\item if $H_a: p < p_0$ we reject when $Z < -z_{\alpha}$
+\item if $H_a: p \neq p_0$ we reject when $Z > z_{\alpha/2}$ OR when $Z < -z_{\alpha/2}$
+\end{enumerate}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example 9.11 on page 451}
+
+``Recent information suggests that obesity is an increasing problem in America among all age groups. The Associated Press (Oct. 9, 2002) reported that 1276 individuals in a sample of 4115 adults were found to be obese (a body mass index exceeding 30; this index is a measure of weight relative to height). A 1998 survey based on people's own assessment revealed that 20\% of adult Americans considered themselves obese. Does the recent data suggest that the true proportion of adults who are obese is more than 1.5 times the percentage from the self-assessment survey?" We use $\alpha = .1$
+
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example 9.11 on page 451}
+
+\begin{enumerate}
+\item $H_0: p = .3 ( = .2 \times 1.5)$
+\item $Z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}} = \frac{.31 - .3}{\sqrt{\frac{(.3)(.7)}{4115}}} = 1.4$
+\item $z_{.1} = 1.28$
+\end{enumerate}
+
+Therefore we reject $H_0$ in favor of $H_a$ at a level of $\alpha = .1$
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Power and Sample Size Determination}
+
+Our test statistic is 
+\[
+Z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}} }.
+\]
+Under $H_0$:
+\[
+E[Z] = \frac{ E[\hat{p}] - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}} } = 0.
+\]
+and 
+\[
+V[Z] = \frac{V[\hat{p} - p_0 ]}{\frac{p_0(1-p_0)}{n} } = 1.
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Power and Sample Size Determination}
+
+But when we calculate power or type 2, we don't assume $H_0$ is true. Let's say $p=p'$. Our test statistic is still
+\[
+Z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}} }.
+\]
+but
+\[
+E[Z] = \frac{E[\hat{p}] - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}} } = \frac{p' - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}} }
+\]
+and
+\[
+V[Z] = \frac{V[\hat{p} - p_0]}{\frac{p_0(1-p_0)}{n} } = \frac{p'(1-p')/n}{p_0(1-p_0)/n}.
+\]
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Power and Sample Size Determination}
+
+Here's an example type 2 error calculation for a right-tailed test
+
+\begin{align*}
+\beta(p') &= P(Z \le z_{\alpha} | p = p') \\
+&= P(\hat{p} \le z_{\alpha}   \sqrt{\frac{p_0(1-p_0)}{n}} + p_0 | p = p') \\
+&= P \left( \frac{\hat{p} - p'}{\sqrt{p'(1-p')/n }} \le \frac{ z_{\alpha}   \sqrt{\frac{p_0(1-p_0)}{n}} }{\sqrt{p'(1-p')/n }} + \frac{p_0 - p'}{\sqrt{p'(1-p')/n }} \right) \\
+&= \Phi \left( \frac{ z_{\alpha}   \sqrt{\frac{p_0(1-p_0)}{n}} }{\sqrt{p'(1-p')/n }} + \frac{p_0 - p'}{\sqrt{p'(1-p')/n }}\right)
+\end{align*}
+
+Similar results are listed on page 452.
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Small-Sample Tests}
+
+When $n$ is not large, we cannot use the normal approximation to the binomial random variable $X$. On the one hand, this might be more accurate because we're using a more exact distribution for $X$. 
+\newline
+
+On the other hand, however, finding rejection regions is more problematic. 
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Small-Sample Tests}
+
+Let's say $H_0: p = p_0$ versus $H_a: p > p_0$. This means we reject when $X \ge c$ (for some $c$). What is the rejection region associated with $\alpha = .05$?
+\newline
+
+\begin{align*}
+P(\text{ type 1 error }) &= P(H_0 \text{ is rejected when it's true} ) \\
+&= P \left[ X \ge c \text{ when $X \sim $ Binomial$(n,p_0)$ } \right] \\
+&= 1 - P \left[ X \le c - 1 \text{ when $X \sim $ Binomial$(n,p_0)$ } \right] \\
+&\overset{\text{(set)}}{=} \alpha
+\end{align*}
+
+Sometimes there will be no such $c$ where $P(\text{ type 1 error }) = \alpha$. As $c$ goes farther out to the right, $P(\text{ type 1 error })$ goes down. Sometimes we will have to find the smallest such $c$ where $P(\text{ type 1 error }) \le \alpha$.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+
+\end{document} 

@@ -1,0 +1,603 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title["9.5"]{9.5: Some Comments on Selecting a Test Procedure}
+
+\author{Taylor} 
+\institute[UVA] 
+{
+University of Virginia \\
+\medskip
+\textit{} 
+}
+\date{} 
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivation}
+
+Now we'll talk a little about optimality of tests.
+\newline
+
+To state our first theorem we need this definition:
+A \textbf{simple hypothesis} is one in which, when true, completely specifies the distribution of the samples $X_i$s.
+\newline
+
+E.g. $H_a: \lambda = 2$ is simple. $H_a: \lambda > 2$ is not simple.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Nota Bene}
+
+In this section we prefer to talk about \emph{power} instead of type 2 error. The relationship is as follows:
+\[
+\text{Power}(\theta) = 1- \beta(\theta)
+\]
+or
+\[
+\text{Power} = 1 - \beta. 
+\]
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{The Neyman-Pearson Theorem}
+
+Suppose we are testing a simple null hypothesis versus a simple alternative hypothesis. $H_0: \theta = \theta_0$ versus $H_a: \theta = \theta_a$. Let $k$ be a positive number. Let the rejection region for our test be
+\[
+R^*_k = \left\{(x_1, \ldots, x_n) : \frac{f(x_1, \ldots, x_n ; \theta_a)}{f(x_1, \ldots, x_n ; \theta_0)}  \ge k \right\}.
+\]
+After we select this there will be some type 1 error $\alpha^*$ and type 2 error $\beta^*$.
+\newline
+
+\begin{theorem}
+NPT: For any other test procedure with type 1 error probability $\alpha$ satisfying $\alpha \le \alpha^*$, the probability of type two error $\beta$ will satisfy $\beta > \beta^*$.
+\end{theorem}
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{The Neyman-Pearson Theorem}
+
+In other words: this is the most powerful/smallest type 2 error test we can get if our hypotheses are simple and we constrain our $\alpha$.
+\newline
+
+We'll extend this result to cases where our hypotheses can more closely resemble the ones we were using in the previous chapters.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example 9.20 on page 470}
+
+Consider randomly selecting $n=5$ new vehicles of a certain type and determining the number of major defects on each one. Letting $X_i$ denote the number of such defects for the $i$th selected vehicle ($i=1, \ldots, 5$), suppose that the $X_i$s form a random sample from a Poisson distribution with parameter $\lambda$. Let's find the best test for testing $H_0: \lambda = 1$ versus $H_a: \lambda = 2$. 
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example 9.20 on page 470}
+
+\begin{align*}
+\frac{f(x_1, \ldots, x_5 ; \theta_a)}{f(x_1, \ldots, x_5 ; \theta_0)}  &= \left[\frac{e^{-2 \times 5}2^{\sum_i x_i} }{\prod_i x_i! }\right] \div \left[\frac{e^{-1 \times 5}1^{\sum_i x_i} }{\prod_i x_i! }\right] \\
+&= \left[\frac{e^{-2\times 5}2^{\sum_i x_i} }{e^{-1 \times 5}1^{\sum_i x_i} }\right] \\
+&= e^{-5}2^{\sum_i x_i}
+\end{align*}
+
+So 
+\[
+R^* = \{(x_1, \ldots, x_5) : e^{-5}2^{\sum_i x_i} \ge k\}
+\]
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example 9.20 on page 470}
+
+We haven't picked $k$ yet. We just have to pick it in accordance with our desired type 1 error.
+
+\begin{align*}
+e^{-5}2^{\sum_i x_i}  &\ge k \\
+\iff 2^{\sum_i x_i} & \ge k' \\
+\iff \sum_i x_i & \ge k'' \\
+\end{align*}
+
+Instead of picking $k$, let's pick $k''$. It will be easier to choose because we can calculate probabilities with $\bar{X}$.
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example 9.20 on page 470}
+
+So having a test with the rejection region 
+\[
+R^* = \left\{(x_1, \ldots, x_5) : e^{-5}2^{\sum_i x_i} \ge k \right\}
+\]
+is the same as having one with this rejection region:
+\[
+R^* = \left\{(x_1, \ldots, x_5) : \sum_i x_i \ge c \right\}.
+\]
+
+They both tell us to ``reject when $\sum_i X_i$ is bigger than some constant." We pick $c$ to control the type 1 error $\alpha = .05$. So we pick a c such that 
+\[
+P\left(\sum_i X_i \ge c | \theta = \theta_0 \right) \le \alpha = .05
+\]
+
+We know $\sum_i X_i \sim \text{Poisson}(5)$ under the null, so $c = 10$. This gives us $\alpha = .032$.
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example 9.20 on page 470}
+
+So our test is: ``reject $H_0$ when $\sum_i x_i \ge 10$." This gives us an $\alpha = .032$. Let's find $\beta$
+
+\begin{align*}
+\beta &= \beta^*(\theta_a) \\
+&= P\left(\sum_i X_i < 10 \text{ when $H_a$ is true } \right) \\
+&= P\left(\sum_i X_i \le 9 \bigg\rvert \sum_i X_i \sim \text{Poisson}(10)\right)
+\end{align*}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example 9.21 on page 471}
+
+Let $X_1, \ldots, X_n \overset{iid}{\sim} \mathcal{N}(\mu, 1)$. Consider testing $H_0: \mu = \mu_0$ versus $H_a: \mu = \mu_a$ where $\mu_a > \mu_0$. This is kind of like a right-tailed test except our hypotheses are simple.
+\newline
+
+Our likelihood ratio is 
+\[
+\frac{(\frac{1}{2\pi})^{n/2} \exp\left[-(1/2) \sum_i (x_i - \mu_a)^2 \right] }{(\frac{1}{2\pi})^{n/2} \exp\left[-(1/2) \sum_i (x_i - \mu_0)^2 \right] } = \left[e^{-n(\mu_a^2 - \mu_0^2)/2} \right] \cdot \left[ e^{(\mu_a - \mu_0) \sum_i x_i} \right]
+\]
+
+So we reject when $\sum_i X_i$ is big. Be able to show this; we spent a while on this in class.
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proof of NPT}
+WLOG assume we're dealing with a discrete joint pmf. 
+
+A few preliminaries:
+\begin{enumerate}
+\item $R^* = \{ \mathbf{x} : f(\mathbf{x} ; \theta_a) \ge k f(\mathbf{x} ; \theta_0)\}$
+\item $R$ is the rejection region of some other test
+\item $\alpha^* = P(R^* | \theta = \theta_0)$
+\item $\alpha = P(R | \theta = \theta_0)$
+\item $1 - \beta^* = P(R^*| \theta = \theta_a) $
+\item $1 - \beta = P(R| \theta = \theta_a) $
+\end{enumerate}
+
+Keep in mind that 
+\[
+\left\{ \frac{f(\mathbf{x} ; \theta_a)}{f(\mathbf{x} ; \theta_0)} \ge k \right\} \Leftrightarrow \left\{ f(\mathbf{x} ; \theta_a) \ge k f(\mathbf{x} ; \theta_0) \right\} \Leftrightarrow \left\{ f(\mathbf{x} ; \theta_a) - k f(\mathbf{x} ; \theta_0) \ge 0 \right\}
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Proof of NPT}
+
+WTS $\beta > \beta^*$. I think this proof is easier to follow backwards:
+\begin{align*}
+\beta - \beta^* &\ge \beta - \beta^* - k(\alpha^* - \alpha) \\ 
+&= (1-\beta^*) - (1-\beta) - k\alpha^* + k\alpha \\ 
+&= P(R^*| \theta = \theta_a) - P(R| \theta = \theta_a) - kP(R^* | \theta = \theta_0) + kP(R | \theta = \theta_0) \\ 
+&= \left[ P(R^*| \theta = \theta_a) - kP(R^* | \theta = \theta_0)\right] 
+      - \left[P(R| \theta = \theta_a)  - kP(R | \theta = \theta_0) \right] 
+\end{align*}
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Proof of NPT}
+
+Let's break down the two differences a bit more...
+\begin{align*}
+ P(R^*| \theta = \theta_a) - kP(R^* | \theta = \theta_0) &=  P(R^* \cap R| \theta = \theta_a) + P(R^* \cap R'| \theta = \theta_a)\\
+&- kP(R^* \cap R | \theta = \theta_0) - kP(R^* \cap R' | \theta = \theta_0)
+\end{align*}
+
+
+\begin{align*}
+P(R| \theta = \theta_a)  - kP(R | \theta = \theta_0) &= P(R\cap R^*| \theta = \theta_a) + P(R\cap R^{*'}| \theta = \theta_a) \\
+&- kP(R \cap R^* | \theta = \theta_0) - kP(R \cap R^{*'} | \theta = \theta_0)
+\end{align*}
+
+so the difference between these two guys is 
+\[
+P(R^* \cap R'| \theta = \theta_a) - P(R\cap R^{*'}| \theta = \theta_a) - kP(R^* \cap R' | \theta = \theta_0) + kP(R \cap R^{*'} | \theta = \theta_0)
+\]
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Proof of NPT}
+
+going back to our proof...
+\begin{align*}
+\beta - \beta^* &\ge \beta - \beta^* - k(\alpha^* - \alpha) \\
+&= (1-\beta^*) - (1-\beta) - k\alpha^* + k\alpha \\
+&= P(R^*| \theta = \theta_a) - P(R| \theta = \theta_a) - kP(R^* | \theta = \theta_0) + kP(R | \theta = \theta_0) \\
+&= \left[ P(R^*| \theta = \theta_a) - kP(R^* | \theta = \theta_0)\right] 
+      - \left[P(R| \theta = \theta_a)  - kP(R | \theta = \theta_0) \right] \\
+&= P(R^* \cap R'| \theta = \theta_a) - kP(R^* \cap R' | \theta = \theta_0) \\
+&- \left[P(R\cap R^{*'}| \theta = \theta_a) - kP(R \cap R^{*'} | \theta = \theta_0)\right] 
+\end{align*}
+
+
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Proof of NPT}
+
+For concision, denote $h(\mathbf{x}) = f(\mathbf{x} ; \theta_a) - k f(\mathbf{x} ; \theta_0)$
+\newline
+
+On $R^*$, $h \ge 0$. On $R^{*'}$, $h < 0$. So
+\[
+P(R^* \cap R'| \theta = \theta_a) - kP(R^* \cap R' | \theta = \theta_0) = \sum_{R^* \cap R'} h(\mathbf{x}) \ge 0
+\]
+\[
+P(R\cap R^{*'}| \theta = \theta_a) - kP(R \cap R^{*'} | \theta = \theta_0) = \sum_{R\cap R^{*'}} h(\mathbf{x}) < 0
+\]
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Proof of NPT}
+
+going back to our proof one more time
+\begin{align*}
+\beta - \beta^* &\ge \beta - \beta^* - k(\alpha^* - \alpha) \\
+&= (1-\beta^*) - (1-\beta) - k\alpha^* + k\alpha \\
+&= P(R^*| \theta = \theta_a) - P(R| \theta = \theta_a) - kP(R^* | \theta = \theta_0) + kP(R | \theta = \theta_0) \\
+&= \left[ P(R^*| \theta = \theta_a) - kP(R^* | \theta = \theta_0)\right] 
+      - \left[P(R| \theta = \theta_a)  - kP(R | \theta = \theta_0) \right] \\
+&= P(R^* \cap R'| \theta = \theta_a) - kP(R^* \cap R' | \theta = \theta_0) \\
+&- \left[P(R\cap R^{*'}| \theta = \theta_a) - kP(R \cap R^{*'} | \theta = \theta_0)\right] \\
+& > 0
+\end{align*}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{NPT}
+
+Isn't it more realistic to consider tests of the form, say, $H_0: \theta = \theta_0$ versus $H_a:\theta > \theta_0$?
+\newline
+
+Yes, but we can still use NPT here.
+\newline
+
+First, what do we mean by the ``best" test?
+\newline
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Uniformly Most Powerful Test: the definition}
+% So far we have only defined a UMP test for the case where both $H_0$ and $H_a$ are simple. To deal with this we kind of have to \emph{adjust} the definition of what power is slightly. Before we called power the probability of rejecting when ``we should." That means we only talked about power when inputting parameters that were aligned with the alternative hypothesis. Now we simplify the definition of power to be the probability of rejecting for any input parameter (it can be in the alternative or null parameter space).
+% \newline
+
+The ``U" in uniformly needs some explaining. Instead of $\beta > \beta^*$, we want
+\[
+\beta(\theta) > \beta^*(\theta)
+\]
+
+for any $\theta$ that work with $H_a$, or in other words, for all $\theta \in \Theta_a$.
+\newline
+
+Note: $\Theta_a$ is the set of all parameters that work with $H_a$. For example, if our test was $H_0:\mu = 2$ versus $H_a: \mu > 2$, we would have $\Theta_a = (2,\infty)$
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Uniformly Most Powerful Test: the definition}
+
+A \textbf{uniformly most powerful level $\alpha$ test}, is one for which the power is maximized for any $\theta$ that satisfies $H_a$.
+\newline
+
+In other words:
+\begin{theorem}
+A test with $\alpha^*$ and $\beta^*(\theta)$ is UMP if: for any other test with $\alpha$ and $\beta(\theta)$, $\alpha \le \alpha^*$ implies $1 - \beta(\theta) < 1-\beta^*(\theta)$ for all $\theta \in \Theta_a$.
+\end{theorem}
+
+
+% Let $\Omega_{a}$ be the set of all values that cohere with $H_a$ and $\Omega_0$ be the ones that cohere with $H_0$. Clearly $\Omega = \Omega_0 \cup \Omega_a$. Let $\pi(\cdot)$ be the power function of any other test.
+
+% A UMP test is one such that
+% \[
+% \pi^*(\theta) \ge \pi(\theta)
+% \]
+% for any $\theta \in \Omega_{a}$. And this is subject to $\pi(\theta), \pi^*(\theta) \le \alpha$ for any $\theta \in \Omega_0$.
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{UMP Tests}
+
+UMP tests do not always exist. One of the goals of this class is to practice identifying when we can use NPT (a theorem testing two simple hypotheses against each other) to identify UMP tests in certain situations with more complicated hypotheses. This why NPT is very important; it's a simple theorem that has a lot of use in identifying something very important (UMP tests) that don't always exist. 
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Using NPT to find UMP Tests}
+
+We just used the NPT to find tests for hypotheses like these: $H_0: \theta = \theta_0$ versus $H_a: \theta = \theta_a$. WLOG let's assume $\theta_a > \theta_0$. We write out that likelihood ratio, that gives us a test statistic, then we pick a $k$ based on $\alpha$ and $\theta_0$.
+\newline
+
+What about hypotheses like these: $H_0: \theta = \theta_0$ versus $H_a: \theta > \theta_0$? $H_a$ is \textbf{composite} here. NPT doesn't apply \emph{directly} here.
+\newline
+
+What we could do is pick a particular $\theta_a \in \Theta_a$. For this parameter we could apply NPT by writing out that likelihood ratio, then this gives us a test statistic, and then we pick a cutoff $k$ based on $\alpha$. Does this help us?
+\newline
+
+The answer is sometimes: if we get the same test (test stat. and cutoff) for any $\theta_a$, then we're done. Think about that for a second: the definition of a UMP test is that it's most powerful for \emph{all} $\theta_a \in \Theta_a$. Even though NPT's statement only mentions simple versus simple tests, it can still be used sometimes to find a UMP simple versus composite test. 
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Using NPT to find UMP Tests}
+
+Here's an example where this works. Let's go back to the example where $X_1, \ldots, X_n \overset{iid}{\sim} \text{Poisson}(\lambda)$. $H_0: \lambda = \lambda_0$ versus $H_a: \lambda < \lambda_0$. Pick any $\lambda_{alt} < \lambda_0$. Using the same math as on slide 6, $\frac{f(\mathbf{x};\lambda_{alt})}{f(\mathbf{x};\lambda_0) } = e^{-n(\lambda_{alt} - \lambda_0)} \left(\frac{\lambda_{alt}}{\lambda_0}\right)^{\sum X_i}$. 
+\newline
+
+So for any $\lambda_{alt}$ we pick that's possible, we get the same test of the form ``reject when $\sum X_i \le c$." It's the same $c$ every time because $c$ is chosen using $\lambda_0$ and the inequality doesn't flip different ways for different $\lambda_{\text{alt}}$s. 
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+% \begin{frame}
+% \frametitle{Using NPT to find UMP Tests}
+% 
+% What about hypotheses like these: $H_0: \theta \le \theta_0$ versus $H_a: \theta > \theta_0$? Now both hypotheses are composite. Pick any $\theta_{alternative}$ and $\theta_{null}$. For any specific pair, NPT gives us a test:
+% \newline
+% 
+% \[
+% \text{reject when  } \frac{f(x_1, \ldots, x_n ; \theta_{alternative})}{f(x_1, \ldots, x_n ; \theta_{null})} \ge k.
+% \]
+% We know we can pick any $\theta_{alternative}$ (based on the last slide), but how do we pick a $\theta_{null}$? Answer: we set $\theta_{null}$ equal to $\theta_0$ from our hypotheses. Why? If we set it any lower, we get a rejection region that violates the $\alpha$ bound. 
+% \end{frame}
+% %----------------------------------------------------------------------------------------
+% \begin{frame}
+% \frametitle{Using NPT to find UMP Tests}
+% 
+% Let's use the same model as before. Assume $X_1, \ldots, X_n \overset{iid}{\sim} \text{Poisson}(\lambda)$. $H_0: \lambda \le \lambda_0$ versus $H_a: \lambda > \lambda_0$. Pick any $\lambda_{alt} > \lambda_0$ and any $\lambda_{null} \le \lambda_0$. Again, $\frac{f(\mathbf{x};\lambda_{alt})}{f(\mathbf{x};\lambda_0) } = e^{-n(\lambda_{alt} - \lambda_0)} \left(\frac{\lambda_{alt}}{\lambda_0}\right)^{\sum X_i}$. So we get the same test of the form ``reject when $\sum X_i \ge c$." 
+% \newline
+% 
+% Say $\lambda_0 = 1$. If we use $\lambda_0$ we find $c=10$ and $P(R|\lambda_0) = .031$. For any $\lambda < \lambda_0$, $P(R|\lambda) < .031$. That's fine.
+% \newline
+% 
+% Say we use $\lambda' = .9$ now. Then we would get $c=9$ and $P(R|\lambda') = .04$. That's fine because it's less than $\alpha$. But what if we keep $c=9$ and then look at $\lambda_0$ again. $P(R|\lambda_0) = .068 > \alpha$. That's bad. 
+% \newline
+% 
+% In a word, if $H_0: \lambda \le \lambda_0$, we have to use $\lambda_0$ to pick the rejection region. If we don't we violate our $\alpha$ bound for type 1 error.
+% 
+% \end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{NPT}
+
+NPT gives us UMP tests for one sided alternative hypotheses when we're testing the mean of normal data. However it doesn't give us a UMP test for a two-sided alternative. It also sometimes fails us for when we're testing hypotheses about $\mu$ AND $\sigma^2$. 
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Likelihood Ratio Tests}
+
+An alternative procedure: LRTs. They look similar, but they are not the same. 
+\newline
+
+% NPT doesn't always give us a UMP test. Even though NPT doesn't guarantee any sort of optimality in other circumstances, tests based on likelihood ratios are still widely used; they work pretty well. 
+% \newline
+
+Instead of 
+\[
+\frac{f(x_1, \ldots, x_n ; \theta_{a})}{f(x_1, \ldots, x_n ; \theta_{0})} > k \iff \frac{f(x_1, \ldots, x_n ; \theta_{0})}{f(x_1, \ldots, x_n ; \theta_{a})} < 1/k
+\]
+we'll have
+\[
+\frac{ \sup_{\theta \in \Theta_0} f(x_1, \ldots, x_n ; \theta)}{ \sup_{\theta \in \Theta} f(x_1, \ldots, x_n ; \theta)} \le k
+\]
+where $\Theta = \Theta_0 \cup \Theta_a$.
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Likelihood Ratio Tests}
+
+\begin{block}{LRTs}
+Reject $H_0$ if 
+\[
+\frac{ \sup_{\theta \in \Theta_0} f(x_1, \ldots, x_n ; \theta)}{ \sup_{\theta \in \Theta} f(x_1, \ldots, x_n ; \theta)} \le k
+\]
+where $\Theta = \Theta_0 \cup \Theta_a$, and $k$ is chosen to be such that the probability of type $1$ error is $\alpha$.
+\end{block}
+
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Likelihood Ratio Tests}
+
+How do we find
+\[
+\frac{ \sup_{\theta \in \Theta_0} f(x_1, \ldots, x_n ; \theta)}{ \sup_{\theta \in \Theta} f(x_1, \ldots, x_n ; \theta)}?
+\]
+
+we find the denominator by finding the maximum likelihood estimate $\hat{\theta}$ and plugging it into the likelihood function. This is the invariance principle of MLEs!
+\newline
+
+We find the numerator by finding another maximum likelihood estimate, but now the parameter space is constrained. We plug this $\hat{\theta}_0$ into our likelihood to get the numerator.
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Example 9.24 on page 475}
+
+Let $X_1, \ldots, X_n \overset{iid}{\sim} \mathcal{N}(\mu, \sigma^2)$. Let's test $H_0: \mu = \mu_0$ versus $H_a: \mu \neq \mu_0$. We could also write this as $H_0: \mu = \mu_0 \text{ and } \sigma^2 > 0$ versus $H_a: \mu \neq \mu_0 \text{ and } \sigma^2 > 0$.
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Example 9.24 on page 475}
+
+The denominator is always easier to find. We showed earlier that our MLE estimates for normal data were $\hat{\mu} = \bar{X}$ and $\hat{\sigma^2} = \frac{\sum_i(x_i - \bar{x})^2}{n}$. Our likelihood is $(2 \pi \sigma^2 )^{-n/2} \exp \left[ -\frac{\sum_i(x_i - \mu)^2}{2\sigma^2 } \right]$. So we just plug $\hat{\mu}$ and $\hat{\sigma^2}$ in for $\mu$ and $\sigma^2$, respectively.
+\newline
+
+With the numerator, we don't have to estimate $\mu$ since it is given to us as $\mu_0$. Now the constrained likelihood is $(2 \pi \sigma^2 )^{-n/2} \exp \left[ -\frac{\sum_i(x_i - \mu_0)^2}{2\sigma^2 } \right]$. If we maximize that with respect to $\sigma^2$, we get $\hat{\sigma^2}_0 = \frac{\sum_i(x_i - \mu_0)^2 }{n}$. 
+
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Example 9.24 on page 475}
+
+Finally, we plug in our likelihoods. Our rule is reject $H_0$ when 
+\[
+\left(\frac{\sum_i(x_i - \bar{x})^2 }{\sum_i(x_i - \mu_0)^2 } \right)^{n/2} \le k.
+\]
+With a bit of algebra, we can show that this is the same as rejecting when 
+\[
+\frac{\bar{x} - \mu_0}{s/\sqrt{n}} \ge c \text{ or } \frac{\bar{x} - \mu_0}{s/\sqrt{n}} \le -c
+\]
+which is that 2-tailed t test we learned about already. (Verifying this is also a quiz question).
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Likelihood Ratio Test: a convenient result}
+
+Another convenient result:
+\[
+-2 \log \left( \frac{ \sup_{\theta \in \Theta_0} f(x_1, \ldots, x_n ; \theta)}{ \sup_{\theta \in \Theta} f(x_1, \ldots, x_n ; \theta)}\right)  \overset{\text{approx.}}{\sim} \chi^2_{\nu}
+\]
+
+where $\nu$ is the number of parameters involved in the null hypothesis (often $1$ in this class).
+\newline
+
+This means that, if our data set is large, then we don't need to do any algebra to simplify the expression enough to find a null distribution.
+
+
+\end{frame}
+
+
+
+
+
+\end{document} 
